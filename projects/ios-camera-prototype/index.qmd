@@ -35,6 +35,7 @@ The project began with a multi-faceted needfinding process to understand how use
 Based on the needfinding insights, I brainstormed over 30 design alternatives, ultimately prototyping three distinct on-screen interfaces: a grid menu, a drop-down menu, and a wheel menu.
 
 After an initial round of evaluation with paper prototypes, the **grid menu** was selected as the most promising solution. It most effectively addressed the core user needs by:
+
 -   Displaying all camera modes at once, enhancing discoverability.
 -   Using large, clear tap targets to reduce errors and improve comfort.
 -   Allowing for direct selection, making it faster than swiping through a sequence of modes.
