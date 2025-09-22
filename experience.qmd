@@ -4,6 +4,13 @@ title: "Experience"
 
 <i class="fa-solid fa-file-pdf"></i> [View my Resume (PDF)](assets/resume.pdf)
 
+## Awards & Honors
+
+- **Stephen D. Durham Award** (2022) — Awarded to the top senior statistics student for exceptional academic performance.
+- **Phi Beta Kappa Honor Society** (2022) — Top academic honor society in the liberal arts and sciences.
+- **Palmetto Fellows Scholarship** (2018–2022) — South Carolina state scholarship awarded for exemplary academic achievement.
+- **Presidential Scholars Award** (2018–2022) — South Carolina state scholarship awarded for high SAT/ACT scores.
+
 ## Professional Experience
 
 **Data Analyst Intern**
@@ -12,13 +19,11 @@ title: "Experience"
 
 *Jun 2023 – Sep 2023 | Washington, DC*
 
-- Automated Excel error checks across multiple datasets to identify inconsistencies and improve data quality.
-- Rebuilt and partially automated NAICS-to-industry mapping to enhance classification relevance.
-- Developed automated financial models in Excel to streamline deal calculations for the CX team, including handling mid-term customer upgrades and co-term subscription merging.
-- Partially automated company vendor and transaction breakdown in Excel, enabling detailed spend analysis by vendor, category, and month from year-specific data.
-- Created a cash investment tracker integrating financial institution data to forecast returns for monthly financial planning.
-- Conducted customer churn and point-of-origin analysis using R, identifying key variables influencing retention and lead conversion.
-- Built an interactive churn prediction dashboard with Streamlit to visualize drivers and support retention strategies.
+- Automated error checks, NAICS-to-industry classification, and vendor/transaction breakdowns in Excel, improving reporting efficiency.  
+- Developed Excel models to streamline deal calculations, including mid-term upgrades and co-term merges.  
+- Built a cash investment tracker integrating financial institution data to forecast monthly returns.  
+- Analyzed customer churn and lead origins in R, identifying key drivers of churn and conversion. 
+- [Created an interactive Streamlit dashboard to visualize drivers and support retention strategies](https://chynes.org/projects/gn-churn/).
 
 **Undergraduate Research Assistant**
 
@@ -26,10 +31,10 @@ title: "Experience"
 
 *May 2021 – Oct 2021 | Columbia, SC*
 
-- Conducted literature review on spatial segregation and neighboring effects in Charleston neighborhoods.
-- Collected and cleaned economic, social, and demographic data on metropolitan statistical areas.
-- Computed location quotients and ran regression analyses in Stata and R to identify factors driving STEM/knowledge worker agglomeration.
-- Redesigned course materials to improve accessibility in compliance with university standards.
+- Reviewed literature on spatial segregation metrics and neighborhood effects in Charleston, SC.  
+- Cleaned and analyzed MSA-level economic, social, and demographic data to study STEM worker agglomeration.  
+- Calculated location quotients and ran regressions in Stata/R to identify drivers of STEM clustering across MSAs.  
+- Redesigned course materials to meet university accessibility standards, improving usability for all students.
 
 **Undergraduate Research Assistant**
 
@@ -37,19 +42,12 @@ title: "Experience"
 
 *Jan 2020 – Jan 2021 | Columbia, SC*
 
-- Digitized and organized CDC vital statistics to support analysis of racial disparities in birth outcomes post-hospital desegregation.
-
-## Awards & Honors
-
-- **Stephen D. Durham Award** (2022) — Top senior statistics student for exceptional academic performance.
-- **Phi Beta Kappa Honor Society** (2022) — Prestigious academic honor society in liberal arts and sciences.
-- **Palmetto Fellows Scholarship** (2018–2022) — Competitive South Carolina state scholarship for exemplary academic achievement.
-- **Presidential Scholars Award** (2018–2022) — Merit-based scholarship awarded to Palmetto Fellows with high standardized test scores.
+- Digitized and organized CDC vital statistics data to support analysis of racial disparities in birth outcomes post-hospital desegregation.
 
 ## Technical Skills
 
-- **Languages & Databases**: Python, R, SQL (Proficient); Java, Stata, SAS (Familiar)
-- **Libraries & Frameworks**: tidyverse, NumPy, pandas, matplotlib, PyTorch, Streamlit, Hugging Face Transformers; Familiar with PySpark, Hadoop (Pig, Hive)
-- **Developer Tools**: Git, Markdown, Google Colab, Jupyter Notebook
-- **Visualization & Software**: Microsoft Office Suite; Familiar with Tableau, Figma
-- **Data Science & ML**: Statistical analysis, hypothesis testing, A/B testing, forecasting, prediction, supervised and unsupervised learning (linear/logistic regression, decision trees, KNN, SVM, clustering, neural networks, natural language processing)
+- **Languages & Databases:** R, Python, SQL; Familiar with Java, Stata, SAS  
+- **Libraries & Frameworks:** tidyverse, NumPy, pandas, matplotlib, PyTorch, TensorFlow, Streamlit, Hugging Face Transformers; Familiar with PySpark  
+- **Developer Tools:** Git, Jupyter Notebook, Google Colab, Markdown, LaTeX  
+- **Software & Tools:** Microsoft Office Suite (Excel, Word, PowerPoint), Figma  
+- **Data Science & Machine Learning:** Statistical analysis, hypothesis testing, A/B testing, forecasting, predictive modeling; Supervised learning (linear/logistic regression, decision trees, random forests, KNN, SVM); Unsupervised learning (clustering, dimensionality reduction); Neural networks, NLP
