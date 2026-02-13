@@ -12,11 +12,11 @@ categories: [R, Economics, Research, Policy]
 <i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc/chile-neoliberal-reforms)
 :::
 
-## Overview
+## Project Overview
 
 This project investigates the long-term economic impact of Chile's neoliberal reforms under Augusto Pinochet in the 1970s. The study uses the synthetic control method to estimate how Chile’s GDP per capita would have evolved in the absence of Pinochet’s structural reforms.
 
-The analysis concludes that the reforms had a significant and lasting positive effect on Chile’s economic trajectory. Various robustness checks confirm the credibility of the results.
+In this analysis, the reforms are associated with a significant and lasting positive effect on Chile’s economic trajectory. Robustness checks support the stability of the estimated effect.
 
 ---
 
@@ -28,7 +28,7 @@ Key packages and tools used:
 
 -   `Synth` (R package)
 -   World Bank World Development Indicators
--   RMarkdown for code and report integration
+-   R Markdown for code and report integration
 
 ---
 

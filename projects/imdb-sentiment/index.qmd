@@ -14,7 +14,7 @@ image: thumbnail.png
 
 ## Project Overview
 
-This project demonstrates a full, end-to-end data science workflow for performing real-time sentiment analysis on movie reviews. It covers data sourcing and preparation, model tuning, and final deployment as an interactive web application. The goal is to provide an automated tool to instantly analyze the sentiment of user-generated text, serving as a proof-of-concept for a valuable business intelligence tool.
+This project demonstrates an end-to-end workflow for real-time sentiment analysis on movie reviews. It covers data preparation, model tuning, and deployment as an interactive web application. The result is a practical NLP classification pipeline for user-generated text.
 
 ---
 
@@ -46,8 +46,8 @@ The project follows a standard data science workflow, documented in the accompan
 
 ---
 
-## Tools and Libraries
+## Tech Stack
 
--   **Data Science**: Pandas, Scikit-learn (`TfidfVectorizer`, `LogisticRegression`, `Pipeline`, `GridSearchCV`)
+-   **Data Science**: pandas, scikit-learn (`TfidfVectorizer`, `LogisticRegression`, `Pipeline`, `GridSearchCV`)
 -   **Web Application**: Streamlit
 -   **Development**: Python 3.11, Jupyter Notebook

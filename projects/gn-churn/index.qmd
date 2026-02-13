@@ -22,7 +22,7 @@ To protect proprietary information, the public-facing version of this project, i
 
 ## Model Performance
 
-The logistic regression model was validated using a **Stratified 5-Fold Cross-Validation** strategy. The metrics below reflect the performance on the original, proprietary dataset.
+The logistic regression model was validated using a **stratified 5-fold cross-validation** strategy. The metrics below reflect performance on the original, proprietary dataset.
 
 | Metric          | Score |
 | :-------------- | :---- |
@@ -30,7 +30,7 @@ The logistic regression model was validated using a **Stratified 5-Fold Cross-Va
 | **Mean ROC AUC** | 0.70  |
 | **Mean PR-AUC** | 0.54  |
 
-An ROC AUC score of 0.70 demonstrates a good capability to distinguish between customers who will churn and those who will not. The PR-AUC score of 0.54 is particularly important for this imbalanced dataset, indicating that the model is substantially better at identifying churners than a random model.
+An ROC AUC score of 0.70 indicates useful separation between customers who churn and those who do not. The PR-AUC score of 0.54 is especially relevant for this imbalanced dataset, indicating performance well above a random baseline.
 
 ---
 

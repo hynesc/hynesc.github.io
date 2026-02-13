@@ -25,27 +25,7 @@ Our primary goals were to validate the authors' original findings, assess their 
 
 ---
 
-## Table of Contents
-- [Project Overview](#project-overview)
-- [The Challenge of Hospital Readmission](#the-challenge-of-hospital-readmission)
-- [Core Objectives](#core-objectives)
-- [Methodology](#methodology)
-  - [Dataset](#dataset)
-  - [Model Architectures](#model-architectures)
-  - [From Theano to PyTorch](#from-theano-to-pytorch)
-- [Key Results](#key-results)
-  - [Replication Findings](#replication-findings)
-  - [Extension: The Impact of Hyperparameter Tuning](#extension-the-impact-of-hyperparameter-tuning)
-- [How to Run This Project](#how-to-run-this-project)
-  - [Download the Project](#download-the-project)
-  - [Upload to Google Drive](#upload-to-google-drive)
-  - [Run in Google Colab](#run-in-google-colab)
-  - [Note on Other Files](#note-on-other-files)
-- [Conclusion](#conclusion)
-
----
-
-## Repo Overview
+## Implementation Overview
 
 The repository contains a complete reimplementation of the CONTENT and baseline GRU models in PyTorch. The project is structured as a single Google Colab notebook that handles all stages: data preprocessing, model definition, training, evaluation, and hyperparameter tuning.
 
@@ -73,7 +53,7 @@ This study was guided by three main hypotheses:
 
 ### Dataset
 
-The project uses the synthetic dataset published by the original authors, which was generated to mimic a real-world EHR dataset of 5,393 Congestive Heart Failure (CHF) patients.
+The project uses the synthetic dataset published by the original authors, designed to mimic the structure of a real-world EHR dataset for Congestive Heart Failure (CHF) patients.
 
 -   **Size:** 3,000 synthetic patients, 239,936 total visits.
 -   **Features:** 618 unique clinical event codes (diagnoses, medications, etc.).

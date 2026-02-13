@@ -14,7 +14,7 @@ image: thumbnail.png
 
 This project is the personal website you are currently viewing. The goal was to build a clean, professional, and easily maintainable site to showcase my data science portfolio.
 
-Instead of using a traditional website builder, I chose to code the site from the ground up using **Quarto**, an open-source scientific and technical publishing system. This approach allows for tight integration with data science workflows, enabling direct rendering of Jupyter Notebooks and R Markdown files into polished web pages.
+Instead of using a traditional website builder, I built the site directly in source files using **Quarto**, an open-source scientific and technical publishing system. This approach integrates cleanly with data science workflows and supports direct rendering of Jupyter Notebooks and R Markdown files into polished web pages.
 
 ---
 

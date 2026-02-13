@@ -28,7 +28,7 @@ This project was built as an end-to-end data pipeline, from automated data colle
 
 The backbone of the project is a data pipeline orchestrated by GitHub Actions.
 
-- **Scheduled Execution**: A CRON job triggers the `news_pipeline.py` script every 24 hours.
+- **Scheduled Execution**: A daily cron schedule triggers the `news_pipeline.py` script every 24 hours.
 - **Data Collection**: The script calls the NewsAPI using a carefully constructed search query to fetch the latest articles. The query is designed to be highly specific, targeting key phrases like "AI safety", "AI alignment", "EU AI Act", and associated concepts like existential risk, interpretability, and red-teaming.
 - **Data Persistence**: The fetched and analyzed data is appended to a central `news_data.csv` file within the repository. Duplicates are removed to maintain a clean, growing dataset over time.
 - **Automated Commit**: The GitHub Action commits the updated CSV file back to the repository, creating a version-controlled history of the dataset.
@@ -37,7 +37,7 @@ The backbone of the project is a data pipeline orchestrated by GitHub Actions.
 
 - **Sentiment Analysis**: To gauge the tone of the discourse, I used NLTK’s VADER (Valence Aware Dictionary and sEntiment Reasoner). VADER was chosen over simpler models like TextBlob because it is specifically tuned for news and social media text, allowing for a more nuanced analysis of headlines and content snippets. Analysis is performed on the combined title and description for richer context.
 
-- **Key Concept Extraction**: To identify the most prominent topics, I used n-gram analysis. By extracting the most frequent two- and three-word phrases (bi-grams and tri-grams) from article titles, the dashboard can surface specific, recurring concepts like "generative ai" or "big tech" instead of just single, disconnected keywords.
+- **Key Concept Extraction**: To identify the most prominent topics, I used n-gram analysis. By extracting the most frequent two- and three-word phrases (bigrams and trigrams) from article titles, the dashboard can surface specific, recurring concepts like "generative AI" or "big tech" instead of disconnected single keywords.
 
 ### 3. Interactive Dashboard
 

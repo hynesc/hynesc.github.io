@@ -14,7 +14,7 @@ image: thumbnail.png
 
 ## Project Overview
 
-This was the final project for my CS 7646: Machine Learning for Trading course at Georgia Tech. It develops and evaluates algorithmic trading strategies using technical indicators and machine learning. The primary goal was to build a "strategy learner" that could be trained on historical market data to generate profitable trading signals. The result was a fantastic learning experience and a stark reminder that I shouldn't become a day trader just yet. The project involved implementing core components from scratch, including a market simulator and a bagged random tree learning algorithm.
+This was the final project for my CS 7646: Machine Learning for Trading course at Georgia Tech. It develops and evaluates algorithmic trading strategies using technical indicators and machine learning. The primary goal was to build a "strategy learner" trained on historical market data to generate trading signals. The project also provided a practical lesson in how difficult robust, out-of-sample trading performance can be. Core components were implemented from scratch, including a market simulator and a bagged random tree learning algorithm.
 
 ---
 

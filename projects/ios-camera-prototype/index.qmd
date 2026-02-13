@@ -21,9 +21,9 @@ The final proposed design, a grid-based menu, proved to be significantly more ef
 
 ---
 
-## 1. Needfinding & User Research
+## 1. User Research
 
-The project began with a multi-faceted needfinding process to understand how users interact with the current camera interface and where they experience difficulties.
+The project began with a multi-method research process to understand how users interact with the current camera interface and where friction appears.
 
 -   **Naturalistic & Participant Observation:** Identified common errors such as accidental mode switching (especially when zooming), difficulty selecting the correct mode quickly, and a general lack of awareness of the currently selected mode.
 -   **User Surveys (n=28):** Revealed that **85%** of participants have accidentally captured media in the wrong mode, and **78%** have missed a photo opportunity due to difficulties with the interface. Key requests included faster mode switching and easier navigation.
@@ -47,7 +47,7 @@ After an initial round of evaluation with paper prototypes, the **grid menu** wa
 
 The grid menu concept was developed into a high-fidelity, interactive prototype and evaluated against the current iOS interface in a live demonstration with users.
 
--   **Quantitative Results:** The prototype was rated as significantly more **efficient** (p=0.011) and **intuitive** (p=0.00092) than the current iOS menu.
+-   **Quantitative Results:** The prototype was rated as significantly more **efficient** (p = 0.011) and **intuitive** (p = 0.00092) than the current iOS menu.
 -   **Overall Preference:** When asked to choose, **100% of participants** preferred the new grid menu prototype over the existing interface.
 
 The final design incorporates user feedback by placing the most-used modes (Photo, Video, Portrait) at the bottom of the grid for better one-handed reachability and includes a persistent icon to provide clear feedback on the active camera mode.

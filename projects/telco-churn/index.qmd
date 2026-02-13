@@ -14,7 +14,7 @@ image: thumbnail.png
 
 ## Project Overview
 
-This project demonstrates a complete machine learning workflow for predicting customer churn for Telco, a telecom company. It involves data cleaning, model training, feature importance analysis, and the deployment of an interactive web application using Streamlit.
+This project demonstrates a complete machine learning workflow for predicting customer churn at a telecom provider. It includes data cleaning, model training, feature importance analysis, and deployment of an interactive Streamlit application.
 
 By identifying at-risk customers, the business can proactively offer incentives or support to retain them, which is often more cost-effective than acquiring new customers.
 
@@ -33,12 +33,12 @@ By identifying at-risk customers, the business can proactively offer incentives 
 
 The project follows a standard data science workflow:
 
-#### a. Data Cleaning and Preprocessing
+#### Data Cleaning and Preprocessing
 - The `TotalCharges` column was converted to a numeric type, and rows with missing values were dropped.
 - The non-predictive `customerID` column was removed.
 - The target variable `Churn` was converted to a binary format (1/0).
 
-#### b. Model Training and Feature Selection
+#### Model Training and Feature Selection
 - A **Logistic Regression** model was chosen for its effectiveness and high interpretability.
 - A `ColumnTransformer` pipeline was used to automatically apply `StandardScaler` to numerical features and `OneHotEncoder` to categorical features.
 - **Feature Importance Analysis**: The model's coefficients were analyzed, revealing that `gender`, `PhoneService`, and `Partner` had a negligible impact on predictive power.
