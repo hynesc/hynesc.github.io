@@ -18,6 +18,9 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Validate content
+        run: ./scripts/validate-content.sh
+
       - name: Render Quarto Website
         run: quarto render
 

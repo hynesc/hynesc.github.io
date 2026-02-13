@@ -3,15 +3,17 @@ title: "Revisiting Neural Models for Hospital Readmission: A Replication and Ext
 author:
   - name: "Christopher Hynes"
   - name: "Felipe Oliveira"
-date: 2025-04-20
+date: "2025-04-20"
 description: "A project for my CSE 6250: Big Data for Health Informatics course that investigates the effectiveness of using neural network models to predict hospital readmission rates."
 image: thumbnail.png
 categories: [Python, Machine Learning, Deep Learning, Neural Networks, Research]
 ---
 
-<i class="fa-solid fa-file-pdf"></i> [Read the Paper (PDF)](paper.pdf) |
-<i class="fa-solid fa-file-code"></i> [View the Notebook (.ipynb)](notebook.ipynb) |
+::: {.project-links}
+<i class="fa-solid fa-file-pdf"></i> [Read the Paper (PDF)](paper.pdf)
+<i class="fa-solid fa-file-code"></i> [View the Notebook (.ipynb)](notebook.ipynb)
 <i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc/readmission-prediction)
+:::
 
 ---
 

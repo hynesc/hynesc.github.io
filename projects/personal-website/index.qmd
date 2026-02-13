@@ -1,13 +1,14 @@
 ---
 title: "This Website!"
-author: "Christopher Hynes"
 date: "2025-07-24"
 description: "An overview of the tools used to build this portfolio site from scratch, including Quarto for content generation and GitHub Actions for automated deployment."
 categories: [Quarto, Web Development, GitHub Pages]
 image: thumbnail.png
 ---
 
+::: {.project-links}
 <i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc/hynesc.github.io/)
+:::
 
 ## Project Overview
 

@@ -1,15 +1,16 @@
 ---
 title: "AI Safety & Governance News Tracker"
-author: "Christopher Hynes"
 date: "2025-07-25"
 description: "An automated dashboard for tracking and analyzing global discourse on AI safety, alignment, and policy, built with Python, Streamlit, and GitHub Actions."
 image: "thumbnail.png"
 categories: [Python, NLP, Machine Learning, Predictive Modeling, Web App]
 ---
 
-<i class="fa-solid fa-arrow-up-right-from-square"></i> [Live Application](https://ai-news-dashboard.streamlit.app/) |
-<i class="fa-solid fa-file-code"></i> [View the source code (.py)](https://github.com/hynesc/ai-news-dashboard/blob/main/news_pipeline.py) |
+::: {.project-links}
+<i class="fa-solid fa-arrow-up-right-from-square"></i> [Live Application](https://ai-news-dashboard.streamlit.app/)
+<i class="fa-solid fa-file-code"></i> [View the source code (.py)](https://github.com/hynesc/ai-news-dashboard/blob/main/news_pipeline.py)
 <i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc/ai-news-dashboard)
+:::
 
 ## Project Overview
 

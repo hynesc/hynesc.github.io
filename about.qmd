@@ -2,9 +2,11 @@
 title: "About Me"
 ---
 
-<i class="fa-brands fa-linkedin"></i> [LinkedIn](https://linkedin.com/in/christopher-hynes) |
-<i class="fa-brands fa-github"></i> [GitHub](https://github.com/hynesc) |
+::: {.quick-links}
+<i class="fa-brands fa-linkedin"></i> [LinkedIn](https://linkedin.com/in/christopher-hynes)
+<i class="fa-brands fa-github"></i> [GitHub](https://github.com/hynesc)
 <i class="fa-solid fa-file-pdf"></i> [Resume](assets/resume.pdf)
+:::
 
 ## My Background
 
@@ -16,7 +18,7 @@ I’m interested in using data to answer open-ended questions, explore patterns,
 
 Outside of academics, I enjoy playing guitar (and trying to play a few other instruments), backpacking, and studying foreign languages. To date, I've traveled to 32 countries. I’ve learned Spanish and German, and I’m currently learning French.
 
-![Countries I've visited: a growing map!](assets/been.jpeg)
+![Countries I've visited: a growing map!](assets/been.jpeg){.about-map}
 
 This site highlights some of the projects I’ve worked on during grad school and beyond.
 

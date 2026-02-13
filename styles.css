@@ -1,0 +1,66 @@
+/* Shared site-level styling tweaks layered on top of the Flatly theme. */
+
+:root {
+  --site-max-width: 960px;
+  --site-link-hover: #0a58ca;
+  --site-muted: #5a6470;
+}
+
+main.content {
+  max-width: var(--site-max-width);
+}
+
+.quarto-title-block .title {
+  letter-spacing: -0.01em;
+}
+
+.quarto-title-block .description {
+  color: var(--site-muted);
+  max-width: 70ch;
+}
+
+.quick-links,
+.project-links {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+}
+
+.quick-links a,
+.project-links a {
+  text-decoration: none;
+}
+
+.quick-links a:hover,
+.project-links a:hover {
+  color: var(--site-link-hover);
+  text-decoration: underline;
+}
+
+.about-map {
+  border-radius: 10px;
+  display: block;
+  margin-top: 0.5rem;
+  max-width: 780px;
+  width: 100%;
+}
+
+.quarto-grid-item {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.6rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quarto-grid-item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .quarto-title-block .title {
+    font-size: 2rem;
+  }
+}

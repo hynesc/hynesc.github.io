@@ -1,15 +1,16 @@
 ---
 title: "GreyNoise Customer Churn Predictor"
-author: "Christopher Hynes"
 date: "2025-07-18"
 description: "A Python-based machine learning application deployed with Streamlit to predict customer churn in real-time for GreyNoise Intelligence."
 categories: [Python, Machine Learning, Predictive Modeling, Web App]
 image: thumbnail.png
 ---
 
-<i class="fa-solid fa-arrow-up-right-from-square"></i> [Live Application](https://gn-churn.streamlit.app/) |
-<i class="fa-solid fa-file-code"></i> [View the Notebook](notebook.ipynb) |
+::: {.project-links}
+<i class="fa-solid fa-arrow-up-right-from-square"></i> [Live Application](https://gn-churn.streamlit.app/)
+<i class="fa-solid fa-file-code"></i> [View the Notebook](notebook.ipynb)
 <i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc/gn-churn)
+:::
 
 ## Project Overview
 
@@ -54,5 +55,4 @@ Analysis of the model's coefficients reveals the most significant factors influe
 - **Modeling:** Python 3.11, scikit-learn, pandas, numpy, joblib
 - **Web App:** Streamlit
 - **Validation:** Stratified K-Fold Cross-Validation
-- **Source Code:** The `gn_churn.ipynb` notebook contains the complete code for data processing and modeling.
-
+- **Source Code:** The `notebook.ipynb` notebook contains the complete code for data processing and modeling.

@@ -2,7 +2,9 @@
 title: "Experience"
 ---
 
+::: {.quick-links}
 <i class="fa-solid fa-file-pdf"></i> [View my Resume (PDF)](assets/resume.pdf)
+:::
 
 ## Awards & Honors
 

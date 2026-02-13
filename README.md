@@ -25,6 +25,12 @@ cd hynesc.github.io
 quarto preview
 ```
 
+To validate content links and metadata:
+
+```bash
+./scripts/validate-content.sh
+```
+
 To render the site manually:
 
 ```bash
@@ -36,7 +42,7 @@ quarto render
 Deployment is handled via **GitHub Actions**. On every push to the `main` branch, the site is rendered and deployed to GitHub Pages.
 
 Make sure:
-- GitHub Pages is set to deploy from the `/docs` branch.
+- GitHub Pages is configured with **Build and deployment source: GitHub Actions**.
 - Your GitHub Actions workflow is set up correctly (e.g., `.github/workflows/publish.yml`).
 
 ## Project Structure
@@ -49,6 +55,8 @@ Make sure:
 ├── experience.qmd      # Experience
 ├── _quarto.yml         # Quarto site configuration
 ├── assets/             # Static assets
+├── scripts/            # Validation helpers
+├── styles.css          # Shared site styling
 ├── .github/workflows/  # GitHub Actions workflow files
 └── README.md           # You're here!
 ```

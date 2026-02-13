@@ -1,19 +1,20 @@
 ---
 title: "Telco Customer Churn Prediction"
-author: "Christopher Hynes"
 date: "2025-07-14"
 description: "An end-to-end machine learning project that involves cleaning, training, and deploying an interactive web application to predict customer churn on the classic Telco dataset."
 categories: [Python, Machine Learning, Predictive Modeling, Web App]
 image: thumbnail.png
 ---
 
-<i class="fa-solid fa-arrow-up-right-from-square"></i> [Live Application](https://telco-churn-analysis.streamlit.app/) |
-<i class="fa-solid fa-file-code"></i> [View the Notebook](notebook.ipynb) |
+::: {.project-links}
+<i class="fa-solid fa-arrow-up-right-from-square"></i> [Live Application](https://telco-churn-analysis.streamlit.app/)
+<i class="fa-solid fa-file-code"></i> [View the Notebook](notebook.ipynb)
 <i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc/telco-churn)
+:::
 
 ## Project Overview
 
-This project demonstrates a complete machine learning workflow for predicting customer churn for TElco, a telecom company. It involves data cleaning, model training, feature importance analysis, and the deployment of an interactive web application using Streamlit.
+This project demonstrates a complete machine learning workflow for predicting customer churn for Telco, a telecom company. It involves data cleaning, model training, feature importance analysis, and the deployment of an interactive web application using Streamlit.
 
 By identifying at-risk customers, the business can proactively offer incentives or support to retain them, which is often more cost-effective than acquiring new customers.
 
