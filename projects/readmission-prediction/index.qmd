@@ -11,7 +11,7 @@ categories: [Python, Machine Learning, Deep Learning, Neural Networks, Research]
 
 <i class="fa-solid fa-file-pdf"></i> [Read the Paper (PDF)](paper.pdf) |
 <i class="fa-solid fa-file-code"></i> [View the Notebook (.ipynb)](notebook.ipynb) |
-<i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc)
+<i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc/readmission-prediction)
 
 ---
 
