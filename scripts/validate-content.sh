@@ -16,9 +16,9 @@ fi
 
 list_content_files() {
   if [ "$have_rg" -eq 1 ]; then
-    rg --files -g '*.qmd' -g 'README.md'
+    rg --files -g '*.qmd' -g '*.md' -g '_quarto.yml' -g 'projects/_metadata.yml' -g 'assets/favicon/site.webmanifest'
   else
-    find . -type f \( -name '*.qmd' -o -name 'README.md' \) | sed 's|^\./||'
+    find . -type f \( -name '*.qmd' -o -name '*.md' -o -name '_quarto.yml' -o -name '_metadata.yml' -o -name 'site.webmanifest' \) | sed 's|^\./||'
   fi
 }
 
@@ -33,9 +33,19 @@ list_project_pages() {
 extract_link_targets() {
   local file="$1"
   if [ "$have_rg" -eq 1 ]; then
-    rg -o '\]\(([^)]+)\)' "$file" | sed -E 's/^\]\((.*)\)$/\1/'
+    {
+      rg -o '\]\(([^)]+)\)' "$file" | sed -E 's/^\]\((.*)\)$/\1/' || true
+      rg -o '(href|src)=["'\''][^"'\'']+["'\'']' "$file" | sed -E 's/^(href|src)=["'\'']([^"'\'']+)["'\'']$/\2/' || true
+      rg -o '"src":"[^"]+"' "$file" | sed -E 's/^"src":"([^"]+)"$/\1/' || true
+      rg '^[[:space:]-]*(href|image|thumbnail|css|favicon):[[:space:]]*' "$file" | sed -E 's/^[[:space:]-]*(href|image|thumbnail|css|favicon):[[:space:]]*"?([^"#]+)"?[[:space:]]*(#.*)?$/\2/' || true
+    }
   else
-    grep -oE '\]\(([^)]+)\)' "$file" | sed -E 's/^\]\((.*)\)$/\1/' || true
+    {
+      grep -oE '\]\(([^)]+)\)' "$file" | sed -E 's/^\]\((.*)\)$/\1/' || true
+      grep -oE "(href|src)=[\"'][^\"']+[\"']" "$file" | sed -E "s/^(href|src)=[\"']([^\"']+)[\"']$/\2/" || true
+      grep -oE '"src":"[^"]+"' "$file" | sed -E 's/^"src":"([^"]+)"$/\1/' || true
+      grep -E '^[[:space:]-]*(href|image|thumbnail|css|favicon):[[:space:]]*' "$file" | sed -E 's/^[[:space:]-]*(href|image|thumbnail|css|favicon):[[:space:]]*"?([^"#]+)"?[[:space:]]*(#.*)?$/\2/' || true
+    }
   fi
 }
 
@@ -59,16 +69,19 @@ done < <(sed -n 's/^[[:space:]]*css:[[:space:]]*//p' _quarto.yml)
 while IFS= read -r file; do
   while IFS= read -r target; do
     case "$target" in
-      http*|mailto:*|\#*) continue
+      http*|mailto:*|tel:*|\#*|//*|javascript:*) continue
         ;;
     esac
 
     clean_target="${target%%#*}"
     clean_target="${clean_target%%\?*}"
+    clean_target="${clean_target%\"}"
+    clean_target="${clean_target#\"}"
     [ -z "$clean_target" ] && continue
 
     base_dir="$(dirname "$file")"
-    if [ ! -e "$base_dir/$clean_target" ] && [ ! -e "$clean_target" ]; then
+    root_relative_target="${clean_target#/}"
+    if [ ! -e "$base_dir/$clean_target" ] && [ ! -e "$clean_target" ] && [ ! -e "$root_relative_target" ]; then
       echo "[ERROR] Broken local link in $file -> $target"
       errors=1
     fi

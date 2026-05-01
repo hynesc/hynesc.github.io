@@ -1,14 +1,13 @@
 ---
 title: "Project Code"
 subtitle: "The Effect of Chile’s Neoliberal Reforms in the 1970s"
-engine: markdown
 ---
 
 This page contains the complete R code used for the analysis in this project. The code is presented here for reference and is not executed live.
 
 ---
 
-```{r setup, include=FALSE}
+```r
 library(tidyverse)
 library(xlsx)
 library(Synth)
@@ -17,7 +16,7 @@ library(WDI)
 
 ## Data Setup
 
-```{r WDI}
+```r
 wdi_dat <- WDI(indicator = c("NY.GDP.PCAP.KD", "SP.DYN.LE00.IN", "SE.TER.ENRR", "NV.AGR.TOTL.ZS", "NV.IND.TOTL.ZS", "NY.GDP.TOTL.RT.ZS", "NE.IMP.GNFS.KD", "NE.EXP.GNFS.KD", "NY.GDP.MKTP.KD", "NE.GDI.TOTL.ZS"), start = 1960, end = 2019, extra = TRUE)
 # gdp per capita 2015, life expectancy from birth, % college enrollment, agriculture %gdp, industry %gdp, resource rents %gdp, imports 2010, exports 2010, gdp 2010
 
@@ -47,7 +46,7 @@ Pre-treatment period is 1960:1973, and 1967:1973 is training data.
 South America: All but URY
 Central America: CRI, MEX, GTM, HND, PAN
 
-```{r}
+```r
 dataprep.out0 <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -136,7 +135,7 @@ cbind( dataprep.out$X1, dataprep.out$X0 %*% synth.out$solution.w )
 
 ## Comparison to simple average
 
-```{r}
+```r
 wdi_chile <- wdi_dat %>%
   filter(unit.num == 36) %>%
   arrange(year)
@@ -163,7 +162,7 @@ legend(x = "topleft",
 
 Create graph
 
-```{r}
+```r
 plot(dataprep.out0$Y1plot ~ c(1960:2019),
      xlab = "Year",
      ylim = c(2500, 15000),
@@ -181,7 +180,7 @@ lines(dataprep.out0$Y0plot %*% synth.out0$solution.w ~ c(1960:2019), lty = 2)
 
 w/o ARG
 
-```{r w/o ARG}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -210,7 +209,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 w/o CRI
 
-```{r}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -239,7 +238,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 w/o PER
 
-```{r w/o PER}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -270,7 +269,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 Create graph
 
-```{r}
+```r
 plot(dataprep.out0$Y1plot ~ c(1960:2019),
      xlab = "Year",
      ylim = c(2500, 15000),
@@ -288,7 +287,7 @@ lines(dataprep.out0$Y0plot %*% synth.out0$solution.w ~ c(1960:2019), lty = 2)
 
 w/o GDP per capita
 
-```{r w/o GDP per capita}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -310,7 +309,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 w/o life expectancy
 
-```{r w/o life expectancy}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -332,7 +331,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 w/o resources
 
-```{r w/o resources}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -354,7 +353,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 w/o agriculture
 
-```{r w/o agriculture}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "industry", "openness"),
          dependent = "gdppercap",
@@ -376,7 +375,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 w/o industry
 
-```{r w/o industry}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "openness"),
          dependent = "gdppercap",
@@ -398,7 +397,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 w/o openness
 
-```{r w/o openness}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -422,7 +421,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 Create graph
 
-```{r}
+```r
 plot(dataprep.out0$Y1plot ~ c(1960:2019),
      xlab = "Year",
      ylim = c(2500, 15000),
@@ -440,7 +439,7 @@ lines(dataprep.out0$Y0plot %*% synth.out0$solution.w ~ c(1960:2019), lty = 2)
 
 Latin America
 
-```{r}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -477,7 +476,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 Neighbors
 
-```{r}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -512,7 +511,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 Most similar countries
 
-```{r}
+```r
 ## calculating means of latam countries
 
 wdi_latam_pre <- wdi_dat %>%
@@ -533,7 +532,7 @@ wdi_latam_pre$cluster <- kmeans(wdi_latam_pre[, -c(1:3, 5)], centers = 3)$cluste
 
 The optimal number of clusters is 3, which puts Chile in a cluster with Brazil, Costa Rica, Mexico, Panama, and Peru.
 
-```{r}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -574,7 +573,7 @@ lines(dataprep.out$Y0plot %*% synth.out$solution.w ~ c(1960:2019), col = "gray")
 
 ## ARG
 
-```{r}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -608,7 +607,7 @@ cbind( dataprep.out$X1, dataprep.out$X0 %*% synth.out$solution.w )
 
 ## CRI
 
-```{r}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
@@ -642,7 +641,7 @@ cbind( dataprep.out$X1, dataprep.out$X0 %*% synth.out$solution.w )
 
 ## PER
 
-```{r}
+```r
 dataprep.out <- dataprep(foo = wdi_dat,
          predictors = c("gdppercap", "lifeexp", "resources", "agriculture", "industry", "openness"),
          dependent = "gdppercap",
