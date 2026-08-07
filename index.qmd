@@ -1,9 +1,17 @@
 ---
-title: "Hi, I'm Chris."
+title: "Christopher Hynes"
+subtitle: "Data Science, Machine Learning & Applied AI"
 ---
 
-I'm a master’s student in computer science at Georgia Tech with a background in statistics and economics. I'm interested in data science, machine learning, and statistical modeling.
+I'm an M.S. candidate in Computer Science at Georgia Tech with a 4.0 GPA and a B.S. in Statistics and Economics. I build and evaluate machine learning systems, data products, and applied AI tools using Python, R, and modern ML frameworks.
 
-I work with Python, R, and other tools to make sense of data and share findings clearly.
+My recent work includes self-hosted LLM applications, large-scale machine learning experiments on datasets with up to 7.7 million records, and a replication study of a published neural architecture for hospital readmission prediction. Earlier work spans customer analytics, economic research, and causal inference.
 
-This site showcases some of my projects. Feel free to explore and get in touch!
+I'm interested in data science, machine learning and AI engineering, and applied research roles where rigorous experimentation, reliable implementation, and clear technical communication matter.
+
+::: {.quick-links}
+<i class="fa-solid fa-diagram-project"></i> [Explore Projects](projects.qmd)
+<i class="fa-solid fa-file-pdf"></i> [Resume](assets/resume.pdf)
+<i class="fa-brands fa-github"></i> [GitHub](https://github.com/hynesc)
+<i class="fa-brands fa-linkedin"></i> [LinkedIn](https://linkedin.com/in/christopher-hynes)
+:::

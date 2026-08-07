@@ -10,37 +10,28 @@ title: "About Me"
 
 ## My Background
 
-I’m a master’s student in computer science at Georgia Tech. I earned my bachelor’s degree in economics and statistics from the University of South Carolina Honors College, where I focused on economic research.
+I'm an M.S. candidate in Computer Science at Georgia Tech, where I hold a 4.0 GPA and expect to graduate in December 2026. I earned a B.S. in Statistics and Economics, summa cum laude, from the University of South Carolina Honors College, also with a 4.0 GPA.
 
-Over time, I became especially interested in the data side of things — the tools, techniques, and systems that make analysis possible — which led me to pursue graduate study in computer science to deepen my technical expertise.
+My work sits at the intersection of machine learning, data science, software development, and empirical research. I enjoy problems that require both careful analysis and solid implementation: designing experiments, comparing models, auditing results, and turning technical work into systems or explanations that other people can use.
 
-I’m interested in using data to answer open-ended questions, explore patterns, and support better decision-making — whether in tech, research, or policy. I’m curious about economic systems and policy, and how data can help us understand and improve them. I work primarily with Python and R to analyze data, build models, and communicate insights clearly and effectively.
+Recent projects include a self-hosted Signal assistant with isolated per-chat memory and automatic summarization, an OpenAI-compatible multi-model LLM council, and graduate machine learning studies covering supervised learning, unsupervised learning, randomized optimization, and reinforcement learning. I also reimplemented and evaluated a published neural architecture for hospital readmission prediction, using repeated trials and statistical testing to distinguish reproducible findings from configuration-sensitive results.
 
-Outside of academics, I enjoy playing guitar (and trying to play a few other instruments), backpacking, and studying foreign languages. To date, I've traveled to 32 countries. I’ve learned Spanish and German, and I’m currently learning French.
+Before graduate school, I worked as a data analyst intern at GreyNoise Intelligence, where I automated data-quality and reporting workflows and analyzed customer churn and lead conversion. As an undergraduate research assistant, I worked with economic, demographic, and public-health data on questions involving STEM-worker agglomeration, spatial segregation, and racial disparities in birth outcomes.
 
-![Countries I've visited: a growing map!](assets/been.jpeg){.about-map}
+## Areas of Focus
 
-This site highlights some of the projects I’ve worked on during grad school and beyond.
+- **Machine Learning & Evaluation:** Model selection, hyperparameter search, repeated experiments, statistical testing, learning curves, and performance/runtime tradeoffs.
+- **Applied AI & LLM Systems:** Local model deployment, multi-model orchestration, retrieval and web search, memory and summarization, privacy-aware logging, and API development.
+- **Data Science & Research:** Statistical analysis, causal inference, predictive modeling, reproducibility, and communicating technical findings to research and business audiences.
 
 ## Technical Skills
 
-Here is a summary of my technical skills:
+- **Programming:** Python, R, SQL; familiar with Java, Stata, and SAS
+- **Machine Learning & Data:** PyTorch, scikit-learn, TensorFlow, Hugging Face Transformers, pandas, NumPy, tidyverse; supervised and unsupervised learning, reinforcement learning, NLP, and causal inference
+- **Development & Visualization:** Git, Linux, Bash, Docker, FastAPI, Jupyter, Google Colab, Streamlit, Quarto, GitHub Actions, and LaTeX
 
-**Languages & Databases**
+## Outside of Work
 
-* Python
-* R
-* SQL
+I enjoy playing guitar, backpacking, traveling, and studying languages. I've traveled to 32 countries and speak advanced Spanish, intermediate German, and basic French.
 
-**Frameworks & Libraries**
-
-* Pandas, NumPy, Scikit-learn
-* PyTorch
-* Matplotlib, Seaborn
-* tidyverse
-
-**Tools & Platforms**
-
-* Git & GitHub
-* Google Colab
-* Figma
+![Countries I've visited: a growing map!](assets/been.jpeg){.about-map}
