@@ -1,6 +1,6 @@
 ---
 title: "Multi-LLM: Best-of-N Response Selection"
-date: "2026-10-21"
+date: "2026-05-01"
 description: "An OpenAI-compatible chat proxy that generates candidate responses from one model or a model pool and uses a judge model to select a winner."
 image: thumbnail.svg
 categories: [Python, Applied AI, LLMs, FastAPI, Docker]

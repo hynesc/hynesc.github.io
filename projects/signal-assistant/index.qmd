@@ -1,6 +1,6 @@
 ---
 title: "Signal Assistant: Local LLM Messaging"
-date: "2026-10-21"
+date: "2026-05-01"
 description: "A self-hosted Signal assistant with local Ollama inference, conversation memory, configurable personas, and administrator controls."
 image: thumbnail.svg
 categories: [Python, Applied AI, LLMs, Docker]
