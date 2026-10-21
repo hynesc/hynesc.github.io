@@ -1,0 +1,59 @@
+---
+title: "Signal Assistant: Local LLM Messaging"
+date: "2026-10-21"
+description: "A self-hosted Signal assistant with local Ollama inference, conversation memory, configurable personas, and administrator controls."
+image: thumbnail.svg
+categories: [Python, Applied AI, LLMs, Docker]
+---
+
+::: {.project-links}
+<i class="fa-solid fa-file-code"></i> [View Source Code](https://github.com/hynesc/signal-assistant/blob/main/signal_bot/bot.py)
+<i class="fa-solid fa-book"></i> [Setup & Configuration](https://github.com/hynesc/signal-assistant/blob/main/SETUP.md)
+<i class="fa-brands fa-github"></i> [GitHub Repository](https://github.com/hynesc/signal-assistant)
+:::
+
+## Overview
+
+I built a Signal chatbot to explore what it takes to make a local language model useful in everyday messaging. The project connects Signal to Ollama while handling conversation state, group mentions, administrator commands, and the operational constraints of a shared Signal account.
+
+The public edition generalizes that implementation into a configurable assistant. It includes a neutral persona and fictional example contacts; operators supply their own account details and model endpoint.
+
+## How it works
+
+```{mermaid}
+flowchart TB
+    Signal[Signal messages] --> CLI[Signal CLI in Docker]
+    Setup[REST account registration] -.-> CLI
+    CLI --> Router[Message routing and admin commands]
+    Router --> Context[Conversation state and persona]
+    Context --> Ollama[Local Ollama inference]
+    Ollama --> CLI
+    Router -. Think command .-> Search[Optional web search]
+    Search --> Ollama
+```
+
+I registered a dedicated Signal account with its own phone number on the server using the REST API supplied by `bbernhard/signal-cli-rest-api`. The container's mounted account directory preserves the registration, keys, and sessions.
+
+During normal operation, the host's Python application runs `signal-cli` receive/send commands inside that container through `docker exec`. The REST API provides the account setup path; message handling uses the CLI directly. A shared lock coordinates account access, and the deployment uses a non-daemon container mode without a competing automatic receiver.
+
+Direct messages can trigger a reply immediately; group messages require a mention or command-prefix trigger. Replies use the incoming group ID automatically. Model requests go to Ollama's native `/api/chat` endpoint with conversation history, a text-based persona, and optional contact context.
+
+The repository includes a standalone-account walkthrough for SMS/voice verification, bot service-ID discovery, manual transport checks, host/container paths, every environment setting, and lifecycle troubleshooting.
+
+## Engineering decisions
+
+- **Separate transport from inference.** Signal and Ollama clients sit behind distinct interfaces, allowing message routing and conversation logic to be tested with fake clients.
+- **Coordinate concurrent work.** A semaphore bounds concurrent inference across conversations, per-conversation locks protect ordering, and a shared CLI lock prevents competing account operations. Pending replies take priority over another long receive call.
+- **Bound conversation state.** History stays in memory, older exchanges are summarized, and idle state expires. Model, temperature, and mute settings can be overridden per chat.
+- **Make behavior configurable.** Text templates define personas, optional role templates adjust tone, and an administrator command registry handles runtime controls.
+- **Keep routine logs minimal.** Incoming-message logs record message type and length without message text or sender and group identifiers. Account data and local configuration are excluded from the source bundle.
+
+The main integration challenge was coordinating a blocking CLI transport with asynchronous model work. The application uses worker threads for blocking calls and explicit locks for access to the Signal account.
+
+## Validation and limits
+
+The public implementation has **17 automated tests** covering message routing, administrator settings, state expiry, configuration, contact loading, search parsing, reply sanitization, cleanup, and default-persona loading. Tests use temporary fixtures and fake clients, so they do not require a live Signal account.
+
+Local inference gives the operator control of the model endpoint, but the bot host still handles decrypted messages. Optional think-mode searches send queries to DuckDuckGo. Shutdown cleanup removes selected runtime data on a best-effort basis; it does not guarantee secure erasure. The source includes setup instructions and account diagnostics; a live deployment requires an operator-provided account and model server.
+
+**Stack:** Python, asyncio, Ollama, Signal CLI, Docker, SQLite maintenance utilities, unittest.
