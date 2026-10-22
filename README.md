@@ -4,7 +4,7 @@ A research-first portfolio built with Astro, TypeScript, and Markdown. Static HT
 
 ## Local development
 
-Use **Node 22.23.4 or newer** (the current Node 22 release is selected by `.nvmrc`). The repository uses npm and commits its lockfile.
+Use **Node 24 LTS**, selected by `.nvmrc` for local development and GitHub Actions. Astro requires Node 22.23.4 or newer. The repository uses npm and commits its lockfile.
 
 ```bash
 nvm install

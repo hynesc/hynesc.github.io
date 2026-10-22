@@ -49,3 +49,5 @@ The workflow validates pull requests and deploys only from `main`. Merge and pub
 - Public code links return successful responses. The Figma prototype responds successfully to a normal GET request; its HEAD response is misleading.
 - Streamlit demos can sleep after inactivity. Demo links explain this behavior and keep source code visible as an alternative.
 - The supplied résumé’s Quarto description remains an acknowledged follow-up; the site itself documents Astro accurately.
+
+- CI uses Node 24 LTS. A runner-selected Node 22.23.3 failed Astro’s minimum-version check during the first deployment attempt; the shared `.nvmrc` now selects a supported LTS major.
