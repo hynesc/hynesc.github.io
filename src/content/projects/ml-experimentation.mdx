@@ -1,0 +1,105 @@
+---
+title: 'Evaluating machine learning beyond a single score'
+shortTitle: 'Machine learning: experiments & evaluation'
+summary: 'Four graduate ML projects combining pipeline development, design under compute constraints, and comparative evaluation across supervised learning, optimization, unsupervised learning, and reinforcement learning.'
+date: '2025-11-24'
+categories: ['Data & ML', 'Research & evaluation']
+methods: ['Python', 'PyTorch', 'scikit-learn', 'Experimental design', 'Statistical testing']
+order: 3.5
+context: 'Graduate machine learning coursework · Georgia Tech · Fall 2025'
+contribution: 'Implementation and debugging with AI coding agents, adapting experiments to memory and runtime limits, comparative analysis, and four technical reports.'
+finding: 'Useful model comparisons make error costs, the scope of optimization, computational tradeoffs, and uncertainty explicit.'
+artifactNote: 'Course policy prohibits posting these papers publicly. Private sharing with prospective employers is permitted.'
+artifacts:
+  [
+    {
+      label: 'Papers available to employers upon request',
+      href: 'mailto:resume@chynes.org?subject=Graduate%20ML%20papers',
+    },
+    { label: 'Explore the evaluation workflow', href: '#evaluation-workflow' },
+  ]
+---
+
+import EvaluationWorkflow from '../../components/EvaluationWorkflow.astro';
+
+## The work
+
+Across four graduate machine learning projects, I studied how learning methods behave under different data, optimization, and computational constraints. Three connected studies used tabular data for prediction, optimization, and representation learning; a fourth examined sequential decision-making.
+
+The course supplied the datasets, algorithm families, and core experimental comparisons. Within that framework, I worked on hotel booking cancellation classification and traffic incident duration regression, followed by reinforcement learning in simulated environments. I built and debugged the projects in collaboration with AI coding agents, made design choices within the assignment constraints, and conducted and interpreted the experiments.
+
+The largest source dataset contained approximately **7.7 million records**, making memory and runtime practical design constraints. Some full-scale configurations were infeasible on the available hardware. I adapted experiment scale and training plans to fit those resources, documenting the resulting limits on comparison. Some experiments used subsets; the 7.7-million figure describes the source dataset, rather than the number of records used in every run.
+
+## My contribution
+
+**Implementation and debugging.** I spent dozens of hours implementing, debugging, and refining these projects in collaboration with AI coding agents, including Codex and Claude Code. This involved writing and revising code, integrating components, and getting data processing, model training, evaluation, and visualization to work together according to the course requirements. AI tools contributed code and troubleshooting support throughout that process. I reviewed, tested, and refactored the assisted code as the projects developed.
+
+Concrete development work included migrating a neural-network implementation from TensorFlow to PyTorch and adapting experiment code between classification and regression tasks.
+
+**Design choices and verification.** Within the assigned framework, I worked through task formulation, preprocessing, model configurations, experiment organization, and computational constraints. I checked whether the implementation matched the intended experiment and whether its outputs supported the comparisons being made. Getting a component to run was one part of making the full project work correctly.
+
+**Working within compute limits.** I made decisions about feasible training subsets, search budgets, and the allocation of time across experiments. These choices were especially important on the largest dataset, where an otherwise reasonable configuration could exceed the available memory or take too long to train. I treated feasibility and the strength of the resulting evidence as linked design questions, and documented where resource constraints narrowed the conclusions.
+
+**Experimentation and technical writing.** I carried out comparative experiments using hyperparameter searches, learning curves, repeated trials, statistical tests, and runtime analysis, as appropriate to each study. I authored four technical reports connecting those measurements to algorithm behavior, practical implications, and limitations.
+
+## Scope of the four studies
+
+### Supervised learning
+
+**Assigned scope:** decision trees, k-nearest neighbors, linear and RBF support vector machines, and neural networks on classification and regression tasks.
+
+**My analytical focus:** my report connected tree depth to complexity and overfitting, compared linear and RBF kernels in terms of predictive quality and computational cost, and investigated network depth versus width at similar parameter counts. In the cross-model discussion, I considered high dimensionality and outliers as possible explanations for nearest-neighbor behavior, and examined training and prediction costs separately.
+
+### Optimization and generalization
+
+**Assigned scope:** randomized hill climbing, simulated annealing, genetic algorithms, SGD and Adam-family optimizer comparisons, and neural network regularization.
+
+**My analytical focus:** I used optimizer ablations to examine momentum, adaptive learning rates, and bias correction. My discussion related momentum to smoothing oscillations and adaptive learning rates to convergence behavior. I distinguished optimization speed from held-out predictive quality and recognized when experiments optimized different portions of a model, limiting what a direct ranking could establish.
+
+### Unsupervised learning
+
+**Assigned scope:** K-means and Gaussian mixture-model clustering; principal component analysis (PCA), independent component analysis (ICA), and random projection; and the use of transformed or cluster-derived features in neural networks.
+
+**My analytical focus:** I examined explained variance for PCA, component loadings and kurtosis for ICA, and reconstruction error and variability across random projections. I evaluated representation quality and downstream prediction separately, considering information loss and runtime. I also identified a limitation in using a network configured for the original inputs to assess transformed inputs.
+
+### Reinforcement learning
+
+**Assigned scope:** value iteration, policy iteration, SARSA, and Q-learning in Blackjack and CartPole, including the effect of state representation.
+
+**My analytical focus:** my report explained that SARSA updates use the action actually taken in the next state, while Q-learning updates use the highest estimated next-action value. I examined how coarse state grids lose distinctions and fine grids leave more states with limited experience. I also assessed variability across repeated runs and how stopping conditions and incomplete convergence limit performance claims.
+
+## Evaluation workflow
+
+This conceptual diagram summarizes the evaluation questions used across the studies. It is a portfolio illustration, separate from the course reports and their experiment outputs.
+
+<EvaluationWorkflow />
+
+## Examples of analytical judgment
+
+### Make the experiment feasible without overstating its evidence
+
+When a full-scale run was impractical, I had to decide how to adapt the experiment while retaining a useful comparison. That meant balancing data coverage, tuning effort, and the cost of repeating runs. A result on a smaller training subset supports a more limited claim; a larger search can also give one model more opportunity to improve. I considered these constraints when interpreting performance, rather than treating every completed run as equally informative.
+
+### Translate prediction errors into operational questions
+
+In the supervised learning report, I connected the two kinds of cancellation-classification error to different capacity risks: an unexpectedly empty room and a room promised to more guests than it can accommodate. I also examined whether extreme duration-prediction residuals could reflect data-quality issues or consequential underestimates. This moved the discussion beyond an aggregate score to the questions an operator would need answered before using a model.
+
+I considered training and prediction costs separately, since frequent prediction and frequent retraining place different demands on a system. These were practical implications of the experiments, rather than measured operational outcomes.
+
+### Ask whether the comparison supports the claim
+
+In the optimization report, I explicitly identified a limitation in comparing a restricted optimization problem with training across a whole network. A lower loss in one setup cannot, on its own, establish that a method is generally better at training the entire model. The scope of what was allowed to change matters alongside the compute spent changing it.
+
+### Examine what a representation preserves
+
+In the unsupervised learning report, I treated cluster separation, dimensionality, runtime, and predictive error as distinct outcomes. I also identified a baseline limitation: a network configured for its original inputs may need further tuning to fairly assess transformed inputs. That qualification matters when interpreting whether a representation is useful, rather than attributing every difference to the transformation alone.
+
+### Keep uncertainty visible in the conclusion
+
+In the reinforcement learning report, I distinguished a higher observed mean from a statistically supported improvement. I also discussed incomplete convergence and the possibility that different stopping conditions affected apparent speed. A slowing learning curve, stable behavior, and attainment of a task's success criterion are different claims and require different evidence.
+
+## What this demonstrates
+
+This work demonstrates my ability to turn a demanding technical brief into working ML projects, collaborate with AI coding agents through implementation and debugging, make and evaluate design choices, and write a technical argument that connects evidence to a decision. The projects were coursework experiments; they do not establish production performance or measured business impact.
+
+For a public example with a report and interactive results, see my separate [neural readmission replication study](/projects/readmission-prediction/).

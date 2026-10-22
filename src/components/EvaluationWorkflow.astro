@@ -1,0 +1,94 @@
+---
+const stages = [
+  {
+    title: 'Frame the question',
+    question: 'What would make a model useful?',
+    evidence: 'Task, error costs, metric, and computational constraints.',
+  },
+  {
+    title: 'Build the comparison',
+    question: 'What is changing between experiments?',
+    evidence: 'Baseline, data separation, preprocessing, and tuning choices.',
+  },
+  {
+    title: 'Probe the evidence',
+    question: 'How stable is the observed behavior?',
+    evidence: 'Learning curves, repeated trials, error analysis, and runtime.',
+  },
+  {
+    title: 'Bound the conclusion',
+    question: 'Where does the evidence stop?',
+    evidence: 'Uncertainty, resource limits, and conditions for further evaluation.',
+  },
+];
+---
+
+<figure class="evaluation-workflow" aria-labelledby="workflow-caption">
+  <ol role="list">
+    {stages.map((stage, i) => (
+      <li>
+        <span class="stage-number" aria-hidden="true">
+          0{i + 1}
+        </span>
+        <h3>{stage.title}</h3>
+        <p class="stage-question">{stage.question}</p>
+        <p class="stage-evidence">{stage.evidence}</p>
+      </li>
+    ))}
+  </ol>
+  <figcaption id="workflow-caption">
+    From a modeling question to a defensible conclusion. A conceptual workflow; no course results
+    are shown.
+  </figcaption>
+</figure>
+
+<style>
+  .evaluation-workflow {
+    margin-block: 28px 36px;
+  }
+  .evaluation-workflow ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    list-style: none;
+    padding: 1px;
+    background: var(--line);
+  }
+  .evaluation-workflow li {
+    margin: 0;
+    padding: 24px;
+    background: var(--soft);
+    overflow-wrap: anywhere;
+  }
+  .stage-number {
+    font-size: var(--text-small);
+    color: var(--green);
+    font-variant-numeric: tabular-nums;
+  }
+  .evaluation-workflow h3 {
+    margin: 12px 0;
+    font-size: 1.3125rem;
+    line-height: 1.3;
+  }
+  .evaluation-workflow .stage-question {
+    margin-bottom: 12px;
+    color: var(--ink);
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+  .evaluation-workflow .stage-evidence {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: 1.7;
+  }
+  .evaluation-workflow figcaption {
+    margin-top: 14px;
+    text-align: left;
+    line-height: 1.7;
+  }
+  @media (max-width: 600px) {
+    .evaluation-workflow ol {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

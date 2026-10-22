@@ -50,6 +50,8 @@ A project can belong to multiple categories: `Research & evaluation`, `Data & ML
 
 Prefer question → contribution → approach → evidence → limitations → implications when writing a case study. Clearly identify team contributions, synthetic data, coursework, prototype status, and the distinction between observed results and proposed next steps. Do not turn associations into causal claims or imply measured product/business impact without evidence.
 
+The graduate ML overview (`ml-experimentation.mdx`) distinguishes course-assigned datasets, methods, and comparisons from the author's implementation, resource-constrained design choices, and analytical judgment. Its examples describe reasoning without revealing method rankings, numerical answers, selected configurations, or experiment recipes. Its workflow graphic is a separate conceptual illustration. The rubric review and source notes live outside this repository with the private coursework. Keep the underlying rubrics, course reports, code, notebooks, figures, tuned configurations, and experiment outputs out of this public repository, including its Git history. The author confirmed that course policy permits private sharing of papers with employers, so the page provides an email request link. This permission does not authorize public downloads or imply permission to distribute other course materials.
+
 The shared type scale in `global.css` uses rem units: 16px body copy, 17px long-form copy on larger screens, 14px controls and supporting text, and 12–13px metadata and captions at the default browser font size. Chart and architecture labels use HTML text so they remain readable as cards shrink.
 
 ## Visitor analytics

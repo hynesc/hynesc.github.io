@@ -27,6 +27,7 @@ const projects = defineCollection({
     contribution: z.string(),
     finding: z.string(),
     artifacts: z.array(z.object({ label: z.string(), href: z.string() })).min(1),
+    artifactNote: z.string().optional(),
   }),
 });
 export const collections = { projects };
