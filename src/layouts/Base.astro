@@ -115,7 +115,14 @@ const nav = [
           </a>
         </div>
       </div>
+      <p class="analytics-note">
+        Aggregate visitor counts via{' '}
+        <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>. No analytics cookies.
+      </p>
     </footer>
+    <script>
+      import '../scripts/analytics';
+    </script>
     <script>
       const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
       const nav = document.querySelector<HTMLElement>('#main-nav');

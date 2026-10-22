@@ -151,3 +151,91 @@ test('all content and result tables remain available without JavaScript', async 
   await expect(page.getByRole('heading', { name: 'My contribution', exact: true })).toBeVisible();
   await context.close();
 });
+
+test('charts and navigation reflow on narrow screens and with enlarged text', async ({ page }) => {
+  for (const { width, enlarged } of [
+    { width: 320, enlarged: false },
+    { width: 390, enlarged: true },
+    { width: 820, enlarged: true },
+  ]) {
+    await page.setViewportSize({ width, height: 1000 });
+    for (const route of ['/', '/projects/readmission-prediction/']) {
+      await page.goto(route);
+      await page.evaluate(() => document.fonts.ready);
+      if (enlarged) await page.addStyleTag({ content: 'html { font-size: 200%; }' });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+        true,
+      );
+      const ticks = await page.locator('[data-tick]').evaluateAll((elements) =>
+        elements.map((element) => {
+          const { left, right } = element.getBoundingClientRect();
+          return { left, right };
+        }),
+      );
+      for (let i = 1; i < ticks.length; i++)
+        expect(ticks[i].left).toBeGreaterThanOrEqual(ticks[i - 1].right);
+      await expect(page.getByRole('button', { name: 'After tuning' })).toBeVisible();
+    }
+  }
+});
+
+// Exercise the actual production bundle on a mocked live origin. Never send test visits to GoatCounter.
+async function mockPublishedSite(page: import('@playwright/test').Page) {
+  await page.route('https://chynes.org/**', async (route) => {
+    const path = new URL(route.request().url()).pathname;
+    const response = await page.request.get(`http://127.0.0.1:4390${path}`);
+    await route.fulfill({ response });
+  });
+  await page.route('https://gc.zgo.at/count.js', (route) =>
+    route.fulfill({
+      contentType: 'application/javascript',
+      body: '// Analytics stub: no visits sent.',
+    }),
+  );
+  await page.route('https://hynesc.goatcounter.com/**', (route) => route.abort());
+}
+
+test('production analytics sends only canonical page paths and referral origins', async ({
+  page,
+}) => {
+  await mockPublishedSite(page);
+  await page.goto('https://chynes.org/projects/readmission-prediction/?private=value#section', {
+    referer: 'https://example.org/recruiting/private?token=value',
+  });
+  const script = page.locator('script[data-goatcounter]');
+  await expect(script).toHaveAttribute('data-goatcounter', 'https://hynesc.goatcounter.com/count');
+  expect(JSON.parse((await script.getAttribute('data-goatcounter-settings'))!)).toEqual({
+    path: '/projects/readmission-prediction/',
+    referrer: 'https://example.org',
+    no_events: true,
+  });
+  await expect(page.locator('.analytics-note')).toContainText('Aggregate visitor counts');
+});
+
+test('local previews do not request third-party analytics', async ({ page }) => {
+  const requests: string[] = [];
+  page.on('request', (request) => {
+    if (/gc\.zgo\.at|goatcounter\.com/.test(request.url())) requests.push(request.url());
+  });
+  await page.goto('/');
+  await page.waitForLoadState('networkidle');
+  await expect(page.locator('script[data-goatcounter]')).toHaveCount(0);
+  expect(requests).toEqual([]);
+});
+
+for (const signal of ['doNotTrack', 'globalPrivacyControl']) {
+  test(`analytics respects ${signal}`, async ({ page }) => {
+    await mockPublishedSite(page);
+    await page.addInitScript((name) => {
+      Object.defineProperty(navigator, name, { value: name === 'doNotTrack' ? '1' : true });
+    }, signal);
+    const requests: string[] = [];
+    page.on('request', (request) => {
+      if (/gc\.zgo\.at|goatcounter\.com/.test(request.url())) requests.push(request.url());
+    });
+    await page.goto('https://chynes.org/');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('script[data-goatcounter]')).toHaveCount(0);
+    expect(requests).toEqual([]);
+  });
+}

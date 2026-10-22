@@ -1,12 +1,12 @@
 ---
-import { results, trialCount } from '../data/readmission';
+import { results, metrics, trialCount } from '../data/readmission';
 interface Props {
   id: string;
   compact?: boolean;
 }
 const { id, compact = false } = Astro.props;
 const Heading = compact ? 'h3' : 'h2';
-const scale = (n: number) => 115 + ((n - 0.63) / 0.025) * 350;
+const scale = (n: number) => ((n - 0.63) / 0.025) * 350;
 ---
 
 <figure class:list={['results-figure', { compact }]} data-results>
@@ -35,64 +35,72 @@ const scale = (n: number) => 115 + ((n - 0.63) / 0.025) * 350;
       </select>
     </label>
   </div>
-  <svg
-    class="results-chart"
-    viewBox="0 0 550 210"
-    role="img"
-    aria-labelledby={`${id}-title ${id}-desc`}
-  >
-    <title id={`${id}-title`}>Replication: PR-AUC, mean and standard deviation</title>
-    <desc id={`${id}-desc`}>
+  <div class="results-chart" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
+    <span class="sr-only" id={`${id}-title`} data-chart-title>
+      Replication: PR-AUC, mean and standard deviation
+    </span>
+    <span class="sr-only" id={`${id}-desc`} data-chart-desc>
       CONTENT: 0.6391 plus or minus 0.0025. GRU baseline: 0.6401 plus or minus 0.0017. Full results
       are available in the table below.
-    </desc>
-    {[0, 1, 2, 3, 4, 5].map((i) => (
-      <g>
-        <line x1={115 + i * 70} x2={115 + i * 70} y1="30" y2="153" class="chart-grid" />
-        <text data-tick={i} x={115 + i * 70} y="181" text-anchor="middle" class="chart-tick">
-          {(0.63 + i * 0.005).toFixed(3)}
-        </text>
-      </g>
-    ))}
+    </span>
     {results.replication.pr.map((r, i) => (
-      <g data-series={i} class={i === 0 ? 'series-content' : 'series-gru'}>
-        <text x="0" y={65 + i * 65} class="chart-label">
-          {r.name}
-        </text>
-        <line
-          data-bar
-          x1={scale(r.mean - r.sd)}
-          x2={scale(r.mean + r.sd)}
-          y1={60 + i * 65}
-          y2={60 + i * 65}
-          class="error-bar"
-        />
-        <line
-          data-cap="low"
-          x1={scale(r.mean - r.sd)}
-          x2={scale(r.mean - r.sd)}
-          y1={52 + i * 65}
-          y2={68 + i * 65}
-          class="error-cap"
-        />
-        <line
-          data-cap="high"
-          x1={scale(r.mean + r.sd)}
-          x2={scale(r.mean + r.sd)}
-          y1={52 + i * 65}
-          y2={68 + i * 65}
-          class="error-cap"
-        />
-        <circle data-mean cx={scale(r.mean)} cy={60 + i * 65} r="6" />
-        <text data-value x="546" y={65 + i * 65} text-anchor="end" class="chart-value">
+      <div data-series={i} class:list={['chart-row', i === 0 ? 'series-content' : 'series-gru']}>
+        <span class="chart-label">{r.name}</span>
+        <svg class="chart-track" viewBox="0 0 350 32" preserveAspectRatio="none" aria-hidden="true">
+          {[0, 1, 2, 3, 4].map((tick) => (
+            <line x1={tick * 87.5} x2={tick * 87.5} y1="0" y2="32" class="chart-grid" />
+          ))}
+          <line
+            data-bar
+            x1={scale(r.mean - r.sd)}
+            x2={scale(r.mean + r.sd)}
+            y1="16"
+            y2="16"
+            class="error-bar"
+          />
+          <line
+            data-cap="low"
+            x1={scale(r.mean - r.sd)}
+            x2={scale(r.mean - r.sd)}
+            y1="8"
+            y2="24"
+            class="error-cap"
+          />
+          <line
+            data-cap="high"
+            x1={scale(r.mean + r.sd)}
+            x2={scale(r.mean + r.sd)}
+            y1="8"
+            y2="24"
+            class="error-cap"
+          />
+          <line
+            data-mean
+            x1={scale(r.mean)}
+            x2={scale(r.mean)}
+            y1="16"
+            y2="16"
+            class="mean-point"
+          />
+        </svg>
+        <span class="chart-value" data-value>
           {r.mean.toFixed(4)}
-        </text>
-      </g>
+        </span>
+      </div>
     ))}
-    <text x="290" y="207" text-anchor="middle" class="chart-tick" data-axis>
-      PR-AUC · higher is better
-    </text>
-  </svg>
+    <div class="chart-scale" aria-hidden="true">
+      <div class="chart-ticks">
+        {[0, 1, 2].map((i) => (
+          <span class="chart-tick" data-tick={i}>
+            {(metrics.pr.min + (i * (metrics.pr.max - metrics.pr.min)) / 2).toFixed(4)}
+          </span>
+        ))}
+      </div>
+      <span class="chart-axis" data-axis>
+        PR-AUC · higher is better
+      </span>
+    </div>
+  </div>
   <p class="figure-interpretation" aria-live="polite" data-interpretation>
     {results.replication.interpretation}
   </p>
@@ -149,14 +157,14 @@ const scale = (n: number) => 115 + ((n - 0.63) / 0.025) * 350;
     const update = () => {
       const config = metrics[metric],
         data = results[stage][metric];
-      const scale = (n: number) => 115 + ((n - config.min) / (config.max - config.min)) * 350;
+      const scale = (n: number) => ((n - config.min) / (config.max - config.min)) * 350;
       figure
         .querySelectorAll<HTMLElement>('[data-stage]')
         .forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.stage === stage)));
       figure
         .querySelectorAll('[data-tick]')
         .forEach(
-          (t, i) => (t.textContent = (config.min + (i * (config.max - config.min)) / 5).toFixed(3)),
+          (t, i) => (t.textContent = (config.min + (i * (config.max - config.min)) / 2).toFixed(4)),
         );
       data.forEach((r, i) => {
         const g = figure.querySelector(`[data-series="${i}"]`)!;
@@ -170,12 +178,13 @@ const scale = (n: number) => 115 + ((n - 0.63) / 0.025) * 350;
           cap.setAttribute('x1', String(scale(val)));
           cap.setAttribute('x2', String(scale(val)));
         }
-        g.querySelector('[data-mean]')!.setAttribute('cx', String(scale(r.mean)));
+        g.querySelector('[data-mean]')!.setAttribute('x1', String(scale(r.mean)));
+        g.querySelector('[data-mean]')!.setAttribute('x2', String(scale(r.mean)));
         g.querySelector('[data-value]')!.textContent = r.mean.toFixed(4);
       });
-      figure.querySelector('title')!.textContent =
+      figure.querySelector('[data-chart-title]')!.textContent =
         `${results[stage].label}: ${config.label}, mean and standard deviation`;
-      figure.querySelector('desc')!.textContent = data
+      figure.querySelector('[data-chart-desc]')!.textContent = data
         .map((r) => `${r.name}: ${r.mean.toFixed(4)} plus or minus ${r.sd.toFixed(4)}.`)
         .join(' ');
       figure.querySelector('[data-axis]')!.textContent = `${config.label} · higher is better`;

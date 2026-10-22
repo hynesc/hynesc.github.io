@@ -50,6 +50,18 @@ A project can belong to multiple categories: `Research & evaluation`, `Data & ML
 
 Prefer question → contribution → approach → evidence → limitations → implications when writing a case study. Clearly identify team contributions, synthetic data, coursework, prototype status, and the distinction between observed results and proposed next steps. Do not turn associations into causal claims or imply measured product/business impact without evidence.
 
+The shared type scale in `global.css` uses rem units: 16px body copy, 17px long-form copy on larger screens, 14px controls and supporting text, and 12–13px metadata and captions at the default browser font size. Chart and architecture labels use HTML text so they remain readable as cards shrink.
+
+## Visitor analytics
+
+`src/scripts/analytics.ts` loads the hosted GoatCounter script for **https://hynesc.goatcounter.com/count** only in a production build on `https://chynes.org`. Local development, LAN previews, other domains, and embedded pages do not load it. Browsers sending Do Not Track or Global Privacy Control also skip it. The footer links to [GoatCounter’s privacy details](https://www.goatcounter.com/help/privacy).
+
+Only pageviews are configured. Click-event binding is disabled; there is no session replay. The reported page is its canonical path without query strings or fragments. Referrers are limited to the external origin, excluding their paths and query strings. No analytics cookies or browser storage are used by GoatCounter; its service temporarily processes IP addresses and browser headers to distinguish visits.
+
+In GoatCounter’s dashboard, **keep individual-pageview collection disabled** (the default) so stored statistics remain aggregate. Disable browser, location, language, and screen-size breakdowns there too if you only want page totals. Those account settings are separate from this repository. Ad blockers may prevent counting; treat the numbers as approximate. Use GoatCounter’s [own-visit exclusion](https://www.goatcounter.com/help/skip-dev) to keep your browsing out of the totals.
+
+The script loads asynchronously and is not required for any site feature. Remove its import in `Base.astro` and the footer note to disable analytics.
+
 ## Research figures
 
 The interactive readmission figure reads from `src/data/readmission.ts`. Values are transcribed from Tables I and II of the existing report, visually checked against pages 3–4. The plot shows reported means ± **standard deviation**, not confidence intervals. Each metric has one fixed scale across configurations. The full table is available without JavaScript.

@@ -6,79 +6,43 @@ interface Props {
 const { kind, id } = Astro.props;
 ---
 
-<svg
-  class="system-diagram"
-  viewBox="0 0 560 240"
+<div
+  class:list={['system-diagram', `diagram-${kind}`]}
   role="img"
   aria-labelledby={`${id}-title ${id}-desc`}
 >
-  <title
-    id={`${id}-title`}
-  >{kind === 'multi' ? 'Best-of-N response selection' : 'Signal Assistant architecture'}</title>
-  <desc id={`${id}-desc`}>
+  <span class="sr-only" id={`${id}-title`}>
+    {kind === 'multi' ? 'Best-of-N response selection' : 'Signal Assistant architecture'}
+  </span>
+  <span class="sr-only" id={`${id}-desc`}>
     {kind === 'multi'
       ? 'A chat request fans out to three candidate generations. A judge selects a response; a deterministic fallback handles invalid judge output.'
       : 'Signal messages pass through Signal CLI, a router, and per-chat conversation state to local Ollama inference. Replies return through the same transport.'}
-  </desc>
-  {kind === 'multi' ? (
-    <>
-      <path
-        class="diagram-wire"
-        d="M96 120H140V50H190M140 120H190M140 120V190H190M280 50H330V120H372M280 120H372M280 190H330V120M454 120H510"
-      />
-      <rect x="14" y="98" width="82" height="44" rx="4" />
-      <text x="55" y="124">
-        Request
-      </text>
-      {[50, 120, 190].map((y, i) => (
-        <g>
-          <rect x="190" y={y - 22} width="90" height="44" rx="4" />
-          <text x="235" y={y + 4}>
-            Model {['A', 'B', 'C'][i]}
-          </text>
-        </g>
-      ))}
-      <rect x="372" y="94" width="82" height="52" rx="4" class="diagram-accent" />
-      <text x="413" y="124">
-        Judge
-      </text>
-      <circle cx="524" cy="120" r="14" class="diagram-accent" />
-      <path d="m518 120 4 4 8-9" stroke="currentColor" fill="none" stroke-width="2" />
-      <text x="413" y="178" class="diagram-note">
-        fallback if needed
-      </text>
-      <text x="235" y="235" class="diagram-note">
-        concurrent generation
-      </text>
-    </>
-  ) : (
-    <>
-      <path class="diagram-wire" d="M104 82H154M256 82H310M412 82H463V174H355M249 174H58V106" />
-      <rect x="10" y="58" width="94" height="48" rx="4" />
-      <text x="57" y="87">
-        Signal CLI
-      </text>
-      <rect x="154" y="58" width="102" height="48" rx="4" />
-      <text x="205" y="87">
-        Router
-      </text>
-      <rect x="310" y="58" width="102" height="48" rx="4" />
-      <text x="361" y="87">
-        Chat state
-      </text>
-      <rect x="249" y="150" width="106" height="48" rx="4" class="diagram-accent" />
-      <text x="302" y="179">
-        Local LLM
-      </text>
-      <text x="205" y="37" class="diagram-note">
-        order & concurrency
-      </text>
-      <text x="361" y="127" class="diagram-note">
-        bounded memory
-      </text>
-      <text x="129" y="199" class="diagram-note">
-        reply
-      </text>
-    </>
-  )}
-</svg>
+  </span>
+  <div class="diagram-flow" aria-hidden="true">
+    {kind === 'multi' ? (
+      <>
+        <span class="diagram-node">Request</span>
+        <div class="diagram-candidates diagram-step">
+          {['A', 'B', 'C'].map((model) => (
+            <span class="diagram-node">Model {model}</span>
+          ))}
+        </div>
+        <span class="diagram-node diagram-step diagram-accent">Judge</span>
+        <span class="diagram-result diagram-step">✓</span>
+      </>
+    ) : (
+      <>
+        <span class="diagram-node">Signal CLI</span>
+        <span class="diagram-node diagram-step">Router</span>
+        <span class="diagram-node diagram-step">Chat state</span>
+        <span class="diagram-node diagram-step diagram-accent">Local LLM</span>
+      </>
+    )}
+  </div>
+  <p class="diagram-note" aria-hidden="true">
+    {kind === 'multi'
+      ? 'Concurrent generation · fallback if needed'
+      : 'Per-chat memory · replies via Signal CLI'}
+  </p>
+</div>
