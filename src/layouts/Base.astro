@@ -1,0 +1,145 @@
+---
+import '../styles/global.css';
+import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import newsreaderFont from '@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url';
+import newsreaderItalic from '@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2?url';
+import Arrow from '../components/Arrow.astro';
+interface Props {
+  title?: string;
+  description?: string;
+  active?: string;
+}
+const {
+  title,
+  description = 'Christopher Hynes brings statistics, economics, and computer science to empirical research, machine learning, and working software.',
+  active,
+} = Astro.props;
+const pageTitle = title
+  ? `${title} — Christopher Hynes`
+  : 'Christopher Hynes — Empirical research. Working systems.';
+const canonical = new URL(
+  Astro.url.pathname === '/404/' ? '/404.html' : Astro.url.pathname.replace(/\.html\/$/, '.html'),
+  Astro.site,
+);
+const nav = [
+  { label: 'Work', href: '/projects.html' },
+  { label: 'Experience', href: '/experience.html' },
+  { label: 'About', href: '/about.html' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f6f0" />
+    <meta name="description" content={description} />
+    {Astro.url.pathname.startsWith('/404') && <meta name="robots" content="noindex" />}
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    <link rel="preload" href={newsreaderFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={newsreaderItalic} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={interFont} as="font" type="font/woff2" crossorigin />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Christopher Hynes" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/social-preview.png', Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Christopher Hynes. Empirical research. Working systems."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header shell">
+      <a class="brand" href="/">
+        <span class="monogram" aria-hidden="true">
+          ch.
+        </span>
+        <span>Christopher Hynes</span>
+      </a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" hidden>
+        Menu <span aria-hidden="true">+</span>
+      </button>
+      <nav id="main-nav" aria-label="Main navigation">
+        {nav.map(({ label, href }) => (
+          <a href={href} aria-current={active === label ? 'page' : undefined}>
+            {label}
+          </a>
+        ))}
+        <a class="resume-link" href="/assets/resume.pdf">
+          Résumé <Arrow diagonal />
+        </a>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer shell">
+      <div class="footer-top">
+        <div>
+          <p class="eyebrow">A good question is a good place to start.</p>
+          <h2>
+            Let’s find out <em>what’s possible.</em>
+          </h2>
+        </div>
+        <a class="contact-link" href="mailto:resume@chynes.org">
+          Get in touch <Arrow diagonal />
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <span>© {new Date().getFullYear()} Christopher Hynes</span>
+        <span class="footer-note">Research, with something to show for it.</span>
+        <div>
+          <a href="https://github.com/hynesc">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+          <a href="https://www.linkedin.com/in/christopher-hynes">
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.querySelector<HTMLElement>('#main-nav');
+      if (toggle && nav) {
+        toggle.hidden = false;
+        nav.classList.add('enhanced');
+        const close = () => {
+          toggle.setAttribute('aria-expanded', 'false');
+          nav.classList.remove('open');
+        };
+        toggle.addEventListener('click', () => {
+          const open = toggle.getAttribute('aria-expanded') !== 'true';
+          toggle.setAttribute('aria-expanded', String(open));
+          nav.classList.toggle('open', open);
+        });
+        nav.addEventListener('click', (event) => {
+          if ((event.target as HTMLElement).closest('a')) close();
+        });
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && nav.classList.contains('open')) {
+            close();
+            toggle.focus();
+          }
+        });
+        window.matchMedia('(min-width: 701px)').addEventListener('change', close);
+      }
+    </script>
+  </body>
+</html>

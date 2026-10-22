@@ -1,0 +1,7 @@
+node_modules
+dist
+.astro
+.review
+public
+package-lock.json
+src/content/thesis-code.md

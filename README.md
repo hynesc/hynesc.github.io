@@ -1,68 +1,80 @@
-# Personal Website
+# Christopher Hynes — portfolio
 
-This is the source code for my personal website, built with [Quarto](https://quarto.org/) and deployed using [GitHub Actions](https://github.com/features/actions) via [GitHub Pages](https://pages.github.com/).
+A research-first portfolio built with Astro, TypeScript, and Markdown. Static HTML is published to GitHub Pages at **https://chynes.org**. The design connects empirical research with data science, software, product evaluation, and business analysis.
 
-**Live site:** [https://chynes.org](https://chynes.org)
+## Local development
 
-## Features
-
-- Powered by [Quarto](https://quarto.org/) for modern, reproducible publishing
-- Automatically deployed via GitHub Actions
-- Compatible with data science workflows (supports `.ipynb`, embedded code, plots, and interactive visualizations)
-- Clean, responsive, and mobile-friendly design
-- Version-controlled and easy to maintain
-
-## Getting Started
-
-To work with the site locally:
+Use **Node 22.23.4 or newer** (the current Node 22 release is selected by `.nvmrc`). The repository uses npm and commits its lockfile.
 
 ```bash
-# Clone the repo
-git clone https://github.com/hynesc/hynesc.github.io.git
-cd hynesc.github.io
-
-# Preview the site locally
-quarto preview
+nvm install
+nvm use
+npm ci
+npm run dev
 ```
 
-To validate content links and metadata:
+Follow the local URL printed by Astro. Editing a case study or layout updates the development preview. No API keys, Python/R runtime for research, or model servers are required.
+
+## Production build and checks
 
 ```bash
-./scripts/validate-content.sh
+npm run check
+npm run build
+npm run validate
+npx playwright install chromium
+npm test
 ```
 
-To render the site manually:
+The browser tests use Python 3's static HTTP server and run against `dist`, including exact legacy `.html` URLs. On a fresh Linux runner, use `npx playwright install --with-deps chromium` to install browser dependencies.
+
+To inspect the production output with GitHub Pages-like static file handling:
 
 ```bash
-quarto render
+python3 -m http.server 4391 --directory dist
 ```
 
-## Deployment
+Open **http://localhost:4391**. GitHub Pages provides the custom 404 behavior; the local Python server shows its default error for unknown paths. The custom page itself is available at `/404.html`.
 
-Deployment is handled via **GitHub Actions**. On every push to the `main` branch, the site is rendered and deployed to GitHub Pages.
+`npm run audit` runs mobile Lighthouse checks against the homepage and flagship case study, writing reports to `.review`. Performance must reach 90 and accessibility 95.
 
-Make sure:
-- GitHub Pages is configured with **Build and deployment source: GitHub Actions**.
-- Your GitHub Actions workflow is set up correctly (e.g., `.github/workflows/publish.yml`).
+`npm run screenshots` captures review images for desktop, tablet, and phone in the ignored `.review` directory. `npm run format` formats source files. `npm run social` regenerates the committed social-preview image.
 
-## Project Structure
+## Editing the site
 
-```
-/
-├── index.qmd           # Homepage
-├── about.qmd           # About section
-├── projects.qmd        # Portfolio
-├── experience.qmd      # Experience
-├── _quarto.yml         # Quarto site configuration
-├── assets/             # Static assets
-├── scripts/            # Validation helpers
-├── styles.css          # Shared site styling
-├── .github/workflows/  # GitHub Actions workflow files
-└── README.md           # You're here!
-```
+- **Case studies:** `src/content/projects/*.md`. Each entry is checked against the schema in `src/content.config.ts`. Metadata includes title, short title, summary, ISO date, categories, methods, display order, context, personal contribution, finding, and artifact links. The filename becomes the project slug; keep existing filenames stable.
+- **Homepage and background:** `src/pages`. The homepage is intentionally curated. Adding a project automatically adds it to the work index, but featuring it on the homepage is an editorial choice.
+- **Design:** `src/styles/global.css`, shared components, and `src/layouts/Base.astro`. Fonts are self-hosted through Fontsource packages; no external font request is made.
+- **Downloads and original figures:** `public/assets` and `public/projects`. Keep published filenames stable. The original résumé, papers, notebooks, and images are preserved unchanged.
 
-## Customization
+A project can belong to multiple categories: `Research & evaluation`, `Data & ML`, and `Systems & interfaces`. The work index searches titles, summaries, categories, and methods. Lower `order` values appear first.
 
-- Edit `.qmd` files to update content
-- Tweak `_quarto.yml` to adjust layout, navbar, and theme
-- Add styles in `styles.css` for visual customization
+Prefer question → contribution → approach → evidence → limitations → implications when writing a case study. Clearly identify team contributions, synthetic data, coursework, prototype status, and the distinction between observed results and proposed next steps. Do not turn associations into causal claims or imply measured product/business impact without evidence.
+
+## Research figures
+
+The interactive readmission figure reads from `src/data/readmission.ts`. Values are transcribed from Tables I and II of the existing report, visually checked against pages 3–4. The plot shows reported means ± **standard deviation**, not confidence intervals. Each metric has one fixed scale across configurations. The full table is available without JavaScript.
+
+If updating results, check the paper and update the data, interpretation, source documentation, and any tests together. Do not invent raw trials from aggregate statistics. The synthetic-control figure is the original thesis image; no counterfactual points have been reconstructed.
+
+The thesis R code is retained as a static reference in `src/content/thesis-code.md` and rendered at its original `code.html` URL. It is not executed during builds.
+
+## URLs and deployment
+
+Astro builds static output into `dist`. `scripts/finalize-build.mjs` converts Astro's directory output for explicitly named `.html` routes into real `.html` files and normalizes sitemap entries. This preserves the previous Quarto URLs without requiring server redirects:
+
+- `/`, `/index.html`, `/projects.html`, `/experience.html`, `/about.html`
+- `/projects/<existing-slug>/` and `/projects/<existing-slug>/index.html`
+- `/projects/chile-neoliberal-reforms/code.html`
+- Existing résumé, paper, notebook, image, and favicon paths
+
+`npm run validate` checks generated pages, internal links and fragments, legacy files, and the domain. Use the full `npm run build` command rather than calling `astro build` alone.
+
+The GitHub Actions workflow validates pull requests to `main`. Pushes to `main` build, test, and deploy the same artifact through GitHub Pages. Feature branches and pull requests do not deploy. Manual runs deploy only when run against `main`.
+
+GitHub Pages must retain **GitHub Actions** as its publishing source and **chynes.org** as its custom domain. `public/CNAME` and the Astro `site` setting preserve that domain. No DNS changes are part of this rebuild.
+
+The site does not run live models or collect contact submissions. Contact uses `mailto:resume@chynes.org`; linked external demos depend on their respective hosts.
+
+## Migration
+
+This implementation starts from `main` commit `038da37`. The Quarto frontend has been replaced, while Git history retains the original sources. All 29 original download/image files were moved into `public` without changing their bytes. The résumé PDF remains the original document.

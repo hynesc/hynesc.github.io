@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+---
+
+<Base
+  title="About"
+  active="About"
+  description="Christopher Hynes’s path through statistics, economics, empirical research, and computer science."
+>
+  <section class="page-intro shell">
+    <p class="eyebrow">About / Christopher Hynes</p>
+    <h1>
+      Curiosity across fields.
+      <br />
+      <em>Rigor across methods.</em>
+    </h1>
+    <p class="page-deck">
+      I like questions that call for both careful analysis
+      <br class="desktop-break" /> and something concrete built.
+    </p>
+  </section>
+  <section class="about-grid shell">
+    <div class="about-label">
+      <span class="monogram large-monogram" aria-hidden="true">
+        ch.
+      </span>
+      <p class="eyebrow">
+        Researcher mindset.
+        <br />
+        Builder instincts.
+      </p>
+      <a class="text-link" href="/assets/resume.pdf">
+        My résumé <Arrow diagonal />
+      </a>
+    </div>
+    <div class="prose">
+      <h2>A connected path</h2>
+      <p>
+        I’m an M.S. candidate in Computer Science at Georgia Tech, with a B.S. in Statistics and
+        Economics from the University of South Carolina Honors College. My work spans empirical
+        research, machine learning, data analysis, and software development.
+      </p>
+      <p>
+        Economics taught me to ask what a comparison can actually establish. Statistics gave me
+        tools for reasoning about uncertainty. Computer science lets me turn an idea into an
+        experiment, an interface, or a working system.
+      </p>
+      <p>
+        As an undergraduate research assistant, I worked with economic, demographic, and
+        public-health data on questions involving STEM-worker agglomeration, spatial segregation,
+        and racial disparities in birth outcomes. At GreyNoise, I applied analysis to customer
+        retention, lead conversion, and finance workflows.
+      </p>
+      <h2>How I approach the work</h2>
+      <p>
+        I start with the question and the decision it might inform. Then I look for a credible
+        comparison, an implementation I can inspect, and a way to communicate what the result
+        does—and does not—support.
+      </p>
+      <p>
+        That approach connects projects that otherwise look quite different: a synthetic-control
+        thesis, a replication of a neural architecture, an interface study, and local LLM
+        applications. I’m interested in research and applied work where those connections are
+        useful.
+      </p>
+      <h2>Beyond the desk</h2>
+      <p>
+        I play guitar, backpack, travel, and study languages. I’ve visited 32 countries and speak
+        advanced Spanish, intermediate German, and basic French. A year studying in Madrid was part
+        of that path.
+      </p>
+      <figure class="travel-figure">
+        <img
+          src="/assets/been.jpeg"
+          alt="A personal map showing countries I have visited."
+          width="3600"
+          height="1950"
+          loading="lazy"
+        />
+        <figcaption>A different kind of fieldwork: places I’ve visited.</figcaption>
+      </figure>
+      <a class="text-link" href="mailto:resume@chynes.org">
+        Start a conversation <Arrow diagonal />
+      </a>
+    </div>
+  </section>
+</Base>

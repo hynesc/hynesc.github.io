@@ -1,0 +1,293 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import ResultsFigure from '../components/ResultsFigure.astro';
+import SystemDiagram from '../components/SystemDiagram.astro';
+---
+
+<Base>
+  <section class="hero shell" aria-labelledby="hero-title">
+    <div class="hero-kicker">
+      <span class="eyebrow">Statistics / Economics / Computer science</span>
+      <span class="edition">An interdisciplinary portfolio</span>
+    </div>
+    <div class="hero-grid">
+      <h1 id="hero-title">
+        Empirical
+        <br />
+        <em>research.</em>
+        <br />
+        Working systems<span class="rust">.</span>
+      </h1>
+      <div class="hero-aside">
+        <svg class="research-mark" viewBox="0 0 220 160" fill="none" aria-hidden="true">
+          <ellipse cx="110" cy="80" rx="87" ry="48" transform="rotate(-35 110 80)" />
+          <ellipse cx="110" cy="80" rx="87" ry="48" transform="rotate(35 110 80)" />
+          <path d="M18 80h184M110 12v136" class="mark-guide" />
+          <circle cx="110" cy="80" r="7" />
+          <circle cx="47" cy="43" r="4" />
+          <circle cx="174" cy="117" r="4" />
+        </svg>
+        <p>
+          I bring statistics, economics, and computer science to questions about models, policies,
+          and human behavior—and build tools to investigate them.
+        </p>
+        <a class="text-link" href="/about.html">
+          A little more about me <Arrow />
+        </a>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <a class="button" href="#selected-work">
+        Explore the work <span aria-hidden="true">↓</span>
+      </a>
+      <p>
+        M.S. Computer Science, Georgia Tech
+        <br />
+        <span>B.S. Statistics & Economics, South Carolina</span>
+      </p>
+      <span class="scroll-note" aria-hidden="true">
+        Questions → evidence → decisions
+      </span>
+    </div>
+  </section>
+
+  <section class="selected-section shell" id="selected-work" aria-labelledby="selected-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">01 / Selected research</p>
+        <h2 id="selected-title">
+          The question comes <em>first.</em>
+        </h2>
+      </div>
+      <p>
+        Different domains. The same commitment
+        <br class="desktop-break" /> to finding out what the evidence supports.
+      </p>
+    </div>
+    <article class="flagship">
+      <div class="flagship-copy">
+        <div class="project-meta">
+          <span>Machine learning / Replication</span>
+          <span>2025</span>
+        </div>
+        <h3>
+          <a href="/projects/readmission-prediction/">
+            When does a better model actually perform better?
+          </a>
+        </h3>
+        <p>
+          A published neural architecture. A careful replication. A result that changed when the
+          configuration did.
+        </p>
+        <div class="flagship-stat">
+          <span>30</span>
+          <p>
+            trials per configuration
+            <br />
+            to examine what holds up
+          </p>
+        </div>
+        <a class="text-link light" href="/projects/readmission-prediction/">
+          Inside the study <Arrow />
+        </a>
+      </div>
+      <ResultsFigure id="home-results" compact />
+    </article>
+    <div class="research-pair">
+      <article class="research-card">
+        <a class="project-visual thesis-visual" href="/projects/chile-neoliberal-reforms/">
+          <span class="visual-label">Observed / Counterfactual</span>
+          <img
+            src="/projects/chile-neoliberal-reforms/thumbnail.png"
+            width="763"
+            height="519"
+            alt="Original thesis figure: observed Chilean GDP per capita diverges above its synthetic control after 1990."
+            loading="lazy"
+          />
+          <span class="visual-foot">Chile, 1960–2019 · Original thesis figure</span>
+        </a>
+        <div class="project-meta">
+          <span>Economics / Causal inference</span>
+          <span>2022</span>
+        </div>
+        <h3>
+          <a href="/projects/chile-neoliberal-reforms/">
+            The economy that might have been. <Arrow diagonal />
+          </a>
+        </h3>
+        <p>
+          Constructing a synthetic counterfactual to study Chile’s reforms—and examining the
+          assumptions behind the estimate.
+        </p>
+        <a class="text-link" href="/projects/chile-neoliberal-reforms/">
+          Read the thesis story <Arrow />
+        </a>
+      </article>
+      <article class="research-card">
+        <a class="project-visual ux-visual" href="/projects/ios-camera-prototype/">
+          <div class="ux-annotation">
+            <span class="visual-label">
+              From observation
+              <br />
+              to interaction
+            </span>
+            <span class="ux-quote">
+              Less searching.
+              <br />
+              <em>More seeing.</em>
+            </span>
+            <span class="visual-foot">Prototype → Evaluate → Refine</span>
+          </div>
+          <img
+            src="/projects/ios-camera-prototype/thumbnail.png"
+            width="393"
+            height="852"
+            alt="Original camera prototype with directly selectable modes arranged in a grid."
+            loading="lazy"
+          />
+        </a>
+        <div class="project-meta">
+          <span>Human–computer interaction / UX</span>
+          <span>2024</span>
+        </div>
+        <h3>
+          <a href="/projects/ios-camera-prototype/">
+            Designing for the moment. <Arrow diagonal />
+          </a>
+        </h3>
+        <p>
+          Moving from user research to a camera-interface prototype, then testing perceived
+          efficiency and intuitiveness.
+        </p>
+        <a class="text-link" href="/projects/ios-camera-prototype/">
+          Follow the design decisions <Arrow />
+        </a>
+      </article>
+    </div>
+    <a class="all-work-link" href="/projects.html">
+      Explore all research & projects <Arrow />
+    </a>
+  </section>
+
+  <section class="systems-section" aria-labelledby="systems-title">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">02 / Working systems</p>
+          <h2 id="systems-title">
+            Ideas are better
+            <br />
+            when you can <em>try them.</em>
+          </h2>
+        </div>
+        <p>
+          I build tools that connect models
+          <br class="desktop-break" /> to practical, everyday use.
+        </p>
+      </div>
+      <div class="systems-grid">
+        <article class="system-card">
+          <div class="project-meta">
+            <span>01 / Multi-LLM</span>
+            <span>Python · FastAPI</span>
+          </div>
+          <SystemDiagram kind="multi" id="home-multi" />
+          <h3>
+            <a href="/projects/multi-llm/">
+              More candidates. One response. <Arrow diagonal />
+            </a>
+          </h3>
+          <p>
+            A best-of-N chat proxy that makes concurrent generation, judge selection, and failure
+            handling explicit.
+          </p>
+          <a class="text-link light" href="/projects/multi-llm/">
+            Explore the architecture <Arrow />
+          </a>
+        </article>
+        <article class="system-card">
+          <div class="project-meta">
+            <span>02 / Signal Assistant</span>
+            <span>Python · Ollama</span>
+          </div>
+          <SystemDiagram kind="signal" id="home-signal" />
+          <h3>
+            <a href="/projects/signal-assistant/">
+              Local models. Real conversations. <Arrow diagonal />
+            </a>
+          </h3>
+          <p>
+            A self-hosted assistant built around ordered conversations, bounded memory, and
+            practical operational controls.
+          </p>
+          <a class="text-link light" href="/projects/signal-assistant/">
+            See how it works <Arrow />
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="decision-section shell" aria-labelledby="decision-title">
+    <div>
+      <p class="eyebrow">03 / Evidence into decisions</p>
+      <h2 id="decision-title">
+        Analysis should
+        <br />
+        <em>go somewhere.</em>
+      </h2>
+    </div>
+    <div class="decision-copy">
+      <span class="eyebrow">GreyNoise / Customer retention</span>
+      <h3>
+        From a business question
+        <br />
+        to an analytical tool.
+      </h3>
+      <p>
+        Customer churn and lead analysis during an internship, extended into an interactive modeling
+        application. A way to make patterns inspectable—and the limits of a prediction clear.
+      </p>
+      <a class="text-link" href="/projects/gn-churn/">
+        Explore the project <Arrow />
+      </a>
+      <p class="small-note">Public demonstration uses synthetic data.</p>
+    </div>
+  </section>
+
+  <section class="background-section shell" aria-labelledby="background-title">
+    <div>
+      <p class="eyebrow">04 / A connected perspective</p>
+      <h2 id="background-title">
+        Across disciplines.
+        <br />
+        <em>Grounded in evidence.</em>
+      </h2>
+      <a class="text-link" href="/experience.html">
+        Experience & education <Arrow />
+      </a>
+    </div>
+    <div class="background-details">
+      <p>
+        My path runs through economics research, business analytics, and graduate computer science.
+        The thread is a preference for questions that need both careful reasoning and something
+        concrete built.
+      </p>
+      <dl>
+        <div>
+          <dt>Georgia Tech</dt>
+          <dd>M.S. Computer Science · Expected Dec. 2026</dd>
+        </div>
+        <div>
+          <dt>University of South Carolina</dt>
+          <dd>B.S. Statistics & Economics · Honors · 2022</dd>
+        </div>
+        <div>
+          <dt>Research & industry</dt>
+          <dd>USC Economics · Darla Moore · GreyNoise</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+</Base>

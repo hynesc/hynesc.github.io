@@ -1,2 +1,7 @@
-docs/
-.quarto/
+node_modules/
+dist/
+.astro/
+playwright-report/
+test-results/
+.DS_Store
+.review/
