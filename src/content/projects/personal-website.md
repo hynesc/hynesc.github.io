@@ -1,5 +1,5 @@
 ---
-title: 'A portfolio built around evidence'
+title: 'Building this portfolio with Astro'
 shortTitle: 'This portfolio'
 summary: 'A custom static site that brings research, software, and decision-making into one accessible editorial experience.'
 date: '2026-10-22'

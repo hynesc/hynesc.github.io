@@ -6,7 +6,9 @@ test('home presents research and working systems without browser errors', async 
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Empirical');
-  await expect(page.getByRole('heading', { name: 'The question comes first.' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Empirical research.', level: 2, exact: true }),
+  ).toBeVisible();
   await expect(page.getByRole('link', { name: 'Inside the study' })).toHaveAttribute(
     'href',
     '/projects/readmission-prediction/',
@@ -66,7 +68,7 @@ test('navigation works at the current viewport', async ({ page, isMobile }) => {
     .getByRole('navigation', { name: 'Main navigation' })
     .getByRole('link', { name: 'Experience', exact: true })
     .click();
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('foundation in research');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Experience &');
   await expect(page.getByRole('link', { name: 'Download my résumé' })).toHaveAttribute(
     'href',
     '/assets/resume.pdf',

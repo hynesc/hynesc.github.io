@@ -1,6 +1,6 @@
 ---
-title: 'Making the right camera mode easier to find'
-shortTitle: 'Designing for the moment'
+title: 'Evaluating an alternative iOS camera-mode selector'
+shortTitle: 'iOS camera-interface study'
 summary: 'A human–computer interaction study moving from observation and survey evidence to prototype comparison and quantitative evaluation.'
 date: '2024-11-04'
 categories: ['Research & evaluation', 'Systems & interfaces']

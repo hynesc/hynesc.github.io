@@ -1,5 +1,5 @@
 ---
-title: 'Making customer-retention analysis usable'
+title: 'Customer churn analysis and prediction'
 shortTitle: 'Customer retention at GreyNoise'
 summary: 'An internship analysis extended into a public predictive-modeling application, with a synthetic dataset for demonstration.'
 date: '2025-07-18'
@@ -35,7 +35,7 @@ The project uses logistic regression and stratified five-fold cross-validation. 
 
 These are historical evaluation results, not metrics measured on the synthetic public demo. Without a disclosed class prevalence, PR-AUC should not be interpreted as a specific improvement over a random baseline.
 
-## From model to conversation
+## Coefficient analysis and application
 
 Coefficient analysis highlighted associations with acquisition source, account history, geography, industry, and recurring revenue. An interactive application makes those relationships easier to explore and discuss than a static model output alone.
 

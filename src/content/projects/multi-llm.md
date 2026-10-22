@@ -1,5 +1,5 @@
 ---
-title: 'Several candidates. One carefully handled response.'
+title: 'Best-of-N response selection for language models'
 shortTitle: 'Multi-LLM'
 summary: 'An OpenAI-compatible best-of-N proxy for exploring model pools, response selection, and the engineering tradeoffs between them.'
 date: '2026-05-01'

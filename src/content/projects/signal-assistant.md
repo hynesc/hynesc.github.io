@@ -1,5 +1,5 @@
 ---
-title: 'A local language model, in an everyday conversation'
+title: 'A self-hosted Signal assistant with local LLM inference'
 shortTitle: 'Signal Assistant'
 summary: 'A self-hosted messaging assistant that handles conversation state, concurrent inference, and the practical constraints of a shared transport.'
 date: '2026-05-01'
