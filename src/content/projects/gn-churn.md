@@ -4,14 +4,14 @@ shortTitle: 'Customer retention at GreyNoise'
 summary: 'An internship analysis extended into a public predictive-modeling application, with a synthetic dataset for demonstration.'
 date: '2025-07-18'
 categories: ['Data & ML', 'Systems & interfaces']
-methods: ['Logistic regression', 'Cross-validation', 'Streamlit']
+methods: ['Logistic regression', 'Cross-validation', 'Streamlit', 'Python', 'R']
 order: 6
 context: 'Internship analysis · later independent application'
 contribution: 'Customer churn and lead analysis in R; subsequent Python modeling and public Streamlit application.'
 finding: 'The original-data model achieved mean ROC-AUC 0.70 in stratified five-fold cross-validation; the public demo uses synthetic data.'
 artifacts:
   [
-    { 'label': 'Open application', 'href': 'https://gn-churn.streamlit.app/' },
+    { 'label': 'Open demo', 'href': 'https://gn-churn.streamlit.app/' },
     { 'label': 'Source on GitHub', 'href': 'https://github.com/hynesc/gn-churn' },
     { 'label': 'Download notebook', 'href': '/projects/gn-churn/notebook.ipynb' },
   ]

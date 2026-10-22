@@ -4,14 +4,14 @@ shortTitle: 'AI governance news tracker'
 summary: 'A scheduled collection pipeline and interactive dashboard for exploring AI safety and policy coverage.'
 date: '2025-07-25'
 categories: ['Data & ML', 'Systems & interfaces']
-methods: ['NLP', 'Data pipelines', 'Streamlit']
+methods: ['NLP', 'Data pipelines', 'Streamlit', 'Python']
 order: 8
 context: 'Independent data application'
 contribution: 'News collection, sentiment and phrase analysis, scheduled automation, and interactive dashboard.'
 finding: 'A browsable record of coverage and recurring phrases, with clear limits from source selection and article snippets.'
 artifacts:
   [
-    { 'label': 'Open application', 'href': 'https://ai-news-dashboard.streamlit.app/' },
+    { 'label': 'Open demo', 'href': 'https://ai-news-dashboard.streamlit.app/' },
     { 'label': 'Source on GitHub', 'href': 'https://github.com/hynesc/ai-news-dashboard' },
   ]
 ---

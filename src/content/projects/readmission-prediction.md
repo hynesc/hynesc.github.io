@@ -4,7 +4,7 @@ shortTitle: 'Revisiting neural readmission models'
 summary: 'A replication study of a published neural architecture, and an investigation into what changes when its configuration does.'
 date: '2025-04-20'
 categories: ['Research & evaluation', 'Data & ML']
-methods: ['PyTorch', 'Replication', 'Statistical testing']
+methods: ['PyTorch', 'Replication', 'Statistical testing', 'Python']
 order: 1
 context: 'Graduate research project · Georgia Tech · with Felipe Oliveira'
 contribution: 'Preprocessing, GRU baseline, embeddings, tuning experiments, statistical evaluation, and co-authorship.'

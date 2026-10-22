@@ -46,7 +46,7 @@ Open **http://localhost:4391**. GitHub Pages provides the custom 404 behavior; t
 - **Design:** `src/styles/global.css`, shared components, and `src/layouts/Base.astro`. Homepage-specific layout refinements are scoped in `src/pages/index.astro`. Fonts are self-hosted through Fontsource packages; no external font request is made.
 - **Downloads and original figures:** `public/assets` and `public/projects`. Keep published filenames stable. The papers, notebooks, and original images are preserved unchanged. Replace `public/assets/resume.pdf` to update every résumé link on the site.
 
-A project can belong to multiple categories: `Research & evaluation`, `Data & ML`, and `Systems & interfaces`. The work index searches titles, summaries, categories, and methods. Lower `order` values appear first.
+A project can belong to multiple categories: `Research & evaluation`, `Data & ML`, and `Systems & interfaces`. The work index searches titles, summaries, categories, methods, project context, contributions, and findings. Lower `order` values appear first.
 
 Prefer question → contribution → approach → evidence → limitations → implications when writing a case study. Clearly identify team contributions, synthetic data, coursework, prototype status, and the distinction between observed results and proposed next steps. Do not turn associations into causal claims or imply measured product/business impact without evidence.
 

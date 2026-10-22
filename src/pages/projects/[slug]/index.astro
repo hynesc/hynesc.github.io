@@ -45,6 +45,11 @@ const { Content, headings } = await render(project);
           </a>
         ))}
       </div>
+      {data.artifacts.some((a) => a.href.includes('.streamlit.app')) && (
+        <p class="demo-note">
+          The Streamlit demo may need to be woken after inactivity. Source code is available above.
+        </p>
+      )}
     </header>
     <div class="case-summary shell">
       <div>
@@ -100,3 +105,12 @@ const { Content, headings } = await render(project);
     </a>
   </section>
 </Base>
+
+<style>
+  .demo-note {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+</style>

@@ -59,6 +59,10 @@ const categories = ['All work', 'Research & evaluation', 'Data & ML', 'Systems &
             data.title,
             data.shortTitle,
             data.summary,
+            data.context,
+            data.contribution,
+            data.finding,
+            data.home?.label ?? '',
             ...data.methods,
             ...data.categories,
           ]

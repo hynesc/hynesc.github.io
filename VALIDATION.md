@@ -39,4 +39,13 @@ Review artifacts are ignored by Git. The original PDF reports remain unchanged. 
 
 ## Publication
 
-The workflow is prepared to validate pull requests and deploy only from `main`. This implementation has not been merged, pushed, or deployed. GitHub Pages and the existing custom domain remain the intended production host.
+The workflow validates pull requests and deploys only from `main`. Merge and publication status are recorded in Git and GitHub Actions. GitHub Pages retains the existing `chynes.org` custom domain. Production deployments run after all build and browser checks pass.
+
+## Review before merge
+
+- Direct navigation links expose skills and contact details from every page. The Experience page links to research/industry, education, skills, and honors.
+- Project search includes context, contribution, and findings; language/tool tags identify the Python and Docker implementations explicitly.
+- Navigation was checked at 320, 390, 820, and 1440 pixels without horizontal overflow.
+- Public code links return successful responses. The Figma prototype responds successfully to a normal GET request; its HEAD response is misleading.
+- Streamlit demos can sleep after inactivity. Demo links explain this behavior and keep source code visible as an alternative.
+- The supplied résumé’s Quarto description remains an acknowledged follow-up; the site itself documents Astro accurately.

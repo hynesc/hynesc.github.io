@@ -59,13 +59,21 @@ test('project filters combine with search, reset, and handle no results', async 
   await page.getByRole('button', { name: 'Research & evaluation', exact: true }).click();
   await expect(page.locator('[data-project]:visible')).toHaveCount(4);
   await page.getByRole('searchbox').fill('synthetic');
-  await expect(page.locator('[data-project]:visible')).toHaveCount(1);
+  await expect(page.locator('[data-project]:visible')).toHaveCount(2);
+  await page.getByRole('searchbox').fill('Python');
+  await expect(
+    page.getByRole('link', { name: 'Revisiting neural readmission models', exact: false }).first(),
+  ).toBeVisible();
   await page.getByRole('searchbox').fill('no-such-project');
   await expect(
     page.getByRole('heading', { name: 'No projects match that combination.' }),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Clear filters' }).click();
   await expect(page.locator('[data-project]:visible')).toHaveCount(11);
+  await page.getByRole('searchbox').fill('Docker');
+  await expect(page.locator('[data-project]:visible')).toHaveCount(2);
+  await page.getByRole('searchbox').fill('GreyNoise');
+  await expect(page.locator('[data-project]:visible')).toHaveCount(1);
 });
 
 test('navigation works at the current viewport', async ({ page, isMobile }) => {
@@ -88,6 +96,15 @@ test('navigation works at the current viewport', async ({ page, isMobile }) => {
     'href',
     '/assets/resume.pdf',
   );
+  if (isMobile) await page.getByRole('button', { name: 'Menu' }).click();
+  const navigation = page.getByRole('navigation', { name: 'Main navigation' });
+  await expect(navigation.getByRole('link', { name: 'Contact', exact: true })).toHaveAttribute(
+    'href',
+    'mailto:resume@chynes.org',
+  );
+  await navigation.getByRole('link', { name: 'Skills', exact: true }).click();
+  await expect(page).toHaveURL(/experience\.html#skills$/);
+  await expect(page.locator('#skills')).toBeInViewport();
 });
 
 for (const route of [

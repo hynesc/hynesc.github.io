@@ -4,14 +4,14 @@ shortTitle: 'Telco churn modeling'
 summary: 'An end-to-end classification workflow that pairs interpretable modeling with an interactive demonstration.'
 date: '2025-07-14'
 categories: ['Data & ML', 'Systems & interfaces']
-methods: ['scikit-learn', 'Feature selection', 'Streamlit']
+methods: ['scikit-learn', 'Feature selection', 'Streamlit', 'Python']
 order: 9
 context: 'Independent modeling project'
 contribution: 'Data cleaning, preprocessing pipeline, logistic regression, feature selection, and application.'
 finding: 'Removing three weak features retained the reported F1 score of 0.61 in this project’s evaluation.'
 artifacts:
   [
-    { 'label': 'Open application', 'href': 'https://telco-churn-analysis.streamlit.app/' },
+    { 'label': 'Open demo', 'href': 'https://telco-churn-analysis.streamlit.app/' },
     { 'label': 'Source on GitHub', 'href': 'https://github.com/hynesc/telco-churn' },
     { 'label': 'Download notebook', 'href': '/projects/telco-churn/notebook.ipynb' },
   ]

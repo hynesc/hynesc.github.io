@@ -4,14 +4,14 @@ shortTitle: 'IMDb sentiment analysis'
 summary: 'A text-classification pipeline using TF-IDF and logistic regression, with a public interface for exploring predictions.'
 date: '2025-07-12'
 categories: ['Data & ML', 'Systems & interfaces']
-methods: ['NLP', 'TF-IDF', 'scikit-learn']
+methods: ['NLP', 'TF-IDF', 'scikit-learn', 'Python']
 order: 10
 context: 'Independent modeling project'
 contribution: 'Text preprocessing, model tuning, held-out evaluation, and Streamlit interface.'
 finding: 'Approximately 90.8% held-out accuracy with a comparatively simple text-classification pipeline.'
 artifacts:
   [
-    { 'label': 'Open application', 'href': 'https://imdb-sentiment-prediction.streamlit.app/' },
+    { 'label': 'Open demo', 'href': 'https://imdb-sentiment-prediction.streamlit.app/' },
     { 'label': 'Source on GitHub', 'href': 'https://github.com/hynesc/imdb-sentiment' },
     { 'label': 'Download notebook', 'href': '/projects/imdb-sentiment/notebook.ipynb' },
   ]

@@ -4,7 +4,7 @@ shortTitle: 'Multi-LLM'
 summary: 'An OpenAI-compatible best-of-N proxy for exploring model pools, response selection, and the engineering tradeoffs between them.'
 date: '2026-05-01'
 categories: ['Data & ML', 'Systems & interfaces']
-methods: ['FastAPI', 'Async Python', 'LLM orchestration']
+methods: ['FastAPI', 'Async Python', 'LLM orchestration', 'Docker']
 order: 4
 context: 'Independent software project'
 contribution: 'API and provider integration, concurrent candidate generation, judge selection, fallbacks, and tests.'
