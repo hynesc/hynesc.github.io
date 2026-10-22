@@ -14,6 +14,15 @@ const projects = defineCollection({
       .min(1),
     methods: z.array(z.string()).min(1),
     order: z.number(),
+    home: z
+      .object({
+        title: z.string().optional(),
+        label: z.string(),
+        summary: z.string(),
+        linkLabel: z.string(),
+        stack: z.string().optional(),
+      })
+      .optional(),
     context: z.string(),
     contribution: z.string(),
     finding: z.string(),

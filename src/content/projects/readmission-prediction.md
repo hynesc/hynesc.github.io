@@ -15,6 +15,12 @@ artifacts:
     { 'label': 'Source on GitHub', 'href': 'https://github.com/hynesc/readmission-prediction' },
     { 'label': 'Download notebook', 'href': '/projects/readmission-prediction/notebook.ipynb' },
   ]
+home:
+  {
+    'label': 'Machine learning / Replication',
+    'summary': 'A replication of a published readmission model, comparing its performance with a GRU baseline before and after hyperparameter tuning.',
+    'linkLabel': 'Inside the study',
+  }
 ---
 
 ## The question

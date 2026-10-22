@@ -6,6 +6,21 @@ test('home presents research and working systems without browser errors', async 
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Empirical');
+  await expect(page.locator('.hero-name')).toHaveText('Christopher Hynes');
+  await expect(page.locator('.hero-degree')).toContainText('Expected December 2026');
+  const resume = page.locator('.hero-actions').getByRole('link', { name: 'Résumé' });
+  await expect(resume).toHaveAttribute('href', '/assets/resume.pdf');
+  await expect(resume).toBeInViewport();
+  await expect(page.locator('.hero-experience')).toContainText('Research assistant, USC');
+  await expect(page.locator('.hero-experience')).toContainText('Data analyst intern, GreyNoise');
+  expect(
+    await page.evaluate(
+      () =>
+        document.querySelector('.background-section')!.getBoundingClientRect().top <
+        document.querySelector('.systems-section')!.getBoundingClientRect().top,
+    ),
+  ).toBe(true);
+
   await expect(
     page.getByRole('heading', { name: 'Empirical research.', level: 2, exact: true }),
   ).toBeVisible();

@@ -15,6 +15,13 @@ artifacts:
     { 'label': 'Source on GitHub', 'href': 'https://github.com/hynesc/gn-churn' },
     { 'label': 'Download notebook', 'href': '/projects/gn-churn/notebook.ipynb' },
   ]
+home:
+  {
+    'title': 'Customer retention at GreyNoise',
+    'label': 'GreyNoise / Customer retention',
+    'summary': 'Internship analysis of churn and lead conversion, later extended into a public application using synthetic data.',
+    'linkLabel': 'Customer-retention project',
+  }
 ---
 
 ## The decision context

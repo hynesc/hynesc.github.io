@@ -815,39 +815,9 @@ caption {
 .system-card .text-link {
   margin-top: 20px;
 }
-.decision-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 65px;
-  padding-block: 80px;
-  border-bottom: 1px solid var(--line);
-}
-.decision-section h2,
 .background-section h2 {
   font-size: 56px;
   margin-top: 18px;
-}
-.decision-copy {
-  padding-left: 20px;
-}
-.decision-copy h3 {
-  font-family: var(--serif);
-  font-size: 33px;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-top: 17px;
-}
-.decision-copy > p:not(.eyebrow) {
-  font-size: 14px;
-  color: var(--muted);
-  margin-top: 18px;
-}
-.decision-copy .text-link {
-  margin-top: 21px;
-}
-.decision-copy p.small-note {
-  font-size: 10px;
-  margin-top: 12px;
 }
 .background-section {
   display: grid;
@@ -1490,7 +1460,6 @@ dd {
   .ux-visual img {
     height: 240px;
   }
-  .decision-section h2,
   .background-section h2 {
     font-size: 48px;
   }
@@ -1606,15 +1575,12 @@ dd {
   .system-card h3 {
     font-size: 26px;
   }
-  .decision-section,
   .background-section {
     gap: 30px;
   }
-  .decision-section h2,
   .background-section h2 {
     font-size: 43px;
   }
-  .decision-copy,
   .background-details {
     padding-left: 0;
   }
@@ -1888,18 +1854,13 @@ dd {
   .system-diagram {
     max-height: 230px;
   }
-  .decision-section,
   .background-section {
     grid-template-columns: 1fr;
     gap: 30px;
     padding-block: 43px;
   }
-  .decision-section h2,
   .background-section h2 {
     font-size: 43px;
-  }
-  .decision-copy h3 {
-    font-size: 31px;
   }
   .background-section .text-link {
     margin-top: 23px;

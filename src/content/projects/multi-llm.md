@@ -21,6 +21,14 @@ artifacts:
       'href': 'https://github.com/hynesc/multi-llm/blob/main/bon_llm/engine.py',
     },
   ]
+home:
+  {
+    'title': 'More candidates. One response.',
+    'label': 'Multi-LLM',
+    'stack': 'Python · FastAPI',
+    'summary': 'A best-of-N chat proxy that makes concurrent generation, judge selection, and failure handling explicit.',
+    'linkLabel': 'Explore the architecture',
+  }
 ---
 
 ## The question

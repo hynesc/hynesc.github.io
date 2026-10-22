@@ -18,7 +18,7 @@ Local production output, simulated mobile defaults. Results are measurements of 
 
 | Page                   | Performance | Accessibility | Best practices | SEO | CLS |
 | ---------------------- | ----------: | ------------: | -------------: | --: | --: |
-| Homepage               |          98 |           100 |            100 | 100 |   0 |
+| Homepage               | 97 |           100 |            100 | 100 |   0 |
 | Readmission case study |          99 |           100 |            100 | 100 |   0 |
 
 Run `npm run audit` to repeat. Detailed reports are in `.review/lighthouse-home.json` and `.review/lighthouse-case.json`.

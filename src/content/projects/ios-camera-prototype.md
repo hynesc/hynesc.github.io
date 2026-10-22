@@ -17,6 +17,13 @@ artifacts:
       'href': 'https://www.figma.com/proto/BnU5m8xvTo40yhVUYqnlWP/iPhone-Grid-Menu-Prototype',
     },
   ]
+home:
+  {
+    'title': 'Evaluating camera-mode selection',
+    'label': 'Human–computer interaction / UX',
+    'summary': 'Moving from user research to a camera-interface prototype, then testing perceived efficiency and intuitiveness.',
+    'linkLabel': 'Read the interface study',
+  }
 ---
 
 ## The question

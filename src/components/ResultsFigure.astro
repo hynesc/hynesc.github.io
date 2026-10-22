@@ -1,5 +1,5 @@
 ---
-import { results } from '../data/readmission';
+import { results, trialCount } from '../data/readmission';
 interface Props {
   id: string;
   compact?: boolean;
@@ -97,7 +97,7 @@ const scale = (n: number) => 115 + ((n - 0.63) / 0.025) * 350;
     {results.replication.interpretation}
   </p>
   <figcaption>
-    <span class="figure-caption">30 trials · synthetic patient data · mean ± SD</span>
+    <span class="figure-caption">{trialCount} trials · synthetic patient data · mean ± SD</span>
     <br />
     Both configurations use 2 epochs; the original study used 6. Bars show standard deviations, not
     confidence intervals. The axis is expanded for comparison.

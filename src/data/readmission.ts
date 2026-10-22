@@ -1,3 +1,5 @@
+export const trialCount = 30;
+
 // Transcribed and visually verified against Tables I–II, report pp. 3–4.
 // Means and standard deviations across 30 training trials. No raw trials inferred.
 export const results = {

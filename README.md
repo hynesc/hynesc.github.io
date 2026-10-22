@@ -41,9 +41,9 @@ Open **http://localhost:4391**. GitHub Pages provides the custom 404 behavior; t
 
 ## Editing the site
 
-- **Case studies:** `src/content/projects/*.md`. Each entry is checked against the schema in `src/content.config.ts`. Metadata includes title, short title, summary, ISO date, categories, methods, display order, context, personal contribution, finding, and artifact links. The filename becomes the project slug; keep existing filenames stable.
+- **Case studies:** `src/content/projects/*.md`. Each entry is checked against the schema in `src/content.config.ts`. Metadata includes title, short title, summary, ISO date, categories, methods, display order, context, personal contribution, finding, and artifact links. The filename becomes the project slug; keep existing filenames stable. Optional `home` metadata holds the curated homepage title, description, category label, and link text; the homepage reads these alongside the shared project date and slug. A homepage title defaults to the case-study title unless overridden.
 - **Homepage and background:** `src/pages`. The homepage is intentionally curated. Adding a project automatically adds it to the work index, but featuring it on the homepage is an editorial choice.
-- **Design:** `src/styles/global.css`, shared components, and `src/layouts/Base.astro`. Fonts are self-hosted through Fontsource packages; no external font request is made.
+- **Design:** `src/styles/global.css`, shared components, and `src/layouts/Base.astro`. Homepage-specific layout refinements are scoped in `src/pages/index.astro`. Fonts are self-hosted through Fontsource packages; no external font request is made.
 - **Downloads and original figures:** `public/assets` and `public/projects`. Keep published filenames stable. The original résumé, papers, notebooks, and images are preserved unchanged.
 
 A project can belong to multiple categories: `Research & evaluation`, `Data & ML`, and `Systems & interfaces`. The work index searches titles, summaries, categories, and methods. Lower `order` values appear first.

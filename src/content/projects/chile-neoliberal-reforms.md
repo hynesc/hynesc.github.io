@@ -15,6 +15,13 @@ artifacts:
     { 'label': 'Explore the R code', 'href': '/projects/chile-neoliberal-reforms/code.html' },
     { 'label': 'Source on GitHub', 'href': 'https://github.com/hynesc/chile-neoliberal-reforms' },
   ]
+home:
+  {
+    'title': 'Chile’s economic reforms',
+    'label': 'Economics / Causal inference',
+    'summary': 'Constructing a synthetic counterfactual to study Chile’s reforms—and examining the assumptions behind the estimate.',
+    'linkLabel': 'Read the thesis case study',
+  }
 ---
 
 ## The question

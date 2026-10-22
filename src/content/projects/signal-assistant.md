@@ -21,6 +21,14 @@ artifacts:
       'href': 'https://github.com/hynesc/signal-assistant/blob/main/signal_bot/bot.py',
     },
   ]
+home:
+  {
+    'title': 'A self-hosted Signal assistant',
+    'label': 'Signal Assistant',
+    'stack': 'Python · Ollama',
+    'summary': 'A self-hosted assistant built around ordered conversations, bounded memory, and practical operational controls.',
+    'linkLabel': 'See how it works',
+  }
 ---
 
 ## The problem
