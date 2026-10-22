@@ -17,6 +17,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      # Keep this version aligned with @playwright/test in package.json and the lockfile.
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+      options: --ipc=host
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,8 +35,6 @@ jobs:
         run: npm run build
       - name: Validate links and legacy URLs
         run: npm run validate
-      - name: Install browser
-        run: npx playwright install --with-deps chromium
       - name: Browser and accessibility tests
         run: npm test
       - name: Upload Pages artifact

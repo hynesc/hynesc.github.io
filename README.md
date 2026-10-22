@@ -85,6 +85,8 @@ Astro builds static output into `dist`. `scripts/finalize-build.mjs` converts As
 
 The GitHub Actions workflow validates pull requests to `main`. Pushes to `main` build, test, and deploy the same artifact through GitHub Pages. Feature branches and pull requests do not deploy. Manual runs deploy only when run against `main`.
 
+CI runs the build and all browser/accessibility tests in the official Playwright container, which already includes browsers and their Linux dependencies. This avoids reinstalling those system packages on every deployment. Keep the image version in `.github/workflows/publish.yml` aligned with the exact `@playwright/test` version in `package.json` and `package-lock.json`. Node 24 is still selected through `.nvmrc`, npm caching remains enabled, and deployment requires all checks to pass.
+
 GitHub Pages must retain **GitHub Actions** as its publishing source and **chynes.org** as its custom domain. `public/CNAME` and the Astro `site` setting preserve that domain. No DNS changes are part of this rebuild.
 
 The site does not run live models or collect contact submissions. Contact uses `mailto:resume@chynes.org`; linked external demos depend on their respective hosts.
