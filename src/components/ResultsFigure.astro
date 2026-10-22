@@ -1,0 +1,198 @@
+---
+import { results, trialCount } from '../data/readmission';
+interface Props {
+  id: string;
+  compact?: boolean;
+}
+const { id, compact = false } = Astro.props;
+const Heading = compact ? 'h3' : 'h2';
+const scale = (n: number) => 115 + ((n - 0.63) / 0.025) * 350;
+---
+
+<figure class:list={['results-figure', { compact }]} data-results>
+  <div class="figure-top">
+    <span class="eyebrow">Experiment 01 / Model comparison</span>
+    <span class="figure-dot" aria-hidden="true"></span>
+  </div>
+  <div class="figure-heading">
+    <Heading>Model performance</Heading>
+    <p>Replication and tuned configurations.</p>
+  </div>
+  <div class="figure-controls" hidden>
+    <div class="segmented" role="group" aria-label="Experimental configuration">
+      <button type="button" data-stage="replication" aria-pressed="true">
+        Replication
+      </button>
+      <button type="button" data-stage="tuned" aria-pressed="false">
+        After tuning
+      </button>
+    </div>
+    <label class="metric-select">
+      <span class="sr-only">Evaluation metric</span>
+      <select aria-label="Evaluation metric">
+        <option value="pr">PR-AUC</option>
+        <option value="roc">ROC-AUC</option>
+      </select>
+    </label>
+  </div>
+  <svg
+    class="results-chart"
+    viewBox="0 0 550 210"
+    role="img"
+    aria-labelledby={`${id}-title ${id}-desc`}
+  >
+    <title id={`${id}-title`}>Replication: PR-AUC, mean and standard deviation</title>
+    <desc id={`${id}-desc`}>
+      CONTENT: 0.6391 plus or minus 0.0025. GRU baseline: 0.6401 plus or minus 0.0017. Full results
+      are available in the table below.
+    </desc>
+    {[0, 1, 2, 3, 4, 5].map((i) => (
+      <g>
+        <line x1={115 + i * 70} x2={115 + i * 70} y1="30" y2="153" class="chart-grid" />
+        <text data-tick={i} x={115 + i * 70} y="181" text-anchor="middle" class="chart-tick">
+          {(0.63 + i * 0.005).toFixed(3)}
+        </text>
+      </g>
+    ))}
+    {results.replication.pr.map((r, i) => (
+      <g data-series={i} class={i === 0 ? 'series-content' : 'series-gru'}>
+        <text x="0" y={65 + i * 65} class="chart-label">
+          {r.name}
+        </text>
+        <line
+          data-bar
+          x1={scale(r.mean - r.sd)}
+          x2={scale(r.mean + r.sd)}
+          y1={60 + i * 65}
+          y2={60 + i * 65}
+          class="error-bar"
+        />
+        <line
+          data-cap="low"
+          x1={scale(r.mean - r.sd)}
+          x2={scale(r.mean - r.sd)}
+          y1={52 + i * 65}
+          y2={68 + i * 65}
+          class="error-cap"
+        />
+        <line
+          data-cap="high"
+          x1={scale(r.mean + r.sd)}
+          x2={scale(r.mean + r.sd)}
+          y1={52 + i * 65}
+          y2={68 + i * 65}
+          class="error-cap"
+        />
+        <circle data-mean cx={scale(r.mean)} cy={60 + i * 65} r="6" />
+        <text data-value x="546" y={65 + i * 65} text-anchor="end" class="chart-value">
+          {r.mean.toFixed(4)}
+        </text>
+      </g>
+    ))}
+    <text x="290" y="207" text-anchor="middle" class="chart-tick" data-axis>
+      PR-AUC · higher is better
+    </text>
+  </svg>
+  <p class="figure-interpretation" aria-live="polite" data-interpretation>
+    {results.replication.interpretation}
+  </p>
+  <figcaption>
+    <span class="figure-caption">{trialCount} trials · synthetic patient data · mean ± SD</span>
+    <br />
+    Both configurations use 2 epochs; the original study used 6. Bars show standard deviations, not
+    confidence intervals. The axis is expanded for comparison.
+  </figcaption>
+  <details class="results-table">
+    <summary>View all results & source</summary>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Full model results">
+      <table>
+        <caption>Reported aggregates from Tables I and II</caption>
+        <thead>
+          <tr>
+            <th scope="col">Configuration</th>
+            <th scope="col">Model</th>
+            <th scope="col">PR-AUC ± SD</th>
+            <th scope="col">ROC-AUC ± SD</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.values(results).flatMap((stage) =>
+            stage.pr.map((r, i) => (
+              <tr>
+                <th scope="row">{stage.label}</th>
+                <td>{r.name}</td>
+                <td>
+                  {r.mean.toFixed(4)} ± {r.sd.toFixed(4)}
+                </td>
+                <td>
+                  {stage.roc[i].mean.toFixed(4)} ± {stage.roc[i].sd.toFixed(4)}
+                </td>
+              </tr>
+            )),
+          )}
+        </tbody>
+      </table>
+    </div>
+    <p>
+      <a href="/projects/readmission-prediction/paper.pdf">Read the report, pp. 3–4 ↗</a>. The
+      report’s statistical claim concerns PR-AUC; this figure makes no separate significance claim
+      for ROC-AUC.
+    </p>
+  </details>
+</figure>
+<script>
+  import { results, metrics } from '../data/readmission';
+  document.querySelectorAll<HTMLElement>('[data-results]').forEach((figure) => {
+    let stage: keyof typeof results = 'replication';
+    let metric: keyof typeof metrics = 'pr';
+    figure.querySelector<HTMLElement>('.figure-controls')!.hidden = false;
+    const update = () => {
+      const config = metrics[metric],
+        data = results[stage][metric];
+      const scale = (n: number) => 115 + ((n - config.min) / (config.max - config.min)) * 350;
+      figure
+        .querySelectorAll<HTMLElement>('[data-stage]')
+        .forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.stage === stage)));
+      figure
+        .querySelectorAll('[data-tick]')
+        .forEach(
+          (t, i) => (t.textContent = (config.min + (i * (config.max - config.min)) / 5).toFixed(3)),
+        );
+      data.forEach((r, i) => {
+        const g = figure.querySelector(`[data-series="${i}"]`)!;
+        g.querySelector('[data-bar]')!.setAttribute('x1', String(scale(r.mean - r.sd)));
+        g.querySelector('[data-bar]')!.setAttribute('x2', String(scale(r.mean + r.sd)));
+        for (const [key, val] of [
+          ['low', r.mean - r.sd],
+          ['high', r.mean + r.sd],
+        ] as const) {
+          const cap = g.querySelector(`[data-cap="${key}"]`)!;
+          cap.setAttribute('x1', String(scale(val)));
+          cap.setAttribute('x2', String(scale(val)));
+        }
+        g.querySelector('[data-mean]')!.setAttribute('cx', String(scale(r.mean)));
+        g.querySelector('[data-value]')!.textContent = r.mean.toFixed(4);
+      });
+      figure.querySelector('title')!.textContent =
+        `${results[stage].label}: ${config.label}, mean and standard deviation`;
+      figure.querySelector('desc')!.textContent = data
+        .map((r) => `${r.name}: ${r.mean.toFixed(4)} plus or minus ${r.sd.toFixed(4)}.`)
+        .join(' ');
+      figure.querySelector('[data-axis]')!.textContent = `${config.label} · higher is better`;
+      figure.querySelector('[data-interpretation]')!.textContent =
+        metric === 'pr'
+          ? results[stage].interpretation
+          : 'ROC-AUC is shown as a secondary metric. The report’s highlighted significance test concerns PR-AUC.';
+    };
+    figure.querySelectorAll<HTMLButtonElement>('[data-stage]').forEach((button) =>
+      button.addEventListener('click', () => {
+        stage = button.dataset.stage as keyof typeof results;
+        update();
+      }),
+    );
+    figure.querySelector('select')!.addEventListener('change', (e) => {
+      metric = (e.target as HTMLSelectElement).value as keyof typeof metrics;
+      update();
+    });
+  });
+</script>

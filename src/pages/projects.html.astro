@@ -1,0 +1,145 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import { getCollection } from 'astro:content';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const categories = ['All work', 'Research & evaluation', 'Data & ML', 'Systems & interfaces'];
+---
+
+<Base
+  title="Research & projects"
+  active="Work"
+  description="Research, machine learning, software, and interface studies by Christopher Hynes. Explore the questions, methods, evidence, and artifacts."
+>
+  <section class="page-intro shell">
+    <p class="eyebrow">The portfolio / {String(projects.length).padStart(2, '0')} projects</p>
+    <h1>
+      Research &
+      <br />
+      <em>projects.</em>
+    </h1>
+    <p class="page-deck">
+      Studies in machine learning, economics, and interface design.
+      <br />
+      Explore the work by question, method, or kind of contribution.
+    </p>
+  </section>
+  <section class="work-index shell" aria-label="Project collection">
+    <div class="filter-controls" hidden>
+      <div class="filter-tabs" role="group" aria-label="Filter projects">
+        {categories.map((cat, i) => (
+          <button
+            type="button"
+            data-filter={i === 0 ? 'all' : cat}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+      <label class="search-label">
+        <span class="sr-only">Search projects</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="10" cy="10" r="6" stroke="currentColor" />
+          <path d="m15 15 6 6" stroke="currentColor" />
+        </svg>
+        <input type="search" placeholder="Search topics, methods…" aria-label="Search projects" />
+      </label>
+    </div>
+    <p class="result-count eyebrow" aria-live="polite">
+      {projects.length} projects
+    </p>
+    <div class="work-list">
+      {projects.map(({ id, data }, i) => (
+        <article
+          class="work-row"
+          data-project
+          data-categories={JSON.stringify(data.categories)}
+          data-search={[
+            data.title,
+            data.shortTitle,
+            data.summary,
+            data.context,
+            data.contribution,
+            data.finding,
+            data.home?.label ?? '',
+            ...data.methods,
+            ...data.categories,
+          ]
+            .join(' ')
+            .toLowerCase()}
+        >
+          <span class="work-number">{String(i + 1).padStart(2, '0')}</span>
+          <div>
+            <p class="project-meta">
+              {data.context} <span> / {data.date.slice(0, 4)}</span>
+            </p>
+            <h2>
+              <a href={`/projects/${id}/`}>
+                {data.shortTitle} <Arrow diagonal />
+              </a>
+            </h2>
+            <p>{data.summary}</p>
+            <ul class="tags" aria-label="Methods">
+              {data.methods.map((m) => (
+                <li>{m}</li>
+              ))}
+            </ul>
+          </div>
+          <a
+            class="work-row-link"
+            href={`/projects/${id}/`}
+            aria-label={`Explore ${data.shortTitle}`}
+          >
+            <Arrow diagonal />
+          </a>
+        </article>
+      ))}
+    </div>
+    <div class="empty-state" hidden>
+      <h2>No projects match that combination.</h2>
+      <p>Try a broader search or view the full collection.</p>
+      <button class="button" type="button" data-clear>
+        Clear filters <span aria-hidden="true">↗</span>
+      </button>
+    </div>
+  </section>
+  <script>
+    const controls = document.querySelector<HTMLElement>('.filter-controls')!;
+    controls.hidden = false;
+    const input = document.querySelector<HTMLInputElement>('input[type="search"]')!;
+    const rows = [...document.querySelectorAll<HTMLElement>('[data-project]')];
+    let category = 'all';
+    function update() {
+      const query = input.value.trim().toLowerCase();
+      let count = 0;
+      rows.forEach((row) => {
+        const categories = JSON.parse(row.dataset.categories!) as string[];
+        const visible =
+          (category === 'all' || categories.includes(category)) &&
+          row.dataset.search!.includes(query);
+        row.hidden = !visible;
+        if (visible) count++;
+      });
+      document.querySelector('.result-count')!.textContent =
+        `${count} ${count === 1 ? 'project' : 'projects'}`;
+      document.querySelector<HTMLElement>('.empty-state')!.hidden = count !== 0;
+      document
+        .querySelectorAll<HTMLElement>('[data-filter]')
+        .forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === category)));
+    }
+    document.querySelectorAll<HTMLElement>('[data-filter]').forEach((b) =>
+      b.addEventListener('click', () => {
+        category = b.dataset.filter!;
+        update();
+      }),
+    );
+    input.addEventListener('input', update);
+    document.querySelector('[data-clear]')!.addEventListener('click', () => {
+      category = 'all';
+      input.value = '';
+      update();
+      input.focus();
+    });
+  </script>
+</Base>

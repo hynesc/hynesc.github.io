@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chynes.org/sitemap-index.xml
