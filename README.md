@@ -25,7 +25,7 @@ npx playwright install chromium
 npm test
 ```
 
-The browser tests use Python 3's static HTTP server and run against `dist`, including navigation, static redirects, and no-JavaScript behavior. On a fresh Linux runner, use `npx playwright install --with-deps chromium` to install browser dependencies.
+The browser tests use Python 3's static HTTP server and run against `dist`, including navigation, static redirects, and no-JavaScript behavior. On a fresh Linux runner, use `npx playwright install --with-deps chromium` to install browser dependencies. Test output and failure traces go to `.review/test-results/`; generated review files are ignored by Git and are not published.
 
 To inspect the production output with GitHub Pages-like static file handling:
 
