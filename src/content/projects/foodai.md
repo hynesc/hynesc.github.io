@@ -1,14 +1,14 @@
 ---
 title: 'FoodAI: pantry management and recipe ideas'
 shortTitle: 'FoodAI'
-summary: 'A personal cooking app for managing pantry ingredients, shopping lists, and recipe ideas, built with AI coding tools.'
+summary: 'A pantry and recipe app built to help use food before it expires and make deciding what to eat easier.'
 date: '2026-02-12'
 categories: ['Systems & interfaces']
 methods: ['TypeScript', 'Next.js', 'PostgreSQL', 'Prisma', 'LLM integration']
 order: 5.5
 context: 'Personal software project · AI-assisted development'
 contribution: 'Ingredient workflows, accounts, persistent data, and recipe-provider integration, developed with AI coding tools.'
-finding: 'A prototype connecting stored ingredients and saved preferences to recipe suggestions.'
+finding: 'Use-by estimates and pantry-based recipe suggestions connect ingredient tracking with deciding what to cook.'
 artifactNote: 'Local prototype. Source and setup instructions are available on GitHub.'
 artifacts:
   [
@@ -17,9 +17,9 @@ artifacts:
   ]
 ---
 
-## A personal cooking project
+## Why I built it
 
-I made FoodAI for fun, using AI coding tools to build a pantry, shopping list, and recipe interface in one application.
+I got tired of keeping track of when food would expire and deciding what to eat. I hate wasting food, so I built FoodAI with AI coding tools to help me use what needs eating soonest and suggest what to cook.
 
 <figure>
   <a href="/projects/foodai/preview.png" aria-label="View full-size FoodAI screenshot">
