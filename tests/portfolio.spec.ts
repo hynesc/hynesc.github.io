@@ -65,7 +65,7 @@ test('research figure changes configuration and metric with fixed scales', async
 });
 
 test('project filters combine with search, reset, and handle no results', async ({ page }) => {
-  await page.goto('/projects.html');
+  await page.goto('/projects/');
   await expect(page.locator('[data-project]:visible')).toHaveCount(13);
   await page.getByRole('button', { name: 'Research & evaluation', exact: true }).click();
   await expect(page.locator('[data-project]:visible')).toHaveCount(5);
@@ -122,25 +122,29 @@ test('navigation works at the current viewport', async ({ page, isMobile }) => {
     'mailto:resume@chynes.org',
   );
   await navigation.getByRole('link', { name: 'Skills', exact: true }).click();
-  await expect(page).toHaveURL(/experience\.html#skills$/);
+  await expect(page).toHaveURL(/experience\/#skills$/);
   await expect(page.locator('#skills')).toBeInViewport();
 });
 
 for (const route of [
   '/',
-  '/projects.html',
-  '/about.html',
-  '/experience.html',
+  '/projects/',
+  '/about/',
+  '/experience/',
   '/projects/readmission-prediction/',
   '/projects/multi-llm/',
   '/projects/ml-experimentation/',
   '/projects/foodai/',
-  '/projects/chile-neoliberal-reforms/code.html',
+  '/projects/chile-neoliberal-reforms/code/',
   '/404.html',
 ]) {
   test(`accessible layout: ${route}`, async ({ page }) => {
     await page.goto(route);
     await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      new URL(route, 'https://chynes.org').href,
+    );
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
     ).toBe(true);
@@ -163,7 +167,7 @@ test('all content and result tables remain available without JavaScript', async 
     viewport: { width: 390, height: 844 },
   });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:4390/projects.html');
+  await page.goto('http://127.0.0.1:4390/projects/');
   await expect(page.locator('[data-project]:visible')).toHaveCount(13);
   await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
   await page.goto('http://127.0.0.1:4390/projects/readmission-prediction/');
@@ -260,3 +264,23 @@ for (const signal of ['doNotTrack', 'globalPrivacyControl']) {
     expect(requests).toEqual([]);
   });
 }
+
+test('previous page addresses redirect to Astro routes without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  for (const [oldPath, newPath] of [
+    ['/about.html', '/about/'],
+    ['/experience.html', '/experience/'],
+    ['/projects.html', '/projects/'],
+    ['/projects/chile-neoliberal-reforms/code.html', '/projects/chile-neoliberal-reforms/code/'],
+  ]) {
+    await page.goto('http://127.0.0.1:4390' + oldPath);
+    await expect(page).toHaveURL('http://127.0.0.1:4390' + newPath);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://chynes.org' + newPath,
+    );
+  }
+  await context.close();
+});

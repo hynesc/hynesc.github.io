@@ -18,14 +18,14 @@ const pageTitle = title
   ? `${title} — Christopher Hynes`
   : 'Christopher Hynes — Empirical research. Working systems.';
 const canonical = new URL(
-  Astro.url.pathname === '/404/' ? '/404.html' : Astro.url.pathname.replace(/\.html\/$/, '.html'),
+  Astro.url.pathname === '/404/' ? '/404.html' : Astro.url.pathname,
   Astro.site,
 );
 const nav = [
-  { label: 'Work', href: '/projects.html' },
-  { label: 'Experience', href: '/experience.html' },
-  { label: 'Skills', href: '/experience.html#skills' },
-  { label: 'About', href: '/about.html' },
+  { label: 'Work', href: '/projects/' },
+  { label: 'Experience', href: '/experience/' },
+  { label: 'Skills', href: '/experience/#skills' },
+  { label: 'About', href: '/about/' },
   { label: 'Contact', href: 'mailto:resume@chynes.org' },
 ];
 ---

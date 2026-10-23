@@ -25,7 +25,7 @@ npx playwright install chromium
 npm test
 ```
 
-The browser tests use Python 3's static HTTP server and run against `dist`, including exact legacy `.html` URLs. On a fresh Linux runner, use `npx playwright install --with-deps chromium` to install browser dependencies.
+The browser tests use Python 3's static HTTP server and run against `dist`, including navigation, static redirects, and no-JavaScript behavior. On a fresh Linux runner, use `npx playwright install --with-deps chromium` to install browser dependencies.
 
 To inspect the production output with GitHub Pages-like static file handling:
 
@@ -41,10 +41,10 @@ Open **http://localhost:4391**. GitHub Pages provides the custom 404 behavior; t
 
 ## Editing the site
 
-- **Case studies:** `src/content/projects/*.md`. Each entry is checked against the schema in `src/content.config.ts`. Metadata includes title, short title, summary, ISO date, categories, methods, display order, context, personal contribution, finding, and artifact links. The filename becomes the project slug; keep existing filenames stable. Optional `home` metadata holds the curated homepage title, description, category label, and link text; the homepage reads these alongside the shared project date and slug. A homepage title defaults to the case-study title unless overridden.
+- **Project entries:** `src/content/projects/*.{md,mdx}`. Each entry is checked against the schema in `src/content.config.ts`. Metadata includes title, short title, summary, ISO date, categories, methods, display order, context, personal contribution, finding, and artifact links. The filename becomes the project slug. Optional `home` metadata holds the curated homepage title, description, category label, and link text; the homepage reads these alongside the shared project date and slug. A homepage title defaults to the case-study title unless overridden.
 - **Homepage and background:** `src/pages`. The homepage is intentionally curated. Adding a project automatically adds it to the work index, but featuring it on the homepage is an editorial choice.
 - **Design:** `src/styles/global.css`, shared components, and `src/layouts/Base.astro`. Homepage-specific layout refinements are scoped in `src/pages/index.astro`. Fonts are self-hosted through Fontsource packages; no external font request is made.
-- **Downloads and original figures:** `public/assets` and `public/projects`. Keep published filenames stable. The papers, notebooks, and original images are preserved unchanged. Replace `public/assets/resume.pdf` to update every résumé link on the site.
+- **Downloads and images:** `public/assets` and `public/projects`. These are ordinary static assets served by Astro. Replace `public/assets/resume.pdf` to update every résumé link. Remove assets when they are no longer used; keep papers and notebooks available as supporting project evidence.
 
 A project can belong to multiple categories: `Research & evaluation`, `Data & ML`, and `Systems & interfaces`. The work index searches titles, summaries, categories, methods, project context, contributions, and findings. Lower `order` values appear first.
 
@@ -70,27 +70,28 @@ The interactive readmission figure reads from `src/data/readmission.ts`. Values 
 
 If updating results, check the paper and update the data, interpretation, source documentation, and any tests together. Do not invent raw trials from aggregate statistics. The synthetic-control figure is the original thesis image; no counterfactual points have been reconstructed.
 
-The thesis R code is retained as a static reference in `src/content/thesis-code.md` and rendered at its original `code.html` URL. It is not executed during builds.
+The thesis R code lives in `src/content/thesis-code.md` and is rendered by an Astro page at `/projects/chile-neoliberal-reforms/code/`. It is presented as a reference and is not executed during builds.
 
-## URLs and deployment
+## Routing and deployment
 
-Astro builds static output into `dist`. `scripts/finalize-build.mjs` converts Astro's directory output for explicitly named `.html` routes into real `.html` files and normalizes sitemap entries. This preserves the previous Quarto URLs without requiring server redirects:
+Astro builds ready-to-serve static output into `dist`. `npm run build` runs `astro build` directly.
 
-- `/`, `/index.html`, `/projects.html`, `/experience.html`, `/about.html`
-- `/projects/<existing-slug>/` and `/projects/<existing-slug>/index.html`
-- `/projects/chile-neoliberal-reforms/code.html`
-- Existing résumé, paper, notebook, image, and favicon paths
+- `/` — homepage
+- `/projects/` — searchable project index
+- `/projects/<slug>/` — project entries
+- `/experience/` — experience, education, and skills
+- `/about/` — personal background and interests
+- `/projects/chile-neoliberal-reforms/code/` — thesis R code
+- `/404.html` — GitHub Pages error page
 
-`npm run validate` checks generated pages, internal links and fragments, legacy files, and the domain. Use the full `npm run build` command rather than calling `astro build` alone.
+Use these canonical routes for internal links. Four previously shared `.html` page addresses are declared in `astro.config.mjs` using Astro's built-in static redirects. No custom output rewriting or server configuration is needed. The sitemap includes canonical pages and excludes redirect/error pages.
 
-The GitHub Actions workflow validates pull requests to `main`. Pushes to `main` build, test, and deploy the same artifact through GitHub Pages. Feature branches and pull requests do not deploy. Manual runs deploy only when run against `main`.
+`npm run validate` checks generated pages, canonical URLs, sitemap coverage, local links, fragments, and referenced downloads. `public/.nojekyll` and `public/CNAME` are copied by Astro along with the other static files.
 
-CI runs the build and all browser/accessibility tests in the official Playwright container, which already includes browsers and their Linux dependencies. This avoids reinstalling those system packages on every deployment. Keep the image version in `.github/workflows/publish.yml` aligned with the exact `@playwright/test` version in `package.json` and `package-lock.json`. Node 24 is still selected through `.nvmrc`, npm caching remains enabled, and deployment requires all checks to pass.
+The GitHub Actions workflow validates pull requests to `main`. Pushes to `main` build, test, and deploy the same artifact through GitHub Pages. Manual runs deploy only when run against `main`.
 
-GitHub Pages must retain **GitHub Actions** as its publishing source and **chynes.org** as its custom domain. `public/CNAME` and the Astro `site` setting preserve that domain. No DNS changes are part of this rebuild.
+CI uses the official Playwright container with browsers and Linux dependencies included. Keep its version in `.github/workflows/publish.yml` aligned with the exact `@playwright/test` version in `package.json` and `package-lock.json`. Node 24 is selected through `.nvmrc`; deployment requires all checks to pass.
 
-The site does not run live models or collect contact submissions. Contact uses `mailto:resume@chynes.org`; linked external demos depend on their respective hosts.
+GitHub Pages uses **GitHub Actions** as its publishing source and **chynes.org** as its custom domain. Keep `public/CNAME` and the Astro `site` setting aligned with that domain.
 
-## Migration
-
-This implementation starts from `main` commit `038da37`. The Quarto frontend has been replaced, while Git history retains the original sources. All 29 original download/image files were moved into `public` without changing their bytes. The résumé PDF was subsequently updated from `assets/resume.pdf` on `codex/researcher-portfolio`; its public URL is unchanged.
+This site serves static project descriptions and downloads. Contact uses `mailto:resume@chynes.org`; linked external demos run on their respective hosts.

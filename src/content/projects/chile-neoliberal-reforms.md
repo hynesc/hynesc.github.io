@@ -12,7 +12,7 @@ finding: 'The thesis estimates 2019 GDP per capita 76% above its synthetic count
 artifacts:
   [
     { 'label': 'Read the thesis', 'href': '/projects/chile-neoliberal-reforms/paper.pdf' },
-    { 'label': 'Explore the R code', 'href': '/projects/chile-neoliberal-reforms/code.html' },
+    { 'label': 'Explore the R code', 'href': '/projects/chile-neoliberal-reforms/code/' },
     { 'label': 'Source on GitHub', 'href': 'https://github.com/hynesc/chile-neoliberal-reforms' },
   ]
 home:

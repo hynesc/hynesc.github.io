@@ -1,6 +1,6 @@
 ---
-import Base from '../layouts/Base.astro';
-import Arrow from '../components/Arrow.astro';
+import Base from '../../layouts/Base.astro';
+import Arrow from '../../components/Arrow.astro';
 import { getCollection } from 'astro:content';
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const categories = ['All work', 'Research & evaluation', 'Data & ML', 'Systems & interfaces'];

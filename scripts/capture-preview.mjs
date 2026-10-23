@@ -31,9 +31,9 @@ try {
     ['home-tablet', 820, 1100, '/'],
     ['home-mobile', 390, 844, '/'],
     ['case-study', 1440, 1000, '/projects/readmission-prediction/'],
-    ['work-mobile', 390, 844, '/projects.html'],
-    ['about-desktop', 1440, 1000, '/about.html'],
-    ['about-mobile', 390, 844, '/about.html'],
+    ['work-mobile', 390, 844, '/projects/'],
+    ['about-desktop', 1440, 1000, '/about/'],
+    ['about-mobile', 390, 844, '/about/'],
     ['foodai-desktop', 1440, 1000, '/projects/foodai/'],
     ['foodai-mobile', 390, 844, '/projects/foodai/'],
   ]) {

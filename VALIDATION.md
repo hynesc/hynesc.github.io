@@ -1,86 +1,54 @@
-# Implementation validation
+# Site validation
 
-Validated locally on 2026-10-23 against the production static build. Current review: FoodAI added on `main` after consolidating the repository into a single checkout. The original rebuild started directly from `main` at `038da37`.
+Checked locally on 2026-10-23 using Node 24 and the production Astro build.
 
-## Checks
+## Build and routing
 
-- Astro/TypeScript: 0 errors, warnings, or hints.
-- Production build: 19 HTML pages, including 13 project entries.
-- Internal-link validation: all local links, fragment targets, legacy HTML files, domain file, and referenced downloads pass.
-- Playwright: 40 passing tests across desktop Chrome and mobile Chromium. Covers navigation, filtering and empty results, figure state and fixed scales, accessibility, overflow, enlarged text, analytics privacy controls, and no-JavaScript content.
-- Original artifacts: 28 of the 29 files moved into `public` still match their `main` versions byte-for-byte. The résumé was subsequently replaced with the exact PDF from `codex/researcher-portfolio:assets/resume.pdf`.
-- Thesis code: all 23 original R code blocks are unchanged. Markdown heading levels were adjusted for the new page hierarchy.
-- Production dependency audit: no known vulnerabilities reported.
+- `npm run build` runs `astro build` directly, without post-processing.
+- Output contains 19 full pages, including 13 project entries and the 404 page, plus four Astro-generated redirect pages.
+- Canonical routes use directories: `/about/`, `/experience/`, `/projects/`, and `/projects/chile-neoliberal-reforms/code/`.
+- Four previously shared `.html` page addresses redirect to those routes. They work in the development server and in static output without JavaScript.
+- The sitemap contains canonical pages and excludes redirects and the error page.
+- `public/CNAME` and `public/.nojekyll` are copied by Astro. Publishing remains through GitHub Actions and GitHub Pages at `chynes.org`.
 
-## Mobile Lighthouse
+## Automated checks
 
-Local production output, simulated mobile defaults. These homepage/readmission measurements are from the earlier homepage review on 2026-10-23. FoodAI validation is recorded separately below.
+- Astro/TypeScript: no errors, warnings, or hints.
+- Static validation: canonical URLs, sitemap coverage, local links, fragments, project routes, and referenced downloads pass.
+- Playwright: 42 passing tests across desktop and mobile Chromium. Covers navigation, filtering, project discovery, results controls, accessibility, canonical URLs, responsive layouts, enlarged text, redirects, no-JavaScript content, and analytics privacy settings.
+
+```bash
+npm run check
+npm run build
+npm run validate
+npm test
+```
+
+Install Chromium with `npx playwright install chromium` before the first local browser test. CI uses the version-matched Playwright container.
+
+## Visual and performance review
+
+Reviewed desktop, tablet, and phone screenshots of the homepage, project index, About, and FoodAI. Browser checks cover 320 px widths and enlarged text. The thesis code page and readmission figure remain accessible.
+
+Mobile Lighthouse measurements from the local production build:
 
 | Page                   | Performance | Accessibility | Best practices | SEO | CLS |
 | ---------------------- | ----------: | ------------: | -------------: | --: | --: |
 | Homepage               |          97 |           100 |            100 | 100 |   0 |
 | Readmission case study |          99 |           100 |            100 | 100 |   0 |
 
-Run `npm run audit` to repeat. Detailed reports are in `.review/lighthouse-home.json` and `.review/lighthouse-case.json`.
+Run `npm run screenshots` or `npm run audit` to regenerate ignored review artifacts in `.review/`.
 
-## Visual review
+## Supporting material
 
-Inspected the homepage at desktop (1440 px), tablet (820 px), and phone (390 px) widths, along with the case study, mobile work index, and 320 px figure. Responsive checks also cover 200% text size at 390 and 820 px. Chart and architecture labels use native HTML text, and narrow cards reflow rather than shrinking labels. Final images are generated with reduced motion and fully loaded fonts. Run `npm run screenshots` to regenerate:
+Project reports, notebooks, the published résumé, and the thesis R code remain available. Download checksums were checked during the routing cleanup. Fourteen unused presentation assets were removed; images used by the site remain.
 
-- `.review/home-desktop.png`
-- `.review/home-desktop-viewport.png`
-- `.review/home-tablet.png`
-- `.review/home-mobile.png`
-- `.review/figure-mobile.png`
-- `.review/case-study.png`
-- `.review/work-mobile.png`
-- `.review/about-desktop.png`
-- `.review/about-mobile.png`
-- `.review/foodai-desktop.png`
-- `.review/foodai-mobile.png`
+The readmission figure reports means and standard deviations transcribed from the existing paper. Research experiments are not executed by the site build. Private graduate ML coursework remains outside this repository; the public overview offers an employer request link.
 
-Review artifacts are ignored by Git. The original PDF reports remain unchanged. The résumé was updated from `codex/researcher-portfolio:assets/resume.pdf`; coursework and the GreyNoise dashboard description were checked against that document. Model experiments were not rerun; reported results were checked against the existing portfolio and supporting reports, including visual verification of the readmission tables.
-
-## Homepage and About review
-
-- The readmission project starts at approximately 815 px on a 1440×1000 viewport, compared with 961 px before this change. Its full title now fits in that opening viewport.
-- At 390×844, the first project starts at approximately 911 px instead of 1045 px; the selected-research heading is visible in the opening viewport. At the shorter 390×664 browser viewport, both primary hero buttons remain fully visible.
-- The main headline and readable type scale retain their sizes. Reduced spacing, a shorter introduction, and an inline About link bring the work forward.
-- The section heading is “Selected research,” with “01 / Work” as its small label.
-- A compact homepage highlight links directly to the graduate ML experiments. Its copy lives in shared project metadata; the revised case-study body is retained from `main`.
-- About introduces lifting, reading interests, small personal coding projects, the Madrid study year, languages, and the existing travel map. Background, education, and résumé links remain accessible. The repeated large monogram and generic methodology copy were removed.
-- Homepage and About layouts were checked at 320, 390, 700, 820, 1024, 1440, and 1920 px, plus 200% text at 390 and 820 px, without horizontal overflow.
-
-## FoodAI addition
-
-- FoodAI appears under Systems & interfaces and is linked from About. The page describes a personal prototype built with AI coding tools, with source/setup links and an actual app screenshot using sample data.
-- The app's production build passed in an isolated checkout of `hynesc/ai-recipes` at `d9dfd5c`, with PostgreSQL 16 and the built-in mock provider. No live model API was used.
-- Browser verification passed registration, sign-in, pantry creation, shopping/purchase transfer, saved preferences, mock recipe generation and expansion, used-up/replenishment flow, sign-out, unauthenticated API rejection, and data persistence after signing back in.
-- The missing environment template and setup instructions were fixed in the FoodAI repository at `a2abc0f`. Local `.env` files remain ignored.
-- The screenshot uses a synthetic example account and ingredients. The portfolio explains the mock-provider verification scope and offers a full-size image link.
-- Portfolio search finds FoodAI and opens its source-linked project page. Desktop/mobile accessibility tests cover the new route. FoodAI, About, and the index fit at 320, 390, 820, and 1440 px.
-- Temporary app and database processes were stopped after verification. The portfolio preview remains available on port 4395.
+FoodAI's screenshot comes from a local run with an example account and ingredients. Its app build and main account, pantry, shopping, preference, and recipe-card flows were checked with PostgreSQL and the mock recipe provider. Live model recipe outputs were not evaluated. Its source repository includes the corrected setup guide and environment template.
 
 ## Analytics
 
-- Hosted GoatCounter endpoint: `https://hynesc.goatcounter.com/count`.
-- The real production bundle was tested on an intercepted `https://chynes.org` origin. The analytics script was stubbed; no visits were sent to the live counter.
-- Canonical page paths exclude query strings and fragments. External referrers include only their origin. Click-event binding is disabled.
-- Local previews, Do Not Track, and Global Privacy Control produce no third-party analytics requests. The loader also restricts operation to the production HTTPS hostname and top-level pages.
-- The footer includes a short disclosure linking GoatCounter’s privacy policy.
-- Account-side settings were not accessed: individual-pageview collection should remain disabled (GoatCounter’s default) to retain aggregate statistics.
+GoatCounter loads only in production on `https://chynes.org`, outside frames, and when Do Not Track and Global Privacy Control are not enabled. Tests intercept analytics scripts so they do not create real visits. Page paths omit queries/fragments; referrers include only external origins; click-event binding is disabled.
 
-## Publication
-
-The workflow validates pull requests and deploys only from `main`. Merge and publication status are recorded in Git and GitHub Actions. GitHub Pages retains the existing `chynes.org` custom domain. Production deployments run after all build and browser checks pass.
-
-## Review before merge
-
-- Direct navigation links expose skills and contact details from every page. The Experience page links to research/industry, education, skills, and honors.
-- Project search includes context, contribution, and findings; language/tool tags identify the Python and Docker implementations explicitly.
-- Navigation was checked at 320, 390, 820, and 1440 pixels without horizontal overflow.
-- Public code links return successful responses. The Figma prototype responds successfully to a normal GET request; its HEAD response is misleading.
-- Streamlit demos can sleep after inactivity. Demo links explain this behavior and keep source code visible as an alternative.
-- The supplied résumé’s Quarto description remains an acknowledged follow-up; the site itself documents Astro accurately.
-
-- CI uses Node 24 LTS. A runner-selected Node 22.23.3 failed Astro’s minimum-version check during the first deployment attempt; the shared `.nvmrc` now selects a supported LTS major.
+Keep individual-pageview collection disabled in GoatCounter's account settings to retain aggregate statistics. The footer links to its privacy details.
