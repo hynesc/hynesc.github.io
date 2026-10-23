@@ -46,7 +46,7 @@ Review artifacts are ignored by Git. The original PDF reports remain unchanged. 
 - The main headline and readable type scale retain their sizes. Reduced spacing, a shorter introduction, and an inline About link bring the work forward.
 - The section heading is “Selected research,” with “01 / Work” as its small label.
 - A compact homepage highlight links directly to the graduate ML experiments. Its copy lives in shared project metadata; the revised case-study body is retained from `main`.
-- About introduces personal interests, the Madrid study year, languages, and the existing travel map. Background, education, and résumé links remain accessible. The repeated large monogram and generic methodology copy were removed.
+- About introduces lifting, reading interests, small personal coding projects, the Madrid study year, languages, and the existing travel map. Background, education, and résumé links remain accessible. The repeated large monogram and generic methodology copy were removed.
 - Homepage and About layouts were checked at 320, 390, 700, 820, 1024, 1440, and 1920 px, plus 200% text at 390 and 820 px, without horizontal overflow.
 
 ## Analytics
