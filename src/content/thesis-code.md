@@ -1,8 +1,3 @@
----
-title: "Project Code"
-subtitle: "The Effect of Chile’s Neoliberal Reforms in the 1970s"
----
-
 This page contains the complete R code used for the analysis in this project. The code is presented here for reference and is not executed live.
 
 ---
