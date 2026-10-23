@@ -1,11 +1,15 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test('home presents research and working systems without browser errors', async ({ page }) => {
+test('home presents research and working systems without browser errors', async ({
+  page,
+  isMobile,
+}) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Empirical');
+  await page.evaluate(() => document.fonts.ready);
   await expect(page.locator('.hero-name')).toHaveText('Christopher Hynes');
   await expect(page.locator('.hero-degree')).toContainText('Expected December 2026');
   const resume = page.locator('.hero-actions').getByRole('link', { name: 'Résumé' });
@@ -22,7 +26,7 @@ test('home presents research and working systems without browser errors', async 
   ).toBe(true);
 
   await expect(
-    page.getByRole('heading', { name: 'Empirical research.', level: 2, exact: true }),
+    page.getByRole('heading', { name: 'Selected research.', level: 2, exact: true }),
   ).toBeVisible();
   await expect(page.getByRole('link', { name: 'Inside the study' })).toHaveAttribute(
     'href',
@@ -31,6 +35,13 @@ test('home presents research and working systems without browser errors', async 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
   );
+  await expect(
+    page.locator('.ml-highlight').getByRole('link', { name: 'Explore the experiments' }),
+  ).toHaveAttribute('href', '/projects/ml-experimentation/');
+  // Keep the project title visible on desktop and primary actions visible on smaller phones.
+  await expect(page.locator(isMobile ? '.hero-actions' : '.flagship-copy h3')).toBeInViewport({
+    ratio: 1,
+  });
   expect(errors).toEqual([]);
 });
 

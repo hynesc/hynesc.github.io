@@ -32,6 +32,8 @@ try {
     ['home-mobile', 390, 844, '/'],
     ['case-study', 1440, 1000, '/projects/readmission-prediction/'],
     ['work-mobile', 390, 844, '/projects.html'],
+    ['about-desktop', 1440, 1000, '/about.html'],
+    ['about-mobile', 390, 844, '/about.html'],
   ]) {
     const page = await browser.newPage({
       viewport: { width, height },

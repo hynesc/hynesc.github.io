@@ -297,8 +297,8 @@ svg {
   transform: translateY(3px);
 }
 .hero {
-  padding-top: 45px;
-  padding-bottom: 66px;
+  padding-top: 32px;
+  padding-bottom: 36px;
 }
 .hero-kicker {
   display: flex;
@@ -313,7 +313,7 @@ svg {
   grid-template-columns: minmax(0, 1fr) 280px;
   gap: 45px;
   align-items: end;
-  margin-top: 40px;
+  margin-top: 28px;
 }
 .hero h1 {
   font-size: clamp(64px, 7.5vw, 108px);
@@ -331,14 +331,11 @@ svg {
   color: #4f5952;
   line-height: 1.8;
 }
-.hero-aside .text-link {
-  margin-top: 20px;
-}
 .research-mark {
-  width: 175px;
-  height: 128px;
+  width: 145px;
+  height: 106px;
   display: block;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   stroke: var(--green);
   stroke-width: 0.85;
 }
@@ -354,7 +351,7 @@ svg {
   display: flex;
   align-items: center;
   gap: 36px;
-  margin-top: 40px;
+  margin-top: 28px;
 }
 .hero-bottom p {
   font-size: var(--text-caption);
@@ -369,7 +366,7 @@ svg {
   font-size: var(--text-label);
 }
 .selected-section {
-  padding-top: 56px;
+  padding-top: 32px;
   padding-bottom: 70px;
   border-top: 1px solid var(--line);
 }
@@ -419,7 +416,7 @@ svg {
   line-height: 1.12;
   letter-spacing: -0.025em;
   margin-top: 34px;
-  max-width: 360px;
+  max-width: none;
 }
 .flagship h3 a:hover {
   text-decoration: underline;
@@ -1334,21 +1331,10 @@ dd {
 }
 .about-grid {
   display: grid;
-  grid-template-columns: 250px minmax(0, 720px);
-  justify-content: space-between;
-  gap: 60px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 72px;
   border-top: 1px solid var(--line);
   padding-block: 55px 80px;
-}
-.large-monogram {
-  width: 140px;
-  height: 145px;
-  font-size: 108px;
-  border-color: var(--line);
-  margin-bottom: 30px;
-}
-.about-label > .text-link {
-  margin-top: 20px;
 }
 .travel-figure img {
   width: 100%;
@@ -1499,18 +1485,6 @@ dd {
     }
   }
 }
-@media (min-width: 1500px) {
-  .hero {
-    padding-top: 55px;
-    padding-bottom: 75px;
-  }
-  .hero-grid {
-    margin-top: 55px;
-  }
-  .hero-bottom {
-    margin-top: 45px;
-  }
-}
 @media (max-width: 1100px) {
   .shell {
     width: calc(100% - 72px);
@@ -1597,9 +1571,6 @@ dd {
     width: 130px;
     height: 95px;
     margin-bottom: 14px;
-  }
-  .hero-aside .text-link {
-    font-size: var(--text-small);
   }
   .edition {
     display: none;
@@ -1706,8 +1677,8 @@ dd {
     max-width: none;
   }
   .about-grid {
-    grid-template-columns: 165px minmax(0, 1fr);
-    gap: 35px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
   }
   .experience-section {
     grid-template-columns: 1fr;
@@ -1798,10 +1769,6 @@ dd {
   .hero-aside p {
     font-size: var(--text-body);
     max-width: 48ch;
-  }
-  .hero-aside .text-link {
-    font-size: var(--text-small);
-    margin-top: 14px;
   }
   .hero-bottom {
     flex-wrap: wrap;
@@ -2160,25 +2127,6 @@ dd {
     grid-template-columns: 1fr;
     gap: 30px;
     padding-block: 28px 45px;
-  }
-  .about-label {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .large-monogram {
-    width: 65px;
-    height: 68px;
-    font-size: 48px;
-    margin: 0;
-  }
-  .about-label .eyebrow {
-    font-size: var(--text-label);
-  }
-  .about-label .text-link {
-    margin: 0 0 0 auto;
-    font-size: var(--text-small);
   }
   .experience-section {
     padding-block: 28px;

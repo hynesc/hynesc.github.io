@@ -1,13 +1,13 @@
 # Implementation validation
 
-Validated locally on 2026-10-22 against the production static build. Current review: `codex/readability-analytics`, starting from `main` at `466213f`. The original rebuild started directly from `main` at `038da37`.
+Validated locally on 2026-10-23 against the production static build. Current review: `codex/homepage-discovery`, starting from `main` at `09332c0`. The original rebuild started directly from `main` at `038da37`.
 
 ## Checks
 
 - Astro/TypeScript: 0 errors, warnings, or hints.
-- Production build: 17 HTML pages, including 11 project case studies.
+- Production build: 18 HTML pages, including 12 project case studies.
 - Internal-link validation: all local links, fragment targets, legacy HTML files, domain file, and referenced downloads pass.
-- Playwright: 36 passing tests across desktop Chrome and mobile Chromium. Covers navigation, filtering and empty results, figure state and fixed scales, accessibility, overflow, enlarged text, analytics privacy controls, and no-JavaScript content.
+- Playwright: 38 passing tests across desktop Chrome and mobile Chromium. Covers navigation, filtering and empty results, figure state and fixed scales, accessibility, overflow, enlarged text, analytics privacy controls, and no-JavaScript content.
 - Original artifacts: 28 of the 29 files moved into `public` still match their `main` versions byte-for-byte. The résumé was subsequently replaced with the exact PDF from `codex/researcher-portfolio:assets/resume.pdf`.
 - Thesis code: all 23 original R code blocks are unchanged. Markdown heading levels were adjusted for the new page hierarchy.
 - Production dependency audit: no known vulnerabilities reported.
@@ -34,8 +34,20 @@ Inspected the homepage at desktop (1440 px), tablet (820 px), and phone (390 px)
 - `.review/figure-mobile.png`
 - `.review/case-study.png`
 - `.review/work-mobile.png`
+- `.review/about-desktop.png`
+- `.review/about-mobile.png`
 
 Review artifacts are ignored by Git. The original PDF reports remain unchanged. The résumé was updated from `codex/researcher-portfolio:assets/resume.pdf`; coursework and the GreyNoise dashboard description were checked against that document. Model experiments were not rerun; reported results were checked against the existing portfolio and supporting reports, including visual verification of the readmission tables.
+
+## Homepage and About review
+
+- The readmission project starts at approximately 815 px on a 1440×1000 viewport, compared with 961 px before this change. Its full title now fits in that opening viewport.
+- At 390×844, the first project starts at approximately 911 px instead of 1045 px; the selected-research heading is visible in the opening viewport. At the shorter 390×664 browser viewport, both primary hero buttons remain fully visible.
+- The main headline and readable type scale retain their sizes. Reduced spacing, a shorter introduction, and an inline About link bring the work forward.
+- The section heading is “Selected research,” with “01 / Work” as its small label.
+- A compact homepage highlight links directly to the graduate ML experiments. Its copy lives in shared project metadata; the revised case-study body is retained from `main`.
+- About introduces personal interests, the Madrid study year, languages, and the existing travel map. Background, education, and résumé links remain accessible. The repeated large monogram and generic methodology copy were removed.
+- Homepage and About layouts were checked at 320, 390, 700, 820, 1024, 1440, and 1920 px, plus 200% text at 390 and 820 px, without horizontal overflow.
 
 ## Analytics
 
