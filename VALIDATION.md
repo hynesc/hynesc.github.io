@@ -1,20 +1,20 @@
 # Implementation validation
 
-Validated locally on 2026-10-23 against the production static build. Current review: `codex/homepage-discovery`, starting from `main` at `09332c0`. The original rebuild started directly from `main` at `038da37`.
+Validated locally on 2026-10-23 against the production static build. Current review: FoodAI added on `main` after consolidating the repository into a single checkout. The original rebuild started directly from `main` at `038da37`.
 
 ## Checks
 
 - Astro/TypeScript: 0 errors, warnings, or hints.
-- Production build: 18 HTML pages, including 12 project case studies.
+- Production build: 19 HTML pages, including 13 project entries.
 - Internal-link validation: all local links, fragment targets, legacy HTML files, domain file, and referenced downloads pass.
-- Playwright: 38 passing tests across desktop Chrome and mobile Chromium. Covers navigation, filtering and empty results, figure state and fixed scales, accessibility, overflow, enlarged text, analytics privacy controls, and no-JavaScript content.
+- Playwright: 40 passing tests across desktop Chrome and mobile Chromium. Covers navigation, filtering and empty results, figure state and fixed scales, accessibility, overflow, enlarged text, analytics privacy controls, and no-JavaScript content.
 - Original artifacts: 28 of the 29 files moved into `public` still match their `main` versions byte-for-byte. The résumé was subsequently replaced with the exact PDF from `codex/researcher-portfolio:assets/resume.pdf`.
 - Thesis code: all 23 original R code blocks are unchanged. Markdown heading levels were adjusted for the new page hierarchy.
 - Production dependency audit: no known vulnerabilities reported.
 
 ## Mobile Lighthouse
 
-Local production output, simulated mobile defaults. Results are measurements of this build, not guarantees about every device or network.
+Local production output, simulated mobile defaults. These homepage/readmission measurements are from the earlier homepage review on 2026-10-23. FoodAI validation is recorded separately below.
 
 | Page                   | Performance | Accessibility | Best practices | SEO | CLS |
 | ---------------------- | ----------: | ------------: | -------------: | --: | --: |
@@ -36,6 +36,8 @@ Inspected the homepage at desktop (1440 px), tablet (820 px), and phone (390 px)
 - `.review/work-mobile.png`
 - `.review/about-desktop.png`
 - `.review/about-mobile.png`
+- `.review/foodai-desktop.png`
+- `.review/foodai-mobile.png`
 
 Review artifacts are ignored by Git. The original PDF reports remain unchanged. The résumé was updated from `codex/researcher-portfolio:assets/resume.pdf`; coursework and the GreyNoise dashboard description were checked against that document. Model experiments were not rerun; reported results were checked against the existing portfolio and supporting reports, including visual verification of the readmission tables.
 
@@ -48,6 +50,16 @@ Review artifacts are ignored by Git. The original PDF reports remain unchanged. 
 - A compact homepage highlight links directly to the graduate ML experiments. Its copy lives in shared project metadata; the revised case-study body is retained from `main`.
 - About introduces lifting, reading interests, small personal coding projects, the Madrid study year, languages, and the existing travel map. Background, education, and résumé links remain accessible. The repeated large monogram and generic methodology copy were removed.
 - Homepage and About layouts were checked at 320, 390, 700, 820, 1024, 1440, and 1920 px, plus 200% text at 390 and 820 px, without horizontal overflow.
+
+## FoodAI addition
+
+- FoodAI appears under Systems & interfaces and is linked from About. The page describes a personal prototype built with AI coding tools, with source/setup links and an actual app screenshot using sample data.
+- The app's production build passed in an isolated checkout of `hynesc/ai-recipes` at `d9dfd5c`, with PostgreSQL 16 and the built-in mock provider. No live model API was used.
+- Browser verification passed registration, sign-in, pantry creation, shopping/purchase transfer, saved preferences, mock recipe generation and expansion, used-up/replenishment flow, sign-out, unauthenticated API rejection, and data persistence after signing back in.
+- The missing environment template and setup instructions were fixed in the FoodAI repository at `a2abc0f`. Local `.env` files remain ignored.
+- The screenshot uses a synthetic example account and ingredients. The portfolio explains the mock-provider verification scope and offers a full-size image link.
+- Portfolio search finds FoodAI and opens its source-linked project page. Desktop/mobile accessibility tests cover the new route. FoodAI, About, and the index fit at 320, 390, 820, and 1440 px.
+- Temporary app and database processes were stopped after verification. The portfolio preview remains available on port 4395.
 
 ## Analytics
 

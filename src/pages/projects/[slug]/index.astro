@@ -68,7 +68,9 @@ const { Content, headings } = await render(project);
     </div>
     <div class="case-layout shell">
       <aside class="case-toc">
-        <p class="eyebrow">In this study</p>
+        <p class="eyebrow">
+          {data.categories.includes('Research & evaluation') ? 'In this study' : 'In this project'}
+        </p>
         <nav aria-label="On this page">
           {headings
             .filter((h) => h.depth === 2)

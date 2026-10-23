@@ -66,7 +66,7 @@ test('research figure changes configuration and metric with fixed scales', async
 
 test('project filters combine with search, reset, and handle no results', async ({ page }) => {
   await page.goto('/projects.html');
-  await expect(page.locator('[data-project]:visible')).toHaveCount(12);
+  await expect(page.locator('[data-project]:visible')).toHaveCount(13);
   await page.getByRole('button', { name: 'Research & evaluation', exact: true }).click();
   await expect(page.locator('[data-project]:visible')).toHaveCount(5);
   await page.getByRole('searchbox').fill('synthetic');
@@ -80,11 +80,19 @@ test('project filters combine with search, reset, and handle no results', async 
     page.getByRole('heading', { name: 'No projects match that combination.' }),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Clear filters' }).click();
-  await expect(page.locator('[data-project]:visible')).toHaveCount(12);
+  await expect(page.locator('[data-project]:visible')).toHaveCount(13);
   await page.getByRole('searchbox').fill('Docker');
   await expect(page.locator('[data-project]:visible')).toHaveCount(2);
   await page.getByRole('searchbox').fill('GreyNoise');
   await expect(page.locator('[data-project]:visible')).toHaveCount(1);
+  await page.getByRole('searchbox').fill('FoodAI');
+  await expect(page.locator('[data-project]:visible')).toHaveCount(1);
+  await page.getByRole('link', { name: 'FoodAI', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('FoodAI');
+  await expect(page.getByRole('link', { name: 'Source on GitHub' })).toHaveAttribute(
+    'href',
+    'https://github.com/hynesc/ai-recipes',
+  );
 });
 
 test('navigation works at the current viewport', async ({ page, isMobile }) => {
@@ -126,6 +134,7 @@ for (const route of [
   '/projects/readmission-prediction/',
   '/projects/multi-llm/',
   '/projects/ml-experimentation/',
+  '/projects/foodai/',
   '/projects/chile-neoliberal-reforms/code.html',
   '/404.html',
 ]) {
@@ -155,7 +164,7 @@ test('all content and result tables remain available without JavaScript', async 
   });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4390/projects.html');
-  await expect(page.locator('[data-project]:visible')).toHaveCount(12);
+  await expect(page.locator('[data-project]:visible')).toHaveCount(13);
   await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
   await page.goto('http://127.0.0.1:4390/projects/readmission-prediction/');
   await page.getByText('View all results & source').click();

@@ -34,6 +34,8 @@ try {
     ['work-mobile', 390, 844, '/projects.html'],
     ['about-desktop', 1440, 1000, '/about.html'],
     ['about-mobile', 390, 844, '/about.html'],
+    ['foodai-desktop', 1440, 1000, '/projects/foodai/'],
+    ['foodai-mobile', 390, 844, '/projects/foodai/'],
   ]) {
     const page = await browser.newPage({
       viewport: { width, height },
