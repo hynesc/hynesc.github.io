@@ -1,0 +1,60 @@
+---
+title: 'Coordinating and testing an Android job-comparison app'
+shortTitle: 'Android job comparison'
+summary: 'Project manager and QA engineer for a four-person Android team, with hands-on work in persistence, job identity, and comparison workflows.'
+date: '2026-04-01'
+categories: ['Systems & interfaces']
+methods: ['Java', 'Android', 'SharedPreferences', 'Gson', 'System testing']
+order: 5.6
+context: 'Software Development Process course project · Georgia Tech · four-person team · Spring 2026'
+contribution: 'Elected project manager and QA engineer; team coordination, black-box testing, persistent storage, UUID identifiers, and missing comparison workflows.'
+finding: 'Persistence made job identity and cross-screen state central integration concerns in a seemingly straightforward comparison app.'
+artifactNote: 'Attribution draws on the team role plan, individual reports and assessments, and final implementation. Team source and course submissions are not published here.'
+artifacts:
+  - label: 'Discuss my contributions'
+    href: 'mailto:resume@chynes.org?subject=Android%20job%20comparison%20contributions'
+---
+
+import AndroidWorkflowFigure from '../../components/AndroidWorkflowFigure.astro';
+
+## My role: project manager and QA engineer
+
+My teammates elected me project manager for our four-person Android project. I organized meetings, broke each milestone into smaller tasks and individual to-do lists, and tracked progress toward submission. I reviewed everyone's work before submission and served as QA engineer, alongside implementing persistence and missing workflow logic.
+
+Our app let a user enter a current job and alternative offers, adjust comparison weights, view rankings, and compare jobs side by side. The course supplied the requirements and scoring rules. We built for one user on one device, with local storage.
+
+## Three areas of ownership
+
+- **Coordination and design:** I turned milestones into assigned to-do lists, coordinated meetings, checked progress, and reviewed teammates' work before submission. I raised design choices and led discussions and votes so everyone could contribute and agree on a direction. I also organized the repository and submissions, wrote the team-design discussion, and contributed most of the use-case model's initial text. My individual design contributed a dedicated comparison-result object, comparison-eligibility checks, and derived compensation values to the team design.
+- **Quality assurance:** I designed and performed the black-box testing, reviewed team code and unit tests, and conducted integration and system testing. Testing identified bugs and helped check the final deliverable against the requirements.
+- **Persistence and integration:** I implemented the SharedPreferences repository, fixed persistence-related bugs, changed job identifiers to UUIDs, added saving an offer directly into a comparison with the current job, and added cancellation to comparison settings.
+
+Teammates developed the core application logic, scoring, most unit tests, and the interface. They also contributed to the design and documentation; a teammate extended the persistent repository's ID-based offer-update behavior. My role combined project management and QA with these specific implementation contributions.
+
+<AndroidWorkflowFigure />
+
+## Persistence and stable identity
+
+The final application separates storage behind a `JobRepository` interface. I added a persistent implementation using Android SharedPreferences and Gson serialization for the current job, offers, and comparison settings. It loads saved data when the repository is created and saves changes as records or settings are updated.
+
+I also changed job identifiers to UUIDs. The team's final repository matches offer updates by identifier rather than treating an editable title as identity. This gives a saved offer a stable identity as its fields change and as its data is serialized and restored.
+
+The design was deliberately local and small in scope. It did not include account synchronization, a backend service, or a database migration system.
+
+## Connecting the comparison workflow
+
+I added a path from entering an offer directly to comparing it with the current job. The implementation validates the entered offer, checks whether a current job exists, then saves the offer and passes the relevant job identifiers to the comparison screen. When a current job is missing, it provides feedback instead of proceeding into an invalid comparison.
+
+I also added cancellation to the comparison-settings screen. These changes addressed transitions between screens: saving, returning, and comparing needed to behave consistently with the repository's state.
+
+## Testing across the storage boundary
+
+I planned black-box tests before the full interface was connected, then exercised the integrated application as features became available. Persistence made cross-screen state and job identity important: saving an offer, changing its fields, and retrieving it for comparison had to refer to the same record.
+
+The save-and-compare path is a concrete example of my integration work. It connects input validation, a prerequisite check for the current job, persistence, and navigation using job IDs. My final assessment records both implementing missing workflows and identifying bugs through testing. The unit-test suite remained a team contribution.
+
+## What this work demonstrates
+
+The project combined collaborative design, explicit test planning, and implementation across a storage boundary. Persistence exposed dependencies between job identity, saved state, and screen navigation that an in-memory implementation could conceal.
+
+This was a course application. The evidence supports the documented implementation and my development contributions; it does not establish production reliability, user adoption, or that the prescribed scoring formula captures every consideration in a real job decision.

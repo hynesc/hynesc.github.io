@@ -1258,6 +1258,13 @@ dd {
 .prose table {
   margin-block: 25px;
 }
+.prose .table-scroll table {
+  margin-block: 0;
+}
+.prose .table-help {
+  font-size: var(--text-small);
+  color: var(--muted);
+}
 .prose pre {
   font-size: var(--text-small);
   line-height: 1.7;

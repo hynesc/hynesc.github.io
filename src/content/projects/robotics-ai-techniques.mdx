@@ -1,0 +1,75 @@
+---
+title: 'From noisy observations to robotic decisions'
+shortTitle: 'Robotics: estimation, planning & control'
+summary: 'Five simulated robotics projects and supporting exercises covering Kalman and particle filters, PID control, warehouse planning, and simultaneous localization and mapping.'
+date: '2025-08-01'
+categories: ['Data & ML', 'Systems & interfaces']
+methods:
+  [
+    'Python',
+    'State estimation',
+    'Kalman filters',
+    'Particle filters',
+    'PID control',
+    'Search',
+    'SLAM',
+  ]
+order: 3.7
+context: 'Robotics: AI Techniques coursework · Georgia Tech · Summer 2025'
+contribution: 'Implemented estimation, control, and planning modules within course simulators; tuned behavior, debugged state and geometry, and completed supporting problem sets.'
+finding: 'Robotic decisions depend on how uncertainty, motion constraints, and the cost of failure are represented throughout the system.'
+artifactNote: 'This overview describes my work at the method and engineering level. Course code, problem solutions, tuned configurations, and assignment materials are not published here.'
+artifacts:
+  - label: 'Discuss the robotics projects'
+    href: 'mailto:resume@chynes.org?subject=Robotics%20projects'
+---
+
+import RoboticsFlow from '../../components/RoboticsFlow.astro';
+
+## What I built
+
+I implemented five Python robotics projects: tracking moving objects, localizing a satellite, controlling a drone, planning warehouse deliveries, and navigating while building a map. My work combined state estimation, planning, and control with tuning, debugging, and integration into course simulators.
+
+Georgia Tech supplied the environments, interfaces, and testing infrastructure. I implemented the student components, adapting established methods and some course examples with citations in the source.
+
+<RoboticsFlow />
+
+## Five projects
+
+### Kalman filters: tracking and movement
+
+I implemented per-object tracking from noisy positions, maintaining position, velocity, acceleration, and covariance state. The movement component used estimated object locations to select destinations subject to movement and boundary constraints.
+
+**Engineering focus:** tuning filter initialization and measurement assumptions, maintaining state across calls, and translating estimates into feasible movement choices.
+
+### Particle filters: satellite localization
+
+I implemented localization from gravitational measurements and, separately, planetary illumination measurements. The latter also produced a communication bearing toward the home planet. Both maintained candidate positions and headings, weighted them against observations, resampled, and propagated motion.
+
+**Engineering focus:** particle budgets, noise assumptions, diversity through perturbation, and handling numerical cases where all computed weights became zero.
+
+### PID: drone control
+
+I implemented thrust and roll control using current, accumulated, and changing position error, with handling for integral accumulation at motor limits. I adapted a course parameter-search method to tune gains through simulator runs.
+
+**Engineering focus:** balancing tracking error against excessive velocity and oscillation, rather than tuning only for arrival at the target.
+
+### Search: warehouse delivery
+
+I implemented route search for retrieving and delivering boxes, cost-based delivery policies, and policies for stochastic motion. The planner produced movement, pickup, and placement actions through the supplied interface.
+
+**Engineering focus:** accounting for movement and floor costs, valid action geometry, and the possible outcomes of uncertain commands. Short routes, low-cost routes, and lower-risk policies reflect different objectives.
+
+### SLAM: mapping and navigation
+
+I implemented online information-form SLAM to combine noisy landmark observations and motion updates. The system retained the current pose and landmark map while marginalizing previous poses. I connected these estimates to a planner that checked candidate movements against obstacles and steering and distance limits.
+
+**Engineering focus:** matrix indexing, coordinate handling, motion constraints, and collision checks. The planner could try local alternatives or turn in place; it did not guarantee a globally optimal route.
+
+## Foundations and limits
+
+An introductory programming set and six further problem sets supported this work, covering probability and localization, filtering, search, path smoothing and feedback control, and SLAM.
+
+This overview is based on my implementations and supporting work; it reports no newly reproduced evaluation or aggregate success rate. All five projects used course simulators. Tuning was specific to those environments, and the work does not establish performance on physical robots or real sensors and actuators.
+
+The common thread was turning uncertain observations into useful actions within explicit constraints. My [ARC grid-reasoning agent](/projects/arc-grid-reasoning/) explores a related question: how the available representation shapes what a system can infer.

@@ -1,0 +1,118 @@
+---
+title: 'Reasoning over grids with an explicit library of hypotheses'
+shortTitle: 'ARC grid reasoning'
+summary: 'A symbolic grid-reasoning agent using reusable transformation templates, exact validation, and controlled search, with analysis of where its abstractions fail.'
+date: '2026-07-01'
+categories: ['Data & ML', 'Research & evaluation']
+methods: ['Python', 'NumPy', 'Symbolic AI', 'Generate and test', 'Error analysis']
+order: 3.6
+context: 'Knowledge-Based AI course project · Georgia Tech · Summer 2026'
+contribution: 'Transformation library, candidate validation, targeted rule composition, milestone evaluation, and final technical report.'
+finding: 'The final agent solved 31 of 48 hidden course test problems; failures exposed limits in object representation and rule invention.'
+artifactNote: 'This case study summarizes the implementation and final report. Course source and submission materials are not published here.'
+artifacts:
+  - label: 'Discuss the agent'
+    href: 'mailto:resume@chynes.org?subject=ARC%20grid%20reasoning'
+---
+
+import ArcWorkedExample from '../../components/ArcWorkedExample.astro';
+
+## The question
+
+Given a few examples of an input grid and its transformed output, can an agent identify a rule and apply it to a new grid? My ARC project explored this through symbolic hypothesis testing: generate possible transformations, reject those that contradict an example, and use the surviving rules to predict an output.
+
+The course supplied the problems, interfaces, and evaluation framework. I developed the agent and analyzed its behavior across milestones and a final evaluation.
+
+## My contribution
+
+I built a Python and NumPy transformation library, the validation loop, and support for composing selected families of operations. I expanded the library by examining unsolved problems, evaluated successive versions, and authored milestone reports and a final report comparing the agent's reasoning with my own.
+
+The implementation encoded reusable operations rather than stored task answers. Its knowledge nevertheless came from transformations I explicitly wrote; it did not invent new operations or learn across tasks.
+
+## From examples to candidate rules
+
+The agent tests each candidate against every demonstration pair and accepts it only when it reproduces every output exactly. It applies accepted rules to the test input, removes duplicate output grids, and returns up to three distinct predictions. If no rule explains all the examples, it returns no prediction.
+
+The final library spans geometric and color transformations, cropping, subgrid comparisons, mirror expansion, pattern construction, pixel expansion and movement, and frequency histograms. These operations provide different ways to represent a grid: as a whole image, corresponding panels, or counts of repeated elements.
+
+That choice of representation matters. A relationship between two panels can become a simple comparison once a divider is recognized. A task about individual objects requires structure that a whole-grid transformation may never express.
+
+## Controlling the search
+
+Early versions exhaustively paired single transformations. As the library grew, that approach became expensive. I replaced exhaustive pairing with selected family combinations supported by the development problems, keeping two-step composition while limiting the search space.
+
+This was an engineering tradeoff: targeted pairing made the system easier to extend and run, while excluding combinations outside the chosen families. Composition remained limited to two operations, and candidate order determined which valid predictions were returned. The agent did not rank explanations by simplicity or use partial matches to improve a rule.
+
+## A worked example: count, then rotate
+
+In problem **81c0276b**, discussed on page 5 of my final report, colored 2-by-2 blocks sit between divider lines. The output summarizes how many blocks of each color appear, excluding the divider color.
+
+A block-count histogram captures the counts but initially puts them in the wrong orientation. Composing that operation with a 90-degree rotation produces the required output. The figure redraws the two demonstration pairs shown in my report and makes the intermediate candidate explicit.
+
+<ArcWorkedExample />
+
+The agent tests candidates against every demonstration, not just the pair illustrated first. Here, the composed rule matches all three training pairs in the task. This illustrates the benefit of composition within the existing library; the agent did not invent a histogram operation from the examples.
+
+## What the evidence showed
+
+My final report records the following results on the three course problem sets. The visible and hidden columns count solved problems; they are separate from the demonstration pairs used to validate a rule within each problem.
+
+<p id="arc-results-help" class="table-help">
+  Scroll within the table if needed. Keyboard users can focus the table region and use the arrow
+  keys.
+</p>
+<div
+  class="table-scroll"
+  role="region"
+  aria-label="ARC results by course set"
+  aria-describedby="arc-results-help"
+  tabindex="0"
+>
+  <table>
+    <caption>Final course evaluation: solved problems</caption>
+    <thead>
+      <tr>
+        <th scope="col">Course set</th>
+        <th scope="col">Visible problems</th>
+        <th scope="col">Hidden test problems</th>
+        <th scope="col">Combined</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">B</th>
+        <td>16/16</td>
+        <td>13/16</td>
+        <td>29/32</td>
+      </tr>
+      <tr>
+        <th scope="row">C</th>
+        <td>11/16</td>
+        <td>11/16</td>
+        <td>22/32</td>
+      </tr>
+      <tr>
+        <th scope="row">D</th>
+        <td>8/16</td>
+        <td>7/16</td>
+        <td>15/32</td>
+      </tr>
+      <tr>
+        <th scope="row">Total</th>
+        <td>35/48</td>
+        <td>31/48</td>
+        <td>66/96</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+The combined result is 68.8%. These are **course-set results**, with up to three predictions per problem, rather than a full ARC benchmark evaluation or a single-prediction accuracy measure. The library was developed using the visible problems, so their scores reflect development coverage. The hidden score provides the more useful check on transfer within this evaluation.
+
+## Failure analysis and limits
+
+Some failures were representational. The agent could recolor a grid but lacked a general way to identify connected objects, distinguish open from enclosed shapes, or infer the background. Other tasks required a longer chain of relationships than its two-step search could express.
+
+Exact validation helped reject inconsistent hypotheses, but a near-correct candidate offered no guidance for refinement. A rule fitting every demonstration could still encode assumptions that failed on a hidden grid.
+
+The project demonstrated the reach and limits of a handwritten hypothesis library. A general object representation and a mechanism for constructing new rules were proposed next steps; I did not implement them. The result is an inspectable reasoning system whose successes depend on the abstractions available to it.

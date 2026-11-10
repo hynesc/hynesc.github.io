@@ -1,0 +1,63 @@
+---
+const screens = [
+  {
+    src: 'offer-entry',
+    label: 'Offer entry',
+    alt: 'Team mockup of Add Job Offer, with title, company, compensation, and benefit fields.',
+  },
+  {
+    src: 'comparison',
+    label: 'Job comparison',
+    alt: 'Team mockup comparing two example jobs side by side, including scores, location, compensation, and benefits.',
+  },
+];
+---
+
+<figure class="android-figure">
+  <div class="screens">
+    {screens.map((screen) => (
+      <div>
+        <p>{screen.label}</p>
+        <a
+          href={`/projects/android-job-comparison/${screen.src}.jpeg`}
+          aria-label={`View full-size ${screen.label.toLowerCase()} mockup`}
+        >
+          <img
+            src={`/projects/android-job-comparison/${screen.src}.jpeg`}
+            alt={screen.alt}
+            width={586}
+            height={screen.src === 'comparison' ? 1184 : 1170}
+            loading="lazy"
+          />
+        </a>
+      </div>
+    ))}
+  </div>
+  <figcaption>
+    Team UI mockups from the design document, with illustrative job data. They show the product
+    context; my contributions included persistence, comparison-workflow logic, and testing. Select
+    an image to view it full size.
+  </figcaption>
+</figure>
+
+<style>
+  .android-figure {
+    margin: 2rem 0;
+  }
+  .screens {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 1.5rem;
+  }
+  .screens p {
+    font-size: var(--text-small);
+    font-weight: 600;
+  }
+  .screens img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    margin: 0;
+    border: 1px solid var(--line);
+  }
+</style>

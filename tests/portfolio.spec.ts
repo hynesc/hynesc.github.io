@@ -66,9 +66,9 @@ test('research figure changes configuration and metric with fixed scales', async
 
 test('project filters combine with search, reset, and handle no results', async ({ page }) => {
   await page.goto('/projects/');
-  await expect(page.locator('[data-project]:visible')).toHaveCount(13);
+  await expect(page.locator('[data-project]:visible')).toHaveCount(16);
   await page.getByRole('button', { name: 'Research & evaluation', exact: true }).click();
-  await expect(page.locator('[data-project]:visible')).toHaveCount(5);
+  await expect(page.locator('[data-project]:visible')).toHaveCount(6);
   await page.getByRole('searchbox').fill('synthetic');
   await expect(page.locator('[data-project]:visible')).toHaveCount(2);
   await page.getByRole('searchbox').fill('Python');
@@ -80,7 +80,7 @@ test('project filters combine with search, reset, and handle no results', async 
     page.getByRole('heading', { name: 'No projects match that combination.' }),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Clear filters' }).click();
-  await expect(page.locator('[data-project]:visible')).toHaveCount(13);
+  await expect(page.locator('[data-project]:visible')).toHaveCount(16);
   await page.getByRole('searchbox').fill('Docker');
   await expect(page.locator('[data-project]:visible')).toHaveCount(2);
   await page.getByRole('searchbox').fill('GreyNoise');
@@ -134,6 +134,9 @@ for (const route of [
   '/projects/readmission-prediction/',
   '/projects/multi-llm/',
   '/projects/ml-experimentation/',
+  '/projects/arc-grid-reasoning/',
+  '/projects/android-job-comparison/',
+  '/projects/robotics-ai-techniques/',
   '/projects/foodai/',
   '/projects/chile-neoliberal-reforms/code/',
   '/404.html',
@@ -168,7 +171,7 @@ test('all content and result tables remain available without JavaScript', async 
   });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4390/projects/');
-  await expect(page.locator('[data-project]:visible')).toHaveCount(13);
+  await expect(page.locator('[data-project]:visible')).toHaveCount(16);
   await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
   await page.goto('http://127.0.0.1:4390/projects/readmission-prediction/');
   await page.getByText('View all results & source').click();
@@ -184,7 +187,13 @@ test('charts and navigation reflow on narrow screens and with enlarged text', as
     { width: 820, enlarged: true },
   ]) {
     await page.setViewportSize({ width, height: 1000 });
-    for (const route of ['/', '/projects/readmission-prediction/']) {
+    for (const route of [
+      '/',
+      '/projects/readmission-prediction/',
+      '/projects/arc-grid-reasoning/',
+      '/projects/android-job-comparison/',
+      '/projects/robotics-ai-techniques/',
+    ]) {
       await page.goto(route);
       await page.evaluate(() => document.fonts.ready);
       if (enlarged) await page.addStyleTag({ content: 'html { font-size: 200%; }' });
@@ -199,7 +208,18 @@ test('charts and navigation reflow on narrow screens and with enlarged text', as
       );
       for (let i = 1; i < ticks.length; i++)
         expect(ticks[i].left).toBeGreaterThanOrEqual(ticks[i - 1].right);
-      await expect(page.getByRole('button', { name: 'After tuning' })).toBeVisible();
+      if (route === '/' || route === '/projects/readmission-prediction/') {
+        await expect(page.getByRole('button', { name: 'After tuning' })).toBeVisible();
+      }
+      if (route === '/projects/arc-grid-reasoning/' && width === 390 && enlarged) {
+        const results = page.getByRole('region', { name: 'ARC results by course set' });
+        await results.focus();
+        await expect(results).toBeFocused();
+        expect(await results.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+        await page.keyboard.press('ArrowRight');
+        await expect.poll(() => results.evaluate((el) => el.scrollLeft)).toBeGreaterThan(0);
+        await expect(results.getByRole('table')).toBeVisible();
+      }
     }
   }
 });

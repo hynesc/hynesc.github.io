@@ -1,0 +1,82 @@
+---
+import ArcGrid from './ArcGrid.astro';
+import { arcExamples } from '../data/arc-example';
+---
+
+<figure class="arc-example" aria-labelledby="arc-example-caption">
+  {arcExamples.map((example, i) => (
+    <section aria-label={`Demonstration ${i + 1}`} class="example-pair">
+      <h3>Demonstration {i + 1}</h3>
+      <p class="counts">Block counts: {example.counts}</p>
+      <div class="example-flow">
+        <div class="example-card">
+          <p class="step-title">Input</p>
+          <ArcGrid
+            cells={example.input}
+            label={`Demonstration ${i + 1} input. ${example.counts}`}
+          />
+          <p>Copying the input fails: its dimensions differ from the required output.</p>
+        </div>
+        <div class="example-card">
+          <p class="step-title">1. Count blocks</p>
+          <ArcGrid
+            cells={example.histogram}
+            label={`Rejected vertical histogram. Rows: ${example.histogram.map((row) => row.join(', ')).join('; ')}.`}
+          />
+          <p>
+            <strong>Reject:</strong> the counts are represented in the wrong orientation.
+          </p>
+        </div>
+        <div class="example-card accepted">
+          <p class="step-title">2. Rotate 90° counterclockwise</p>
+          <ArcGrid
+            cells={example.expected}
+            label={`Composed output matches the demonstration. Rows: ${example.expected.map((row) => row.join(', ')).join('; ')}.`}
+          />
+          <p>
+            <strong>Match:</strong> block histogram followed by rotation reproduces the output.
+          </p>
+        </div>
+      </div>
+    </section>
+  ))}
+  <figcaption id="arc-example-caption">
+    Redrawn from Figure 3 of my final report (p. 5), task 81c0276b. Intermediate histograms
+    illustrate the reported composition, not a captured execution trace. Grid colors use ARC's
+    numeric palette: black 0, blue 1, red 2, green 3, yellow 4, magenta 6, cyan 8.
+  </figcaption>
+</figure>
+
+<style>
+  .arc-example {
+    margin: 2rem 0;
+  }
+  .example-pair + .example-pair {
+    margin-top: 2rem;
+  }
+  .example-flow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+  }
+  .example-card {
+    border: 1px solid var(--line);
+    padding: 1rem;
+    min-width: 0;
+  }
+  .accepted {
+    border-color: var(--green);
+  }
+  .arc-example p {
+    font-size: var(--text-small);
+    line-height: 1.6;
+  }
+  .arc-example .step-title {
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+  }
+  .arc-example .counts {
+    margin-bottom: 1rem;
+  }
+</style>

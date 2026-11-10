@@ -4,3 +4,4 @@ dist/
 playwright-report/
 .DS_Store
 .review/
+temp-potential-additions/
