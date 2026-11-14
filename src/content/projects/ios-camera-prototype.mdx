@@ -26,6 +26,8 @@ home:
   }
 ---
 
+import CameraResultsFigure from '../../components/CameraResultsFigure.astro';
+
 ## The question
 
 When someone opens a camera, the interface should help them capture the moment. I investigated whether iOS camera-mode selection made that harder than necessary, then designed and evaluated an alternative.
@@ -44,9 +46,13 @@ The grid uses larger targets and visible options. A persistent indicator communi
 
 ## Evaluation and tradeoffs
 
-Six participants, recruited from friends and family, took part in the final live demonstration and rated both interfaces. Mean perceived efficiency rose from 3.00 to 4.66, and intuitiveness from 3.67 to 4.83, on five-point scales. The report gives p = 0.011 and p = 0.00092 for those comparisons.
+Six participants, recruited from friends and family, took part in the final live demonstration and rated both interfaces.
 
-All six preferred the prototype overall. However, its visual-appeal rating was lower, with no statistically significant difference reported. Participants also raised reachability and aesthetic concerns. Those findings identify the next design questions rather than a finished production solution.
+<CameraResultsFigure />
+
+All six preferred the prototype overall. Ratings favored it for perceived efficiency and intuitiveness (reported p = 0.011 and p = 0.00092, respectively).
+
+However, its visual-appeal rating was lower, with no statistically significant difference reported. Participants also raised reachability and aesthetic concerns. Those findings identify the next design questions rather than a finished production solution.
 
 ## Limits
 

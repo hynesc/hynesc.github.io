@@ -1,0 +1,177 @@
+---
+// Reported means from the camera-interface study, p. 19. Preserve its rounding.
+const ratings = [
+  { label: 'Perceived efficiency', current: 3.0, prototype: 4.66 },
+  { label: 'Intuitiveness', current: 3.67, prototype: 4.83 },
+  { label: 'Visual appeal', current: 4.16, prototype: 3.83 },
+];
+const position = (rating: number) => ((rating - 1) / 4) * 100;
+---
+
+<figure class="camera-results" aria-labelledby="camera-results-title">
+  <h3 id="camera-results-title">Participants’ ratings of both interfaces</h3>
+  <p class="camera-context">Six participants · Mean ratings</p>
+  <div class="camera-legend" aria-hidden="true">
+    <span>
+      <i class="marker current"></i> Original interface
+    </span>
+    <span>
+      <i class="marker prototype"></i> Grid prototype
+    </span>
+  </div>
+  <dl>
+    {ratings.map(({ label, current, prototype }) => (
+      <div class="camera-row">
+        <dt>{label}</dt>
+        <dd>
+          <span class="camera-values">
+            <span>
+              <span class="sr-only">Original interface: </span>
+              {current.toFixed(2)}
+            </span>
+            <span aria-hidden="true">→</span>
+            <span>
+              <span class="sr-only">Grid prototype: </span>
+              {prototype.toFixed(2)}
+            </span>
+          </span>
+          <div class="camera-track" aria-hidden="true">
+            {[1, 2, 3, 4, 5].map((tick) => (
+              <span class="camera-grid" style={`left: ${position(tick)}%`}></span>
+            ))}
+            <span
+              class="camera-connector"
+              style={`left: ${position(Math.min(current, prototype))}%; width: ${Math.abs(position(prototype) - position(current))}%`}
+            ></span>
+            <span class="marker current" style={`left: ${position(current)}%`}></span>
+            <span class="marker prototype" style={`left: ${position(prototype)}%`}></span>
+          </div>
+        </dd>
+      </div>
+    ))}
+  </dl>
+  <div class="camera-axis" aria-hidden="true">
+    <div class="camera-ticks">
+      {[1, 2, 3, 4, 5].map((tick) => (
+        <span>{tick}</span>
+      ))}
+    </div>
+    <span>1–5 rating scale · Higher is better</span>
+  </div>
+  <figcaption>
+    Each participant rated both interfaces on a five-point scale. These are perceptions, not
+    measured task speed or errors.{' '}
+    <a href="/projects/ios-camera-prototype/paper.pdf#page=19">Study, p. 19</a>.
+  </figcaption>
+</figure>
+
+<style>
+  .camera-results {
+    margin: 28px 0;
+    padding: clamp(16px, 4vw, 28px);
+    border: 1px solid var(--line);
+    background: #fffef9;
+    font-size: var(--text-small);
+    line-height: 1.6;
+  }
+  .camera-results h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .camera-results .camera-context {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: var(--text-small);
+    line-height: 1.6;
+  }
+  .camera-legend,
+  .camera-legend > span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .camera-legend {
+    flex-wrap: wrap;
+    column-gap: 24px;
+    margin-top: 16px;
+    color: var(--muted);
+  }
+  .marker {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--muted);
+    border-radius: 50%;
+    background: #fffef9;
+  }
+  .marker.prototype {
+    border-color: var(--green);
+    background: var(--green);
+    border-radius: 0;
+  }
+  .camera-results dl {
+    margin: 24px 0 0;
+  }
+  .camera-row + .camera-row {
+    margin-top: 18px;
+  }
+  .camera-row dt {
+    font-weight: 600;
+  }
+  .camera-row dd {
+    margin: 0;
+  }
+  .camera-values {
+    display: flex;
+    gap: 10px;
+    margin-top: 3px;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+  }
+  .camera-values > :last-child {
+    color: var(--green);
+    font-weight: 600;
+  }
+  .camera-track {
+    position: relative;
+    height: 24px;
+    margin: 8px 6px 0;
+  }
+  .camera-grid {
+    position: absolute;
+    height: 100%;
+    border-left: 1px dashed var(--line);
+  }
+  .camera-connector {
+    position: absolute;
+    top: calc(50% - 1px);
+    height: 2px;
+    background: var(--muted);
+  }
+  .camera-track .marker {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .camera-axis {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: var(--text-caption);
+  }
+  .camera-ticks {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .camera-results figcaption {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: var(--text-caption);
+  }
+</style>
